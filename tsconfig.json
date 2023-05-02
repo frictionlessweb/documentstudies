@@ -14,8 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/frontend/*"]
+    }
   },
-  "include": ["app/frontend/entrypoints"],
+  "include": ["app/frontend"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -50,6 +50,9 @@ group :development do
   # Use a debugger
   gem 'pry', '~> 0.14.2'
 
+  # Use a linter
+  gem 'rubocop', require: false
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

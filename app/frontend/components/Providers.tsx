@@ -8,7 +8,11 @@ interface ProviderProps {
 export const Providers = (props: ProviderProps) => {
   const { children } = props;
   return (
-    <Provider theme={defaultTheme} UNSAFE_style={{ backgroundColor: "white" }}>
+    <Provider
+      colorScheme="light"
+      theme={defaultTheme}
+      UNSAFE_style={{ backgroundColor: "white" }}
+    >
       {children}
     </Provider>
   );
