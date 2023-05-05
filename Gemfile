@@ -53,6 +53,9 @@ group :development do
   # Use a linter
   gem 'rubocop', require: false
 
+  # Use foreman for running multiple programs at once
+  gem 'foreman'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -66,3 +69,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "dockerfile-rails", ">= 1.2", :group => :development
