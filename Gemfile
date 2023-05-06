@@ -57,6 +57,9 @@ group :development do
   # Use a linter
   gem 'rubocop', require: false
 
+  # Install livereloading
+  gem "rails_live_reload"
+
   # Use foreman for running multiple programs at once
   gem 'foreman'
 

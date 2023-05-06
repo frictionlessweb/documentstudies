@@ -1,0 +1,31 @@
+html,
+body {
+  margin: 0;
+}
+
+#devise-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-direction: column;
+  font-family: sans-serif;
+}
+
+#devise-container input {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+#devise-container input[type=submit] {
+  border: 0px;
+  color: black;
+  background-color: #e8f4f8;
+  font-size: 12pt;
+  border-radius: 16px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#devise-container input[type=submit]:hover {
+  background-color: #d4ebf2;
+}
