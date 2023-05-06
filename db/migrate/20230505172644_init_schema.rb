@@ -10,7 +10,7 @@ class InitSchema < ActiveRecord::Migration[7.0]
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
- 
+
       ## Rememberable
       t.datetime :remember_created_at
 
@@ -43,6 +43,7 @@ class InitSchema < ActiveRecord::Migration[7.0]
       t.timestamps
     end
   end
+
   def down
     drop_table :studies
     drop_table :questions
