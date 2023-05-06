@@ -1,10 +1,18 @@
 import React from "react";
-import { Providers } from "@/components/Providers";
+import { AppProvider } from "@/components/Providers/AppProvider";
+import { Route, Switch } from "wouter";
+import { AdminOverview } from "@/pages/AdminOverview";
+import { NotFound } from "@/pages/NotFound";
 
 export const App = () => {
   return (
-    <Providers>
-      <p>Hello!</p>
-    </Providers>
+    <AppProvider>
+      <Switch>
+        <Route path="/admins/:page*">
+          <AdminOverview />
+        </Route>
+        <NotFound />
+      </Switch>
+    </AppProvider>
   );
 };

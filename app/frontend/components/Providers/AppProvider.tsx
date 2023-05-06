@@ -5,7 +5,7 @@ interface ProviderProps {
   children: React.ReactNode;
 }
 
-export const Providers = (props: ProviderProps) => {
+export const AppProvider = (props: ProviderProps) => {
   const { children } = props;
   return (
     <Provider
