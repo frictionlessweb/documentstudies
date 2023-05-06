@@ -1,4 +1,5 @@
 {
+  "name": "documentstudies.com",
   "dependencies": {
     "@adobe/react-spectrum": "^3.26.0",
     "react": "^18.2.0",
