@@ -7,4 +7,4 @@
 one:
   name: Susan
   email: susan@testing.com
-  password_digest: <%= BCrypt::Password.create('test123') %>
+  encrypted_password: <%= Admin.new.send(:password_digest, '123greetings') %>
