@@ -28,6 +28,7 @@ jobs:
           POSTGRES_USER: documentstudies
           POSTGRES_PASSWORD: documentstudies
           POSTGRES_DB: documentstudies_test
+          POSTGRES_HOST: localhost
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -40,6 +41,6 @@ jobs:
       - name: Install JS Dependencies
         run: npm install
       - name: Run Rails tests
-        run: echo $POSTGRES_USER && ./bin/rails test
+        run: echo $POSTGRES_HOST && ./bin/rails test
       - name: Run JS tests
         run: npm test
