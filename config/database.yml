@@ -83,4 +83,4 @@ production:
   <<: *default
   database: documentstudies_production
   username: documentstudies
-  password: <%= ENV["ADOBEANNOTATIONSTUDIES_COM_DATABASE_PASSWORD"] %>
+  password: <%= ENV["DOCUMENTSTUDIES_DATABASE_PASSWORD"] %>

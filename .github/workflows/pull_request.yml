@@ -10,6 +10,7 @@ env:
   POSTGRES_DB: documentstudies_test
   POSTGRES_HOST: localhost
   POSTGRES_PORT: 5432
+  RAILS_ENV: test
 
 jobs:
   test:
@@ -41,6 +42,6 @@ jobs:
       - name: Install JS Dependencies
         run: npm install
       - name: Run Rails tests
-        run: echo $POSTGRES_HOST && ./bin/rails test
+        run: RAILS_ENV=test ./bin/rails test
       - name: Run JS tests
         run: npm test
