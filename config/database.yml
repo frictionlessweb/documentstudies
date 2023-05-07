@@ -58,6 +58,12 @@ development:
 test:
   <<: *default
   database: documentstudies_test
+  host: localhost
+  encoding: unicode
+  username: <%= ENV["POSTGRES_USER"] %>
+  password: <%= ENV["POSTGRES_PASSWORD"] %>
+
+
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -83,4 +89,4 @@ production:
   <<: *default
   database: documentstudies_production
   username: documentstudies
-  password: <%= ENV["ADOBEANNOTATIONSTUDIES_COM_DATABASE_PASSWORD"] %>
+  password: <%= ENV["DOCUMENTSTUDIES_DATABASE_PASSWORD"] %>
