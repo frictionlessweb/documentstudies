@@ -25,9 +25,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: annotation
-          POSTGRES_PASSWORD: annotation
-          POSTGRES_DB: annotation
+          POSTGRES_USER: documentstudies
+          POSTGRES_PASSWORD: documentstudies
+          POSTGRES_DB: documentstudies_test
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
