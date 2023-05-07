@@ -13,6 +13,14 @@ export const useAppState = function <T>(selector: Selector<T>): T {
 export const DispatchContext =
   React.createContext<React.Dispatch<AppAction> | null>(null);
 
+export const useDispatch = () => {
+  const ctx = React.useContext(DispatchContext);
+  if (ctx === null) {
+    throw new Error('Please use useDispatch inside its provider.');
+  }
+  return ctx;
+}
+
 interface StateProviderProps {
   children: React.ReactNode;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import { Provider, defaultTheme } from "@adobe/react-spectrum";
+import { StateProvider } from "@/components/Providers/StateProvider";
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -8,12 +9,14 @@ interface ProviderProps {
 export const AppProvider = (props: ProviderProps) => {
   const { children } = props;
   return (
-    <Provider
-      colorScheme="light"
-      theme={defaultTheme}
-      UNSAFE_style={{ backgroundColor: "white" }}
-    >
-      {children}
-    </Provider>
+    <StateProvider>
+      <Provider
+        colorScheme="light"
+        theme={defaultTheme}
+        UNSAFE_style={{ backgroundColor: "white" }}
+      >
+        {children}
+      </Provider>
+    </StateProvider>
   );
 };

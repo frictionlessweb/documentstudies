@@ -1,4 +1,5 @@
 import { DocumentStudyDocument } from "@/core/types";
+import { produce } from 'immer';
 
 export interface AppState {
   documents: {
@@ -18,8 +19,11 @@ export const INITIAL_APP_STATE: AppState = {
   },
 };
 
-export type AppAction = { type: "INITIATE_DOCUMENT_UPLOAD" };
+export type AppAction =
+  | { type: "INITIATE_DOCUMENT_FETCH" }
+  | { type: "DOCUMENT_FETCH_SUCCESS"; payload: DocumentStudyDocument[] }
+  | { type: "DOCUMENT_FETCH_FAILURE"; payload: string };
 
-export const reduce = (state: AppState, action: AppAction): AppState => {
+export let reduce = (state: AppState, action: AppAction): AppState => {
   return state;
 };
