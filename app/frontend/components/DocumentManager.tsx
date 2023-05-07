@@ -1,7 +1,9 @@
 import React from "react";
 import { MultiSelect } from "@/components/MultiSelect";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
-import { fetchAllDocuments } from "@/utils/util";
+import { UploadButton } from "@/components/UploadButton";
+import { Text, Flex, ProgressCircle } from "@adobe/react-spectrum";
+import { fetchAllDocuments, createNewDocument } from "@/utils/util";
 
 const useFetchDocuments = () => {
   const { list, areLoading, fetchAttempted, apiError } = useAppState(
@@ -29,15 +31,61 @@ const useFetchDocuments = () => {
   return { list, areLoading, apiError };
 };
 
+const Loading = () => {
+  return (
+    <Flex width="100%" justifyContent="center">
+      <ProgressCircle isIndeterminate />
+    </Flex>
+  );
+};
+
+const ErrorMessage = () => {
+  return (
+    <Flex
+      width="100%"
+      UNSAFE_style={{
+        backgroundColor: "#f8bbd0",
+        padding: "8px",
+        overflow: "wrap",
+        borderRadius: "8px",
+      }}
+    >
+      <Text maxWidth="200px">
+        An error occurred. Please refresh the page and try again.
+      </Text>
+    </Flex>
+  );
+};
+
 export const DocumentManager = () => {
   const { list: documents, areLoading, apiError } = useFetchDocuments();
-  console.log(documents);
+  const handleFileUpload = React.useCallback((file: File) => {
+    
+  }, []);
+  if (apiError !== null) return <ErrorMessage />;
+  if (areLoading) return <Loading />;
   return (
-    <MultiSelect
-      items={[]}
-      label="Documents"
-      onSelectionChange={() => {}}
-      selectedIds={[]}
-    />
+    <Flex direction="column">
+      {documents.length > 0 ? (
+        <MultiSelect
+          items={[]}
+          label="Documents"
+          onSelectionChange={() => {}}
+          selectedIds={[]}
+        />
+      ) : (
+        <Text>No documents found.</Text>
+      )}
+      <Flex marginY="16px">
+        <UploadButton
+          onFileUpload={(file: File) => {
+            console.log(file);
+          }}
+          variant="accent"
+        >
+          Upload Document
+        </UploadButton>
+      </Flex>
+    </Flex>
   );
 };

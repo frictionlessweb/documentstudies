@@ -14,7 +14,7 @@ class Api::V1::DocumentsController < ApplicationController
 
   def create
     document = Document.create!(name: create_params[:name], file: create_params[:file])
-    render json: document
+    render json: { id: document.id.to_s, name: document.name, url: rails_blob_url(document.file.blob) }
   end
 
   private

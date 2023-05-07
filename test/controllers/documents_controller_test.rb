@@ -19,6 +19,10 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     the_document = Document.find_by(name: 'Test.pdf')
     assert_equal('Test.pdf', the_document.name)
     assert_equal('Test.pdf', the_document.file.filename.to_s)
+    parsed_body = JSON.parse(@response.body)
+    assert_equal('Test.pdf', parsed_body['name'])
+    assert_equal(the_document.id.to_s, parsed_body['id'])
+    assert parsed_body['url'].starts_with?('http://')
   end
   test 'Getting every document does not work if you are not logged in' do
     get api_v1_all_documents_path

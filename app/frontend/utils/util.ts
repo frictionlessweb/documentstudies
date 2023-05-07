@@ -25,3 +25,7 @@ export const logout = async () => {
 export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
 };
+
+export const createNewDocument = async (): Promise<void> => {
+
+}
