@@ -1,8 +1,8 @@
 const REQUEST_FAILED = "API REQUEST FAILED";
 
-const CSRF_TOKEN = (
-  document.querySelector("[name=csrf-token]")! as unknown as any
-).content;
+const CSRF_TOKEN =
+  (document.querySelector("[name=csrf-token]")! as unknown as any)?.content ||
+  "";
 
 interface FormTranslatable {
   [key: string]: string | Blob;
