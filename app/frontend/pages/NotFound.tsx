@@ -7,7 +7,9 @@ export const NotFound = () => {
       <Flex direction="column">
         <Heading level={1}>Not Found</Heading>
         <Text>Please contact the person who sent you to this page.</Text>
-        <img alt="A book." src="/Book.png" />
+        <Flex width="100%" justifyContent="center">
+          <img width="100px" alt="A book." src="/Book.png" />
+        </Flex>
       </Flex>
     </Flex>
   );

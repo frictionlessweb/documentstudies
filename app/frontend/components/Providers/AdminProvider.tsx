@@ -1,5 +1,6 @@
 import React from "react";
 import type { User } from "@/utils/types";
+import { AdminLayout } from '@/components/AdminLayout';
 import { readUserCredentials, gotoSignIn } from "@/utils/util";
 
 const CREDENTIALS = readUserCredentials();
@@ -30,7 +31,7 @@ export const AdminProvider = (props: AdminProviderProps) => {
   if (CREDENTIALS === null) return null;
   return (
     <AdminContext.Provider value={CREDENTIALS}>
-      {children}
+      <AdminLayout>{children}</AdminLayout>
     </AdminContext.Provider>
   );
 };

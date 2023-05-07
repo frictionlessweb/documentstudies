@@ -1,5 +1,9 @@
 const REQUEST_FAILED = "API REQUEST FAILED";
 
+const CSRF_TOKEN = (
+  document.querySelector("[name=csrf-token]")! as unknown as any
+).content;
+
 export const HTTP = {
   get: async <T>(url: string): Promise<T> => {
     const res = await window.fetch(url);
@@ -11,6 +15,9 @@ export const HTTP = {
   delete: async (url: string): Promise<void> => {
     const res = await window.fetch(url, {
       method: "DELETE",
+      headers: {
+        "X-CSRF-Token": CSRF_TOKEN,
+      },
     });
     if (!res.ok) {
       throw new Error(REQUEST_FAILED);
@@ -21,6 +28,7 @@ export const HTTP = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "X-CSRF-Token": CSRF_TOKEN,
       },
       body: JSON.stringify(body),
     });
