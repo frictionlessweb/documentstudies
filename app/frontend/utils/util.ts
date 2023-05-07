@@ -1,6 +1,6 @@
-import type { User } from "@/utils/types";
-import { HTTP } from '@/utils/api';
-import { SIGN_IN, SIGN_OUT } from "@/utils/routes";
+import type { User, DocumentStudyDocument } from "@/utils/types";
+import { HTTP } from "@/utils/api";
+import { SIGN_IN, SIGN_OUT, GET_ALL_DOCUMENTS } from "@/utils/routes";
 
 /**
  * See app/views/layouts/application.html.erb - we load these variablers onto
@@ -20,4 +20,8 @@ export const gotoSignIn = () => {
 export const logout = async () => {
   await HTTP.delete(SIGN_OUT);
   gotoSignIn();
+};
+
+export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
+  return HTTP.get(GET_ALL_DOCUMENTS);
 };
