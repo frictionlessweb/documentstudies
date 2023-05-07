@@ -22,7 +22,9 @@ export const INITIAL_APP_STATE: AppState = {
 export type AppAction =
   | { type: "INITIATE_DOCUMENT_FETCH" }
   | { type: "DOCUMENT_FETCH_SUCCESS"; payload: DocumentStudyDocument[] }
-  | { type: "DOCUMENT_FETCH_FAILURE"; payload: string };
+  | { type: "DOCUMENT_FETCH_FAILURE"; payload: string }
+  | { type: "INITIATE_DOCUMENT_UPLOAD" }
+  | { type: "DOCUMENT_UPLOAD_ENDED"; payload: DocumentStudyDocument | null };
 
 export const reduce = (state: AppState, action: AppAction): AppState => {
   switch (action.type) {
@@ -42,6 +44,18 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
       return produce(state, (draft) => {
         draft.documents.areLoading = false;
         draft.documents.apiError = action.payload;
+      });
+    }
+    case "INITIATE_DOCUMENT_UPLOAD": {
+      return produce(state, (draft) => {
+        draft.documents.areLoading = true;
+      });
+    }
+    case "DOCUMENT_UPLOAD_ENDED": {
+      return produce(state, (draft) => {
+        draft.documents.areLoading = false;
+        if (action.payload === null) return;
+        draft.documents.list.unshift(action.payload);
       });
     }
   }

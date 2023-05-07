@@ -59,28 +59,37 @@ const ErrorMessage = () => {
 
 export const DocumentManager = () => {
   const { list: documents, areLoading, apiError } = useFetchDocuments();
-  const handleFileUpload = React.useCallback((file: File) => {
-    
-  }, []);
+  const dispatch = useDispatch();
+  const handleFileUpload = React.useCallback(
+    async (file: File) => {
+      dispatch({ type: "INITIATE_DOCUMENT_UPLOAD" });
+      try {
+        const doc = await createNewDocument(file);
+        dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: doc });
+      } catch (err) {
+        /**
+         * TODO: Create a nice toast with the error rather than just logging
+         * it to the console.
+         */
+        console.error(err);
+        dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: null });
+      }
+    },
+    [dispatch]
+  );
   if (apiError !== null) return <ErrorMessage />;
   if (areLoading) return <Loading />;
   return (
     <Flex direction="column">
       {documents.length > 0 ? (
-        <MultiSelect
-          items={[]}
-          label="Documents"
-          onSelectionChange={() => {}}
-          selectedIds={[]}
-        />
+        <MultiSelect items={documents} label="Documents" selectedIds={[]} />
       ) : (
         <Text>No documents found.</Text>
       )}
       <Flex marginY="16px">
         <UploadButton
-          onFileUpload={(file: File) => {
-            console.log(file);
-          }}
+          accept="application/pdf"
+          onFileUpload={handleFileUpload}
           variant="accent"
         >
           Upload Document

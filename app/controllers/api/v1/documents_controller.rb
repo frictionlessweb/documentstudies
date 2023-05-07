@@ -20,6 +20,6 @@ class Api::V1::DocumentsController < ApplicationController
   private
 
   def create_params
-    params.require(:document).permit(:name, :file)
+    params.permit(:name, :file)
   end
 end

@@ -1,6 +1,11 @@
 import type { User, DocumentStudyDocument } from "@/core/types";
 import { HTTP } from "@/utils/api";
-import { SIGN_IN, SIGN_OUT, GET_ALL_DOCUMENTS } from "@/utils/routes";
+import {
+  SIGN_IN,
+  SIGN_OUT,
+  GET_ALL_DOCUMENTS,
+  CREATE_DOCUMENTS,
+} from "@/utils/routes";
 
 /**
  * See app/views/layouts/application.html.erb - we load these variablers onto
@@ -26,6 +31,12 @@ export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
 };
 
-export const createNewDocument = async (): Promise<void> => {
-
-}
+export const createNewDocument = async (
+  file: File
+): Promise<DocumentStudyDocument> => {
+  const formData = new FormData();
+  formData.append('name', file.name);
+  formData.append('file', file);
+  const res: DocumentStudyDocument = await HTTP.postFormData(CREATE_DOCUMENTS, formData);
+  return res;
+};

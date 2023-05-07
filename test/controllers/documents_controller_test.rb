@@ -10,10 +10,8 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
   test 'Uploading files does work if you are logged in' do
     sign_in Admin.find_by(name: 'Susan')
     post api_v1_create_document_path, params: {
-      document: {
-        name: 'Test.pdf',
-        file: fixture_file_upload('Test.pdf', 'application/pdf')
-      }
+      name: 'Test.pdf',
+      file: fixture_file_upload('Test.pdf', 'application/pdf')
     }
     assert_response :success
     the_document = Document.find_by(name: 'Test.pdf')
@@ -34,10 +32,8 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     # Upload Document1 and Document2
     ['Document1.pdf', 'Document2.pdf'].each do |name|
       post api_v1_create_document_path, params: {
-        document: {
-          name:,
-          file: fixture_file_upload('Test.pdf', 'application/pdf')
-        }
+        name:,
+        file: fixture_file_upload('Test.pdf', 'application/pdf')
       }
       assert_response :success
     end

@@ -3,10 +3,11 @@ import { Button, SpectrumButtonProps } from "@adobe/react-spectrum";
 
 interface FileUploadButtonProps extends SpectrumButtonProps {
   onFileUpload: (file: File) => void | Promise<void>;
+  accept?: string;
 }
 
 export const UploadButton = (props: FileUploadButtonProps) => {
-  const { onFileUpload } = props;
+  const { onFileUpload, accept } = props;
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const triggerInput = React.useCallback(() => {
     if (inputRef.current === null) return null;
@@ -23,6 +24,7 @@ export const UploadButton = (props: FileUploadButtonProps) => {
         }}
         ref={inputRef}
         type="file"
+        accept={accept}
         style={{ display: "none" }}
       />
     </>

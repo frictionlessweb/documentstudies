@@ -16,7 +16,7 @@ interface MultiSelectProps {
   items: Item[];
   label: string;
   selectedIds: string[];
-  onSelectionChange: (strings: string[]) => void;
+  onSelectionChange?: (strings: string[]) => void;
 }
 
 export const MultiSelect = (props: MultiSelectProps) => {
@@ -35,6 +35,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
         selectedKeys={selectedIds.length > 0 ? selectedIds : undefined}
         onSelectionChange={(keys) => {
           if (typeof keys === "string") return;
+          if (!onSelectionChange) return;
           onSelectionChange(Array.from(keys) as string[]);
         }}
       >
