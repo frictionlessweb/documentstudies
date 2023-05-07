@@ -1,4 +1,4 @@
-import type { User, DocumentStudyDocument } from "@/utils/types";
+import type { User, DocumentStudyDocument } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import { SIGN_IN, SIGN_OUT, GET_ALL_DOCUMENTS } from "@/utils/routes";
 

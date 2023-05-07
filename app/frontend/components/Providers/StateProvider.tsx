@@ -1,33 +1,7 @@
 import React from "react";
 import { createContext, useContextSelector } from "use-context-selector";
-import { DocumentStudyDocument } from "@/utils/types";
+import { reduce, INITIAL_APP_STATE, AppState, AppAction } from "@/core/app";
 
-// STATE MANATEMENT
-interface AppState {
-  documents: {
-    fetchAttempted: boolean;
-    apiError: string | null;
-    areLoading: boolean;
-    list: DocumentStudyDocument[];
-  };
-}
-
-const INITIAL_APP_STATE: AppState = {
-  documents: {
-    fetchAttempted: false,
-    apiError: null,
-    areLoading: false,
-    list: [],
-  },
-};
-
-type AppAction = { type: "INITIATE_DOCUMENT_UPLOAD" };
-
-export const reduce = (state: AppState, action: AppAction): AppState => {
-  return state;
-};
-
-// REACT MANAGEMENT
 export const DocumentStudyContext = createContext<AppState>(INITIAL_APP_STATE);
 
 type Selector<T> = (appState: AppState) => T;
