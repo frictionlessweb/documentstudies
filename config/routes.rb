@@ -10,6 +10,11 @@ Rails.application.routes.draw do
 
   # Serving our SPA
   root "home#index"
+
+  get '/admins', to: 'admin#index'
+  get '/admins/*all', to: 'admin#index', constraints: ->(request) do
+    !request.xhr? and request.format.html?
+  end
   get '*path', to: 'home#index', constraints: ->(request) do
     !request.xhr? and request.format.html?
   end
