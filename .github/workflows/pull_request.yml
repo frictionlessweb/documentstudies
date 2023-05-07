@@ -40,6 +40,6 @@ jobs:
       - name: Install JS Dependencies
         run: npm install
       - name: Run Rails tests
-        run: ./bin/rails test
+        run: echo $POSTGRES_USER && ./bin/rails test
       - name: Run JS tests
         run: npm test
