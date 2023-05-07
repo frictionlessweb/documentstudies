@@ -1,5 +1,6 @@
 import React from "react";
 import { Flex, Text, Button } from "@adobe/react-spectrum";
+import { useCurrentAdmin } from "@/components/Providers/AdminProvider";
 import { logout } from "@/utils/util";
 
 interface AdminLayoutProps {
@@ -7,6 +8,7 @@ interface AdminLayoutProps {
 }
 
 const AdminToolbar = () => {
+  const { name } = useCurrentAdmin();
   return (
     <Flex
       width="100%"
@@ -18,7 +20,7 @@ const AdminToolbar = () => {
         color: "white",
       }}
     >
-      <Text UNSAFE_style={{ fontWeight: "bold" }}>Admin Overview</Text>
+      <Text UNSAFE_style={{ fontWeight: "bold" }}>Welcome, {name}</Text>
       <Flex marginEnd="16px">
         <Button onPress={logout} variant="overBackground">
           Logout
