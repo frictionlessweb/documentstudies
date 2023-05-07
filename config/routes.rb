@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   # API Routes
   namespace :api do
     namespace :v1 do
-      post 'upload-file', to: 'documents#upload_file'
+      get 'all-documents', to: 'documents#all'
+      post 'create-document', to: 'documents#create'
     end
   end
 

@@ -29,7 +29,7 @@ class InitSchema < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    create_table :documents, id: :uuid do |t|
+    create_table :documents do |t|
       t.string :name, null: false
       t.timestamps
     end
