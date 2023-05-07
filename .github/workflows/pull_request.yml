@@ -42,6 +42,6 @@ jobs:
       - name: Install JS Dependencies
         run: npm install
       - name: Run Rails tests
-        run: RAILS_ENV=test ./bin/rails test
+        run: ./bin/rails test
       - name: Run JS tests
         run: npm test
