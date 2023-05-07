@@ -35,6 +35,10 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "jsdom",
+    "testPathIgnorePatterns": [
+      "/vendor/",
+      "/node_modules/"
+    ],
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy",
       "@/(.*?)$": "<rootDir>/app/frontend/$1"
