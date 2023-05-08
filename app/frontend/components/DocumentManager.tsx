@@ -2,7 +2,9 @@ import React from "react";
 import { MultiSelect } from "@/components/MultiSelect";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { UploadButton } from "@/components/UploadButton";
-import { Text, Flex, ProgressCircle } from "@adobe/react-spectrum";
+import { Text, Flex } from "@adobe/react-spectrum";
+import { ApiError } from '@/components/ApiError';
+import { Loading } from '@/components/Loading';
 import { fetchAllDocuments, createNewDocument } from "@/utils/util";
 
 const useFetchDocuments = () => {
@@ -31,32 +33,6 @@ const useFetchDocuments = () => {
   return { list, areLoading, apiError };
 };
 
-const Loading = () => {
-  return (
-    <Flex width="100%" justifyContent="center">
-      <ProgressCircle isIndeterminate />
-    </Flex>
-  );
-};
-
-const ErrorMessage = () => {
-  return (
-    <Flex
-      width="100%"
-      UNSAFE_style={{
-        backgroundColor: "#f8bbd0",
-        padding: "8px",
-        overflow: "wrap",
-        borderRadius: "8px",
-      }}
-    >
-      <Text maxWidth="200px">
-        An error occurred. Please refresh the page and try again.
-      </Text>
-    </Flex>
-  );
-};
-
 export const DocumentManager = () => {
   const { list: documents, areLoading, apiError } = useFetchDocuments();
   const dispatch = useDispatch();
@@ -77,7 +53,7 @@ export const DocumentManager = () => {
     },
     [dispatch]
   );
-  if (apiError !== null) return <ErrorMessage />;
+  if (apiError !== null) return <ApiError />;
   if (areLoading) return <Loading />;
   return (
     <Flex direction="column">
