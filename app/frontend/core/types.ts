@@ -15,7 +15,7 @@ interface QuestionBase {
 }
 
 export interface FreeInputQuestion extends QuestionBase {
-  type: 'FREE_INPUT'
+  type: 'FREE_RESPONSE'
 }
 
 // TODO: For now, we only support free text fields, but we'll eventually
