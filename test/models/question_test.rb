@@ -12,4 +12,13 @@ class QuestionTest < ActiveSupport::TestCase
     assert_not question.save
     assert_equal("Name can't be blank", question.errors.to_a[0])
   end
+  test 'Can have a question type' do
+    question = Question.create(name: 'My favorite question.')
+    free_question = FreeResponseQuestion.create(text: 'Example')
+    question.update!(question_type: free_question)
+    question.reload
+    free_question.reload
+    assert_equal(free_question, question.question_type)
+    assert_equal(question, free_question.question)
+  end
 end

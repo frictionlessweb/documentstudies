@@ -1,3 +1,3 @@
 class FreeResponseQuestion < ApplicationRecord
-  belongs_to :questions, polymorphic: true, class_name: 'Question'
+  has_one :question, as: :question_type
 end

@@ -66,12 +66,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_195853) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "free_response_questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "question_id", null: false
+  create_table "free_response_questions", force: :cascade do |t|
     t.string "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_free_response_questions_on_question_id"
   end
 
   create_table "question_type", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -79,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_195853) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "questions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.string "name", null: false
     t.string "question_type_type"
     t.bigint "question_type_id"
