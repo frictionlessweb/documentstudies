@@ -3,9 +3,10 @@ import { MultiSelect } from "@/components/MultiSelect";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { UploadButton } from "@/components/UploadButton";
 import { Text, Flex } from "@adobe/react-spectrum";
-import { ApiError } from '@/components/ApiError';
-import { Loading } from '@/components/Loading';
+import { ApiError } from "@/components/ApiError";
+import { Loading } from "@/components/Loading";
 import { fetchAllDocuments, createNewDocument } from "@/utils/util";
+import { ToastQueue } from "@react-spectrum/toast";
 
 const useFetchDocuments = () => {
   const { list, areLoading, fetchAttempted, apiError } = useAppState(
@@ -43,11 +44,9 @@ export const DocumentManager = () => {
         const doc = await createNewDocument(file);
         dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: doc });
       } catch (err) {
-        /**
-         * TODO: Create a nice toast with the error rather than just logging
-         * it to the console.
-         */
-        console.error(err);
+        ToastQueue.negative(
+          "An error occurred after uploading the document. Please refresh the page and try again."
+        );
         dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: null });
       }
     },

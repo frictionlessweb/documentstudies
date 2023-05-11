@@ -2,6 +2,7 @@
   "name": "documentstudies.com",
   "dependencies": {
     "@adobe/react-spectrum": "^3.26.0",
+    "@react-spectrum/toast": "^3.0.0-alpha.1",
     "immer": "^10.0.1",
     "logrocket": "^4.0.1",
     "react": "^18.2.0",
