@@ -3,6 +3,7 @@
   "dependencies": {
     "@adobe/react-spectrum": "^3.26.0",
     "immer": "^10.0.1",
+    "logrocket": "^4.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "use-context-selector": "^1.4.1",
