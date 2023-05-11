@@ -39,6 +39,7 @@ export type AppAction =
   | { type: "DOCUMENT_FETCH_SUCCESS"; payload: DocumentStudyDocument[] }
   | { type: "DOCUMENT_FETCH_FAILURE"; payload: string }
   | { type: "INITIATE_DOCUMENT_UPLOAD" }
+  | { type: 'INITIATE_QUESTION_UPDATE'  }
   | { type: "DOCUMENT_UPLOAD_ENDED"; payload: DocumentStudyDocument | null }
   | { type: "QUESTION_CREATION_ENDED"; payload: Question | null };
 
@@ -97,6 +98,11 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
         draft.questions.areLoading = false;
         if (action.payload === null) return;
         draft.questions.list.unshift(action.payload);
+      });
+    }
+    case 'INITIATE_QUESTION_UPDATE': {
+      return produce(state, (draft) => {
+        draft.questions.areLoading = true;
       });
     }
   }

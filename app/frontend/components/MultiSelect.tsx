@@ -43,6 +43,7 @@ export const MultiSelect = (props: MultiSelectProps) => {
           .filter((item) =>
             item.name.toLowerCase().includes(nameFilter.toLowerCase())
           )
+          .slice(0, 10)
           .map((item) => {
             return <Item key={item.id}>{item.name}</Item>;
           })}

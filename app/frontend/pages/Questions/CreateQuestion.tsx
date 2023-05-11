@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "@/components/Providers/StateProvider";
+import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import {
   Flex,
   Button,
@@ -25,6 +25,9 @@ const notFinished = (question: Omit<Question, "id">) => {
 };
 
 export const CreateQuestion = () => {
+  const areLoading = useAppState((state) => {
+    return state.questions.areLoading;
+  });
   const [formState, setFormState] = React.useState<Omit<Question, "id">>({
     name: "",
     instructions: "",
@@ -35,6 +38,7 @@ export const CreateQuestion = () => {
   const dispatch = useDispatch();
   const makeNewQuestion = React.useCallback(async () => {
     try {
+      dispatch({ type: "INITIATE_QUESTION_UPDATE" });
       const request = {
         questions: [formState],
       };
@@ -117,7 +121,7 @@ export const CreateQuestion = () => {
             Back
           </Button>
           <Button
-            isDisabled={notFinished(formState)}
+            isDisabled={notFinished(formState) || areLoading}
             variant="accent"
             onPress={makeNewQuestion}
           >
