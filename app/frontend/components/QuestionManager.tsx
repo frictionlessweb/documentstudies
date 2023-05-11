@@ -16,9 +16,10 @@ import {
   Picker,
   Item,
 } from "@adobe/react-spectrum";
-import { QUESTION_TYPE_LIST } from "@/core/types";
+import { QUESTION_TYPES, QUESTION_TYPE_LIST } from "@/core/types";
 import { Loading } from "@/components/Loading";
 import { Question } from "@/core/types";
+import { createQuestions } from "@/utils/util";
 import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
 
@@ -53,21 +54,32 @@ interface QuestionCreateDialogProps {
 
 const notFinished = (question: Question) => {
   return (
-    question.name === "" || question.type === "" || question.instructions === ""
+    question.name === "" ||
+    question.question_type.type === "" ||
+    question.instructions === ""
   );
 };
 
 const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
   const { close } = props;
-  const [formState, setFormState] = React.useState<Question>({
-    id: "",
+  const [formState, setFormState] = React.useState<Omit<Question, "id">>({
     name: "",
     instructions: "",
-    type: "",
+    question_type: {
+      type: "",
+    },
   });
-  const createQuestions = React.useCallback(async () => {
+  const makeNewQuestion = React.useCallback(async () => {
+    try {
+      const request = {
+        questions: [formState],
+      };
+      await createQuestions(request);
+    } catch (err) {
+      console.error(err);
+    }
     close();
-  }, []);
+  }, [close, formState]);
   return (
     <Dialog>
       <Heading>Create a Question</Heading>
@@ -89,6 +101,7 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
           </Flex>
           <Flex marginBottom="16px">
             <TextArea
+              width="100%"
               value={formState.instructions}
               onChange={(val) => {
                 setFormState((prev) => {
@@ -101,11 +114,22 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
             />
           </Flex>
           <Picker
-            selectedKey={formState.type as unknown as any}
+            selectedKey={formState.question_type.type as unknown as any}
             onSelectionChange={(choice) => {
               setFormState((prev) => {
                 return produce(prev, (draft) => {
-                  draft.type = choice as unknown as any;
+                  switch (choice as keyof typeof QUESTION_TYPES | "") {
+                    case "FreeResponseQuestion": {
+                      draft.question_type = {
+                        type: choice as any,
+                        text: "",
+                      };
+                      break;
+                    }
+                    case "": {
+                      return;
+                    }
+                  }
                 });
               });
             }}
@@ -124,7 +148,7 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
         <Button
           isDisabled={notFinished(formState)}
           variant="accent"
-          onPress={createQuestions}
+          onPress={makeNewQuestion}
         >
           Create
         </Button>

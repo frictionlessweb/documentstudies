@@ -1,10 +1,15 @@
-import type { User, DocumentStudyDocument } from "@/core/types";
+import type {
+  User,
+  DocumentStudyDocument,
+  QuestionCreateRequest,
+} from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
   SIGN_IN,
   SIGN_OUT,
   GET_ALL_DOCUMENTS,
   CREATE_DOCUMENTS,
+  CREATE_QUESTIONS,
 } from "@/utils/routes";
 
 /**
@@ -35,8 +40,16 @@ export const createNewDocument = async (
   file: File
 ): Promise<DocumentStudyDocument> => {
   const formData = new FormData();
-  formData.append('name', file.name);
-  formData.append('file', file);
-  const res: DocumentStudyDocument = await HTTP.postFormData(CREATE_DOCUMENTS, formData);
+  formData.append("name", file.name);
+  formData.append("file", file);
+  const res: DocumentStudyDocument = await HTTP.postFormData(
+    CREATE_DOCUMENTS,
+    formData
+  );
+  return res;
+};
+
+export const createQuestions = async (question: QuestionCreateRequest) => {
+  const res = await HTTP.post(CREATE_QUESTIONS, question);
   return res;
 };

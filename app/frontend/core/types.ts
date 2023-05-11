@@ -32,14 +32,20 @@ export const QUESTION_TYPE_LIST = Object.keys(QUESTION_TYPES)
   .map((key) => QUESTION_TYPES[key as keyof typeof QUESTION_TYPES]);
 
 export interface FreeInputQuestion extends QuestionBase {
-  type: typeof QUESTION_TYPES.FreeResponseQuestion.value;
+  question_type: {
+    type: typeof QUESTION_TYPES.FreeResponseQuestion.value;
+    text: "";
+  };
 }
 
 export interface IndeterminateQuestion extends QuestionBase {
-  type: ''
+  question_type: {
+    type: "";
+  };
 }
 
-// TODO: For now, we only support free text fields, but we'll eventually
-// extend the app to work with multiple choice fields and other such
-// niceties.
 export type Question = IndeterminateQuestion | FreeInputQuestion;
+
+export interface QuestionCreateRequest {
+  questions: Omit<Question, "id">[];
+}
