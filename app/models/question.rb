@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
   validates :name, presence: true
-  has_one :question_type, as: :question_type
+  validates :instructions, presence: true
+  belongs_to :question_type, polymorphic: true
 end

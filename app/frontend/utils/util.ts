@@ -1,10 +1,17 @@
-import type { User, DocumentStudyDocument } from "@/core/types";
+import type {
+  User,
+  DocumentStudyDocument,
+  QuestionCreateRequest,
+  Question,
+} from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
   SIGN_IN,
   SIGN_OUT,
   GET_ALL_DOCUMENTS,
+  GET_ALL_QUESTIONS,
   CREATE_DOCUMENTS,
+  CREATE_QUESTIONS,
 } from "@/utils/routes";
 
 /**
@@ -31,12 +38,24 @@ export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
 };
 
+export const fetchAllQuestions = async (): Promise<Question[]> => {
+  return HTTP.get(GET_ALL_QUESTIONS);
+};
+
 export const createNewDocument = async (
   file: File
 ): Promise<DocumentStudyDocument> => {
   const formData = new FormData();
-  formData.append('name', file.name);
-  formData.append('file', file);
-  const res: DocumentStudyDocument = await HTTP.postFormData(CREATE_DOCUMENTS, formData);
+  formData.append("name", file.name);
+  formData.append("file", file);
+  const res: DocumentStudyDocument = await HTTP.postFormData(
+    CREATE_DOCUMENTS,
+    formData
+  );
+  return res;
+};
+
+export const createQuestions = async (question: QuestionCreateRequest) => {
+  const res: Question[] = await HTTP.post(CREATE_QUESTIONS, question);
   return res;
 };
