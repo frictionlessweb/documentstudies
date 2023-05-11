@@ -2,12 +2,14 @@ import type {
   User,
   DocumentStudyDocument,
   QuestionCreateRequest,
+  Question,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
   SIGN_IN,
   SIGN_OUT,
   GET_ALL_DOCUMENTS,
+  GET_ALL_QUESTIONS,
   CREATE_DOCUMENTS,
   CREATE_QUESTIONS,
 } from "@/utils/routes";
@@ -34,6 +36,10 @@ export const logout = async () => {
 
 export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
+};
+
+export const fetchAllQuestions = async (): Promise<Question[]> => {
+  return HTTP.get(GET_ALL_QUESTIONS);
 };
 
 export const createNewDocument = async (

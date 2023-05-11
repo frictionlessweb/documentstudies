@@ -18,8 +18,9 @@ import {
 } from "@adobe/react-spectrum";
 import { QUESTION_TYPES, QUESTION_TYPE_LIST } from "@/core/types";
 import { Loading } from "@/components/Loading";
+import { MultiSelect } from "@/components/MultiSelect";
 import { Question } from "@/core/types";
-import { createQuestions } from "@/utils/util";
+import { fetchAllQuestions, createQuestions } from "@/utils/util";
 import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
 
@@ -31,11 +32,12 @@ const useFetchQuestions = () => {
   );
   const dispatch = useDispatch();
   React.useEffect(() => {
-    const fetchDocuments = async () => {
+    const fetchQuestions = async () => {
       if (fetchAttempted) return;
       dispatch({ type: "INITIATE_QUESTION_FETCH" });
       try {
-        throw new Error("Always fail");
+        const res = await fetchAllQuestions();
+        dispatch({ type: "QUESTION_FETCH_SUCCESS", payload: res });
       } catch (err) {
         dispatch({
           type: "QUESTION_FETCH_FAILURE",
@@ -43,7 +45,7 @@ const useFetchQuestions = () => {
         });
       }
     };
-    fetchDocuments();
+    fetchQuestions();
   }, [dispatch, fetchAttempted]);
   return { list, areLoading, apiError };
 };
@@ -52,7 +54,7 @@ interface QuestionCreateDialogProps {
   close: () => void;
 }
 
-const notFinished = (question: Question) => {
+const notFinished = (question: Omit<Question, "id">) => {
   return (
     question.name === "" ||
     question.question_type.type === "" ||
@@ -160,9 +162,16 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
 export const QuestionManager = () => {
   const { list, areLoading, apiError } = useFetchQuestions();
   if (areLoading) return <Loading />;
+  console.log(list);
   return (
     <Flex direction="column">
-      <Text>No questions found.</Text>
+      {list.length === 0 ? (
+        <Text>No questions found.</Text>
+      ) : (
+        <>
+          <MultiSelect label="Questions" selectedIds={[]} items={list} />
+        </>
+      )}
       <Flex marginTop="16px">
         <DialogTrigger>
           <ActionButton>Create Question</ActionButton>
