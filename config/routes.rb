@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'all-documents', to: 'documents#all'
       post 'create-document', to: 'documents#create'
+
+      get 'all-questions', to: 'questions#all'
       post 'create-questions', to: 'questions#create'
     end
   end

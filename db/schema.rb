@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_08_195853) do
 
   create_table "questions", force: :cascade do |t|
     t.string "name", null: false
+    t.string "instructions", null: false
     t.string "question_type_type"
     t.bigint "question_type_id"
     t.datetime "created_at", null: false

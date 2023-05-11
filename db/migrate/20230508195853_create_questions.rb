@@ -2,6 +2,7 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
   def up
     create_table :questions do |t|
       t.string :name, null: false
+      t.string :instructions, null: false
       t.references :question_type, index: true, polymorphic: true
       t.timestamps
     end
