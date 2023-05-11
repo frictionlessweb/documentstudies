@@ -24,21 +24,25 @@ const notFinished = (question: Omit<Question, "id">) => {
   );
 };
 
+const INITIAL_QUESTION = {
+  name: "",
+  instructions: "",
+  question_type: {
+    type: "",
+  },
+} as const;
+
 export const CreateQuestion = () => {
   const areLoading = useAppState((state) => {
     return state.questions.areLoading;
   });
-  const [formState, setFormState] = React.useState<Omit<Question, "id">>({
-    name: "",
-    instructions: "",
-    question_type: {
-      type: "",
-    },
-  });
+  const [formState, setFormState] =
+    React.useState<Omit<Question, "id">>(INITIAL_QUESTION);
   const dispatch = useDispatch();
   const makeNewQuestion = React.useCallback(async () => {
     try {
       dispatch({ type: "INITIATE_QUESTION_UPDATE" });
+      setFormState(INITIAL_QUESTION);
       const request = {
         questions: [formState],
       };
