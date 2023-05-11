@@ -12,6 +12,7 @@ export interface DocumentStudyDocument {
 interface QuestionBase {
   id: string;
   name: string;
+  instructions: string;
 }
 
 export const QUESTION_TYPES = {
@@ -34,7 +35,11 @@ export interface FreeInputQuestion extends QuestionBase {
   type: typeof QUESTION_TYPES.FreeResponseQuestion.value;
 }
 
+export interface IndeterminateQuestion extends QuestionBase {
+  type: ''
+}
+
 // TODO: For now, we only support free text fields, but we'll eventually
 // extend the app to work with multiple choice fields and other such
 // niceties.
-export type Question = FreeInputQuestion;
+export type Question = IndeterminateQuestion | FreeInputQuestion;

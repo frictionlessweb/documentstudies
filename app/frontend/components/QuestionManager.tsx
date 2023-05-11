@@ -12,11 +12,14 @@ import {
   Heading,
   Text,
   TextField,
+  TextArea,
   Picker,
   Item,
 } from "@adobe/react-spectrum";
 import { QUESTION_TYPE_LIST } from "@/core/types";
 import { Loading } from "@/components/Loading";
+import { Question } from "@/core/types";
+import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
 
 const useFetchQuestions = () => {
@@ -48,10 +51,21 @@ interface QuestionCreateDialogProps {
   close: () => void;
 }
 
+const notFinished = (question: Question) => {
+  return (
+    question.name === "" || question.type === "" || question.instructions === ""
+  );
+};
+
 const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
   const { close } = props;
+  const [formState, setFormState] = React.useState<Question>({
+    id: "",
+    name: "",
+    instructions: "",
+    type: "",
+  });
   const createQuestions = React.useCallback(async () => {
-    console.log('do something');
     close();
   }, []);
   return (
@@ -61,9 +75,42 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
       <Content>
         <Flex direction="column">
           <Flex marginBottom="16px">
-            <TextField label="Name" />
+            <TextField
+              value={formState.name}
+              onChange={(val) => {
+                setFormState((prev) => {
+                  return produce(prev, (draft) => {
+                    draft.name = val;
+                  });
+                });
+              }}
+              label="Name"
+            />
           </Flex>
-          <Picker label="Type">
+          <Flex marginBottom="16px">
+            <TextArea
+              value={formState.instructions}
+              onChange={(val) => {
+                setFormState((prev) => {
+                  return produce(prev, (draft) => {
+                    draft.instructions = val;
+                  });
+                });
+              }}
+              label="Instructions"
+            />
+          </Flex>
+          <Picker
+            selectedKey={formState.type as unknown as any}
+            onSelectionChange={(choice) => {
+              setFormState((prev) => {
+                return produce(prev, (draft) => {
+                  draft.type = choice as unknown as any;
+                });
+              });
+            }}
+            label="Type"
+          >
             {QUESTION_TYPE_LIST.map((type) => {
               return <Item key={type.value}>{type.display}</Item>;
             })}
@@ -74,7 +121,11 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
         <Button variant="secondary" onPress={close}>
           Cancel
         </Button>
-        <Button variant="accent" onPress={createQuestions}>
+        <Button
+          isDisabled={notFinished(formState)}
+          variant="accent"
+          onPress={createQuestions}
+        >
           Create
         </Button>
       </ButtonGroup>
