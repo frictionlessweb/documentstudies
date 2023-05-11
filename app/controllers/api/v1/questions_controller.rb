@@ -4,7 +4,7 @@ class Api::V1::QuestionsController < ApplicationController
   def all
     questions = Question.all.map do |q|
       {
-        id: q.id.to_s,
+        id: "#{q.id}",
         name: q.name,
         instructions: q.instructions,
         type: q.question_type.class.name

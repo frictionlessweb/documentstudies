@@ -71,17 +71,20 @@ const QuestionCreateDialog = (props: QuestionCreateDialogProps) => {
       type: "",
     },
   });
+  const dispatch = useDispatch();
   const makeNewQuestion = React.useCallback(async () => {
     try {
       const request = {
         questions: [formState],
       };
-      await createQuestions(request);
+      const res = await createQuestions(request);
+      dispatch({ type: "QUESTION_CREATION_ENDED", payload: res[0] });
     } catch (err) {
       console.error(err);
+      dispatch({ type: "QUESTION_CREATION_ENDED", payload: null });
     }
     close();
-  }, [close, formState]);
+  }, [close, formState, dispatch]);
   return (
     <Dialog>
       <Heading>Create a Question</Heading>

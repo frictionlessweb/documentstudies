@@ -56,6 +56,6 @@ export const createNewDocument = async (
 };
 
 export const createQuestions = async (question: QuestionCreateRequest) => {
-  const res = await HTTP.post(CREATE_QUESTIONS, question);
+  const res: Question[] = await HTTP.post(CREATE_QUESTIONS, question);
   return res;
 };

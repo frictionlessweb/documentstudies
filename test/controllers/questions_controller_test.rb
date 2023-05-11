@@ -15,7 +15,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
           name: 'First Question',
           instructions: 'test',
           question_type: {
-            kind: 'FreeResponseQuestion',
+            type: 'FreeResponseQuestion',
             text: 'My new text'
           }
         }
@@ -34,7 +34,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
           name: 'First Question',
           instructions: 'test',
           question_type: {
-            kind: 'FreeResponseQuestion',
+            type: 'FreeResponseQuestion',
             text: 'My new text'
           }
         }
