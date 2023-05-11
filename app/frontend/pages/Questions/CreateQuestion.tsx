@@ -40,6 +40,7 @@ export const CreateQuestion = () => {
       };
       const res = await createQuestions(request);
       dispatch({ type: "QUESTION_CREATION_ENDED", payload: res[0] });
+      ToastQueue.positive("Question created successfully.");
     } catch (err) {
       ToastQueue.negative(
         "An error occurred while creating the question. Please refresh the page and try again."
