@@ -2,7 +2,7 @@ class Api::V1::QuestionsController < ApplicationController
   before_action :authenticate_admin!
 
   def all
-    questions = Question.all.map do |q|
+    questions = Question.includes(:question_type).all.map do |q|
       {
         id: "#{q.id}",
         name: q.name,
