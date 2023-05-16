@@ -1,17 +1,17 @@
 import type {
   User,
   DocumentStudyDocument,
-  QuestionCreateRequest,
-  Question,
+  Study,
+  HasSchema,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
   SIGN_IN,
   SIGN_OUT,
   GET_ALL_DOCUMENTS,
-  GET_ALL_QUESTIONS,
   CREATE_DOCUMENTS,
-  CREATE_QUESTIONS,
+  CREATE_STUDY,
+  GET_ALL_STUDIES,
 } from "@/utils/routes";
 
 /**
@@ -38,8 +38,8 @@ export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
 };
 
-export const fetchAllQuestions = async (): Promise<Question[]> => {
-  return HTTP.get(GET_ALL_QUESTIONS);
+export const fetchAllStudies = async (): Promise<Study[]> => {
+  return HTTP.get(GET_ALL_STUDIES);
 };
 
 export const createNewDocument = async (
@@ -55,7 +55,20 @@ export const createNewDocument = async (
   return res;
 };
 
-export const createQuestions = async (question: QuestionCreateRequest) => {
-  const res: Question[] = await HTTP.post(CREATE_QUESTIONS, question);
+export const createStudy = async (hasSchema: HasSchema) => {
+  const res: Study = await HTTP.post(CREATE_STUDY, hasSchema);
   return res;
+};
+
+
+export const downloadJson = (json: object) => {
+  const element = document.createElement("a");
+  const textFile = new Blob([JSON.stringify(json)], {
+    type: "text/plain",
+  });
+  element.href = URL.createObjectURL(textFile);
+  element.download = "annotations.json";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
 };

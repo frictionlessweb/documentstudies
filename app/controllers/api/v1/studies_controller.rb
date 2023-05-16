@@ -1,4 +1,4 @@
-class Api::V1::StudyAssignmentsController < ApplicationController
+class Api::V1::StudiesController < ApplicationController
   before_action :authenticate_admin!
 
   def all
@@ -12,16 +12,10 @@ class Api::V1::StudyAssignmentsController < ApplicationController
   end
 
   def create
-    study = Study.create!(schema: create_params[:schema])
+    study = Study.create!(schema: params[:schema])
     render json: {
-      id: assignment.id.to_s,
+      id: study.id.to_s,
       schema: study.schema
     }
-  end
-
-  private
-
-  def create_params
-    params.permit(:id, :schema)
   end
 end
