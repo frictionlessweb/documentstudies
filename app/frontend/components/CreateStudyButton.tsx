@@ -2,6 +2,7 @@ import React from "react";
 import { Flex, Button } from "@adobe/react-spectrum";
 import { createStudy as createNewStudy } from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
+import { ToastQueue } from "@react-spectrum/toast";
 
 const useCreateStudy = () => {
   const dispatch = useDispatch();
@@ -17,8 +18,12 @@ const useCreateStudy = () => {
         dispatch({ type: "INITIATE_STUDY_CREATION" });
         const res = await createNewStudy({ schema: theJson });
         dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
+        ToastQueue.positive("Study created successfully.");
       } catch (err) {
         dispatch({ type: "STUDY_CREATION_ENDED", payload: null });
+        ToastQueue.negative(
+          "An error occurred while creating the study. Please refresh the page and try again."
+        );
       }
     },
     [dispatch]
