@@ -9,11 +9,15 @@ export interface DocumentStudyDocument {
   url: string;
 }
 
+interface FlexibleSchema {
+  [x: string]: any;
+}
+
 export interface HasSchema {
-  schema: object;
+  schema: FlexibleSchema;
 }
 
 export interface Study extends HasSchema {
   id: string;
-  schema: object;
+  schema: FlexibleSchema;
 }
