@@ -60,7 +60,7 @@ export const StudyAssignmentTable = () => {
       </TableHeader>
       <TableBody>
         {list.map((el) => {
-          const theLink = `${window.location.host}/?assignment_id=${el.id}`;
+          const theLink = `/?assignment_id=${el.id}`;
           return (
             <Row key={el.id}>
               <Cell>{el?.results?.metadata?.name || "No Name"}</Cell>
