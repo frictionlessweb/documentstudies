@@ -15,6 +15,7 @@ import { AssignmentCreationRequest } from "@/core/types";
 import { createStudyAssignment } from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { produce } from "immer";
+import { ToastQueue } from "@react-spectrum/toast";
 
 const useCreateStudyAssignment = (
   closeFn: () => void,
@@ -23,8 +24,15 @@ const useCreateStudyAssignment = (
   const dispatch = useDispatch();
   const createStudy = React.useCallback(async () => {
     try {
+      dispatch({ type: "INITIATE_STUDY_ASSIGNMENT_CREATION" });
       const res = await createStudyAssignment(formState);
-      console.log(res);
+      dispatch({ type: "STUDY_ASSIGNMENT_CREATION_ENDED", payload: res });
+      ToastQueue.positive("Study assignment creation successful.");
+    } catch (err) {
+      dispatch({ type: "STUDY_ASSIGNMENT_CREATION_ENDED", payload: null });
+      ToastQueue.negative(
+        "An error occurred while trying to create a study assignment. Please refresh the page and try again."
+      );
     } finally {
       closeFn();
     }

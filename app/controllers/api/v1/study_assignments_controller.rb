@@ -2,7 +2,7 @@ class Api::V1::StudyAssignmentsController < ApplicationController
   before_action :authenticate_admin!
 
   def all
-    assignments = StudyAssignemnt.includes(:study).all.map do |assignment|
+    assignments = StudyAssignment.all.map do |assignment|
       {
         id: assignment.id.to_s,
         study_id: assignment.study_id.to_s,
@@ -10,7 +10,7 @@ class Api::V1::StudyAssignmentsController < ApplicationController
         results: assignment.results
       }
     end
-    render json: documents
+    render json: assignments
   end
 
   def create

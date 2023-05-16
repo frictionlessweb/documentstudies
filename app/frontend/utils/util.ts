@@ -15,6 +15,7 @@ import {
   CREATE_STUDY,
   GET_ALL_STUDIES,
   CREATE_STUDY_ASSIGNMENT,
+  GET_ALL_STUDY_ASSIGNMENTS,
 } from "@/utils/routes";
 
 /**
@@ -44,6 +45,10 @@ export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
 export const fetchAllStudies = async (): Promise<Study[]> => {
   return HTTP.get(GET_ALL_STUDIES);
 };
+
+export const fetchAllStudyAssignments = async (): Promise<StudyAssignment[]> => {
+  return HTTP.get(GET_ALL_STUDY_ASSIGNMENTS);
+}
 
 export const createNewDocument = async (
   file: File
