@@ -14,8 +14,9 @@ class Api::V1::StudyAssignmentsController < ApplicationController
   end
 
   def create
-    assignment = Document.create!(study_id: create_params[:study_id], group: create_params[:group],
-                                  results: create_params[:results])
+    study = Study.find(create_params[:study_id])
+    assignment = StudyAssignment.create!(study_id: create_params[:study_id], group: create_params[:group],
+                                         results: study.schema)
     render json: {
       id: assignment.id.to_s,
       study_id: assignment.study_id.to_s,
@@ -27,6 +28,6 @@ class Api::V1::StudyAssignmentsController < ApplicationController
   private
 
   def create_params
-    params.permit(:study_id, :group, :results)
+    params.permit(:study_id, :group)
   end
 end

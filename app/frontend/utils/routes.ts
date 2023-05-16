@@ -14,3 +14,5 @@ export const CREATE_QUESTIONS = "/api/v1/create-questions";
 
 export const GET_ALL_STUDIES = "/api/v1/all-studies"
 export const CREATE_STUDY = "/api/v1/create-study";
+
+export const CREATE_STUDY_ASSIGNMENT = "/api/v1/create-study-assignment"

@@ -3,6 +3,8 @@ import type {
   DocumentStudyDocument,
   Study,
   HasSchema,
+  AssignmentCreationRequest,
+  StudyAssignment,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
@@ -12,6 +14,7 @@ import {
   CREATE_DOCUMENTS,
   CREATE_STUDY,
   GET_ALL_STUDIES,
+  CREATE_STUDY_ASSIGNMENT,
 } from "@/utils/routes";
 
 /**
@@ -60,6 +63,10 @@ export const createStudy = async (hasSchema: HasSchema) => {
   return res;
 };
 
+export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
+  const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);
+  return res;
+};
 
 export const downloadJson = (json: object) => {
   const element = document.createElement("a");

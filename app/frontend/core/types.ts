@@ -21,3 +21,15 @@ export interface Study extends HasSchema {
   id: string;
   schema: FlexibleSchema;
 }
+
+export interface StudyAssignment {
+  id: string;
+  study_id: string;
+  group: string;
+  results: FlexibleSchema;
+}
+
+export interface AssignmentCreationRequest {
+  study_id: string;
+  group: string;
+}
