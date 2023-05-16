@@ -1,4 +1,4 @@
-import { DocumentStudyDocument, Question } from "@/core/types";
+import { DocumentStudyDocument, Study, StudyAssignment } from "@/core/types";
 import { produce } from "immer";
 
 export interface AppState {
@@ -8,11 +8,17 @@ export interface AppState {
     areLoading: boolean;
     list: DocumentStudyDocument[];
   };
-  questions: {
+  studies: {
     fetchAttempted: boolean;
     apiError: string | null;
     areLoading: boolean;
-    list: Question[];
+    list: Study[];
+  };
+  studyAssignments: {
+    fetchAttempted: boolean;
+    apiError: string | null;
+    areLoading: boolean;
+    list: StudyAssignment[];
   };
 }
 
@@ -23,7 +29,13 @@ export const INITIAL_APP_STATE: AppState = {
     areLoading: false,
     list: [],
   },
-  questions: {
+  studies: {
+    fetchAttempted: false,
+    apiError: null,
+    areLoading: false,
+    list: [],
+  },
+  studyAssignments: {
     fetchAttempted: false,
     apiError: null,
     areLoading: false,
@@ -33,15 +45,23 @@ export const INITIAL_APP_STATE: AppState = {
 
 export type AppAction =
   | { type: "INITIATE_DOCUMENT_FETCH" }
-  | { type: "INITIATE_QUESTION_FETCH" }
-  | { type: "QUESTION_FETCH_SUCCESS"; payload: Question[] }
-  | { type: "QUESTION_FETCH_FAILURE"; payload: string }
   | { type: "DOCUMENT_FETCH_SUCCESS"; payload: DocumentStudyDocument[] }
   | { type: "DOCUMENT_FETCH_FAILURE"; payload: string }
   | { type: "INITIATE_DOCUMENT_UPLOAD" }
-  | { type: 'INITIATE_QUESTION_UPDATE'  }
   | { type: "DOCUMENT_UPLOAD_ENDED"; payload: DocumentStudyDocument | null }
-  | { type: "QUESTION_CREATION_ENDED"; payload: Question | null };
+  | { type: "INITIATE_STUDY_FETCH" }
+  | { type: "STUDY_FETCH_SUCCESS"; payload: Study[] }
+  | { type: "STUDY_FETCH_FAILURE"; payload: string }
+  | { type: "INITIATE_STUDY_CREATION" }
+  | { type: "STUDY_CREATION_ENDED"; payload: Study | null }
+  | { type: "INITIATE_STUDY_ASSIGNMENT_FETCH" }
+  | { type: "STUDY_ASSIGNMENT_FETCH_SUCCESS"; payload: StudyAssignment[] }
+  | { type: "STUDY_ASSIGNMENT_FETCH_FAILURE"; payload: string }
+  | { type: "INITIATE_STUDY_ASSIGNMENT_CREATION" }
+  | {
+      type: "STUDY_ASSIGNMENT_CREATION_ENDED";
+      payload: StudyAssignment | null;
+    };
 
 export const reduce = (state: AppState, action: AppAction): AppState => {
   switch (action.type) {
@@ -75,34 +95,64 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
         draft.documents.list.unshift(action.payload);
       });
     }
-    case "INITIATE_QUESTION_FETCH": {
+    case "INITIATE_STUDY_FETCH": {
       return produce(state, (draft) => {
-        draft.questions.fetchAttempted = true;
-        draft.questions.areLoading = true;
+        draft.studies.fetchAttempted = true;
+        draft.studies.areLoading = true;
       });
     }
-    case "QUESTION_FETCH_SUCCESS": {
+    case "STUDY_FETCH_SUCCESS": {
       return produce(state, (draft) => {
-        draft.questions.areLoading = false;
-        draft.questions.list = action.payload;
+        draft.studies.areLoading = false;
+        draft.studies.list = action.payload;
       });
     }
-    case "QUESTION_FETCH_FAILURE": {
+    case "STUDY_FETCH_FAILURE": {
       return produce(state, (draft) => {
-        draft.questions.areLoading = false;
-        draft.questions.apiError = action.payload;
+        draft.studies.areLoading = false;
+        draft.studies.apiError = action.payload;
       });
     }
-    case "QUESTION_CREATION_ENDED": {
+    case "INITIATE_STUDY_CREATION": {
       return produce(state, (draft) => {
-        draft.questions.areLoading = false;
+        draft.studies.areLoading = true;
+      });
+    }
+    case "STUDY_CREATION_ENDED": {
+      return produce(state, (draft) => {
+        draft.studies.areLoading = false;
         if (action.payload === null) return;
-        draft.questions.list.unshift(action.payload);
+        draft.studies.list.unshift(action.payload);
       });
     }
-    case 'INITIATE_QUESTION_UPDATE': {
+    case "INITIATE_STUDY_ASSIGNMENT_FETCH": {
       return produce(state, (draft) => {
-        draft.questions.areLoading = true;
+        draft.studyAssignments.fetchAttempted = true;
+        draft.studyAssignments.areLoading = true;
+      });
+    }
+    case "STUDY_ASSIGNMENT_FETCH_SUCCESS": {
+      return produce(state, (draft) => {
+        draft.studyAssignments.areLoading = false;
+        draft.studyAssignments.list = action.payload;
+      });
+    }
+    case "STUDY_ASSIGNMENT_FETCH_FAILURE": {
+      return produce(state, (draft) => {
+        draft.studyAssignments.areLoading = false;
+        draft.studyAssignments.apiError = action.payload;
+      });
+    }
+    case "INITIATE_STUDY_ASSIGNMENT_CREATION": {
+      return produce(state, (draft) => {
+        draft.studyAssignments.areLoading = true;
+      });
+    }
+    case "STUDY_ASSIGNMENT_CREATION_ENDED": {
+      return produce(state, (draft) => {
+        draft.studyAssignments.areLoading = false;
+        if (action.payload === null) return;
+        draft.studyAssignments.list.unshift(action.payload);
       });
     }
   }

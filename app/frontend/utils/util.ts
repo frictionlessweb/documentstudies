@@ -1,17 +1,22 @@
 import type {
   User,
   DocumentStudyDocument,
-  QuestionCreateRequest,
-  Question,
+  Study,
+  HasSchema,
+  AssignmentCreationRequest,
+  StudyAssignment,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
   SIGN_IN,
   SIGN_OUT,
   GET_ALL_DOCUMENTS,
-  GET_ALL_QUESTIONS,
   CREATE_DOCUMENTS,
-  CREATE_QUESTIONS,
+  CREATE_STUDY,
+  GET_ALL_STUDIES,
+  CREATE_STUDY_ASSIGNMENT,
+  GET_ALL_STUDY_ASSIGNMENTS,
+  GET_ASSIGNMENT_BY_ID,
 } from "@/utils/routes";
 
 /**
@@ -38,8 +43,14 @@ export const fetchAllDocuments = async (): Promise<DocumentStudyDocument[]> => {
   return HTTP.get(GET_ALL_DOCUMENTS);
 };
 
-export const fetchAllQuestions = async (): Promise<Question[]> => {
-  return HTTP.get(GET_ALL_QUESTIONS);
+export const fetchAllStudies = async (): Promise<Study[]> => {
+  return HTTP.get(GET_ALL_STUDIES);
+};
+
+export const fetchAllStudyAssignments = async (): Promise<
+  StudyAssignment[]
+> => {
+  return HTTP.get(GET_ALL_STUDY_ASSIGNMENTS);
 };
 
 export const createNewDocument = async (
@@ -55,7 +66,38 @@ export const createNewDocument = async (
   return res;
 };
 
-export const createQuestions = async (question: QuestionCreateRequest) => {
-  const res: Question[] = await HTTP.post(CREATE_QUESTIONS, question);
+export const createStudy = async (hasSchema: HasSchema) => {
+  const res: Study = await HTTP.post(CREATE_STUDY, hasSchema);
   return res;
+};
+
+export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
+  const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);
+  return res;
+};
+
+export const getAssignmentById = async (
+  id: string
+): Promise<StudyAssignment | null> => {
+  const url = new URL(GET_ASSIGNMENT_BY_ID, window.location.origin);
+  url.searchParams.append("assignment_id", id);
+  const apiUrl = url.toString();
+  try {
+    const res: StudyAssignment = await HTTP.get(apiUrl);
+    return res;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const downloadJson = (json: object) => {
+  const element = document.createElement("a");
+  const textFile = new Blob([JSON.stringify(json)], {
+    type: "text/plain",
+  });
+  element.href = URL.createObjectURL(textFile);
+  element.download = "annotations.json";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
 };

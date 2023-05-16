@@ -1,33 +1,37 @@
 import React from "react";
-import { Flex, Heading, Button } from "@adobe/react-spectrum";
-import { StudiesTable } from "@/components/Studies/StudiesTable";
+import { Flex, Heading } from "@adobe/react-spectrum";
 import { DocumentManager } from "@/components/DocumentManager";
-import { CREATE_STUDY } from "@/utils/routes";
-import { useLocation } from "wouter";
+import { StudyTable } from "@/components/StudyTable";
+import { CreateStudyButton } from "@/components/CreateStudyButton";
+import { StudyAssignmentTable } from "@/components/StudyAssignmentTable";
+import { CreateStudyAssignmentButton } from "@/components/CreateStudyAssignmentButton";
 
 export const StudiesOverview = () => {
-  const [_, setLocation] = useLocation();
-  const gotoCreateStudy = React.useCallback(() => {
-    setLocation(CREATE_STUDY);
-  }, [setLocation]);
   return (
-    <Flex>
-      <Flex direction="column" marginEnd="32px">
-        <Heading marginTop={0} level={2}>
-          Manage Studies
-        </Heading>
-        <StudiesTable />
-        <Flex>
-          <Button onPress={gotoCreateStudy} variant="accent">
-            Create Study
-          </Button>
-        </Flex>
-      </Flex>
-      <Flex direction="column">
+    <Flex wrap="wrap">
+      <Flex direction="column" marginEnd="16px">
         <Heading marginTop={0} level={2}>
           Manage Documents
         </Heading>
         <DocumentManager />
+      </Flex>
+      <Flex direction="column" marginEnd="16px">
+        <Heading marginTop={0} level={2}>
+          Manage Studies
+        </Heading>
+        <Flex marginBottom="16px" direction="column">
+          <StudyTable />
+        </Flex>
+        <CreateStudyButton />
+      </Flex>
+      <Flex direction="column">
+        <Heading marginTop={0} level={2}>
+          Manage Study Assignments
+        </Heading>
+        <Flex marginBottom="16px" direction="column">
+          <StudyAssignmentTable />
+        </Flex>
+        <CreateStudyAssignmentButton />
       </Flex>
     </Flex>
   );
