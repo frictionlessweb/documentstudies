@@ -1,6 +1,6 @@
 class Api::V1::PublicAssignmentsController < ApplicationController
   def by_id
-    assignment = StudyAssigment.find_by(id: by_id_params[:assignment_id])
+    assignment = StudyAssignment.find_by(id: by_id_params[:assignment_id])
     render json: assignment
   end
 

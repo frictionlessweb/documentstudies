@@ -16,6 +16,7 @@ import {
   GET_ALL_STUDIES,
   CREATE_STUDY_ASSIGNMENT,
   GET_ALL_STUDY_ASSIGNMENTS,
+  GET_ASSIGNMENT_BY_ID,
 } from "@/utils/routes";
 
 /**
@@ -46,9 +47,11 @@ export const fetchAllStudies = async (): Promise<Study[]> => {
   return HTTP.get(GET_ALL_STUDIES);
 };
 
-export const fetchAllStudyAssignments = async (): Promise<StudyAssignment[]> => {
+export const fetchAllStudyAssignments = async (): Promise<
+  StudyAssignment[]
+> => {
   return HTTP.get(GET_ALL_STUDY_ASSIGNMENTS);
-}
+};
 
 export const createNewDocument = async (
   file: File
@@ -71,6 +74,20 @@ export const createStudy = async (hasSchema: HasSchema) => {
 export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
   const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);
   return res;
+};
+
+export const getAssignmentById = async (
+  id: string
+): Promise<StudyAssignment | null> => {
+  const url = new URL(GET_ASSIGNMENT_BY_ID, window.location.origin);
+  url.searchParams.append("assignment_id", id);
+  const apiUrl = url.toString();
+  try {
+    const res: StudyAssignment = await HTTP.get(apiUrl);
+    return res;
+  } catch (err) {
+    return null;
+  }
 };
 
 export const downloadJson = (json: object) => {
