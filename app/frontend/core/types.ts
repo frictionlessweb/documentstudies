@@ -63,45 +63,36 @@ interface ContentV0DocumentHighlights {
   metadata: FlexibleSchema;
 }
 
+type GroupId = string;
+
 interface TaskTypeV0Base {
   id: string;
 }
-
-type GroupId = string;
 
 interface TaskTypeV0TextResponse extends TaskTypeV0Base {
   tag: "text_entry";
   response_options: string[];
   required: boolean;
-  choices: ContentV0TextResponse[];
-  selections: ContentV0DocumentHighlights[];
-  selection_indicies: Record<GroupId, number[]>;
+  content: Record<GroupId, ContentV0TextResponse[]>;
 }
 
 interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
   tag: "radio_group";
   response_options: string[];
   required: boolean;
-  choices: ContentV0RadioGroup[];
-  selections: ContentV0DocumentHighlights[];
-  selection_indicies: Record<GroupId, number[]>;
+  content: Record<GroupId, ContentV0RadioGroup[]>;
 }
 
 interface TaskTypeV0Collection extends TaskTypeV0Base {
   tag: "collection";
   instructions: string;
-  choices: ContentV0TaskTypeCollection[];
-  selections: ContentV0DocumentHighlights[];
-  selection_indicies: Record<GroupId, number[]>;
+  content: Record<GroupId, ContentV0TaskTypeCollection[]>;
 }
 
 interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
-  tag: 'highlights';
-  sample: number;
+  tag: "highlights";
   instructions: string;
-  choices: ContentV0DocumentHighlights[];
-  selections: ContentV0DocumentHighlights[];
-  selection_indicies: Record<GroupId, number[]>;
+  content: Record<string, ContentV0DocumentHighlights[]>;
 }
 
 type TaskTypeV0 =
@@ -130,5 +121,6 @@ export interface SchemaV0 {
   study_content: {
     pages: PageV0[];
     metadata: FlexibleSchema;
-  }
+  };
 }
+
