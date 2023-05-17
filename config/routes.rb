@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post 'create-questions', to: 'questions#create'
 
       get 'assignment-by-id', to: 'public_assignments#by_id'
+      put 'update-assignment', to: 'public_assignments#update'
     end
   end
 
