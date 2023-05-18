@@ -89,10 +89,10 @@ const CreateStudyAssignmentModal = (props: CreateStudyAssignmentModalProps) => {
             }}
             label="Study Group"
           >
-            {Object.keys(
+            {(
               studies.find((study) => study?.id === formState.study_id)?.schema
-                ?.groups || {}
-            ).map((group) => {
+                ?.groups || []
+            ).map((group: string) => {
               return <Item key={group}>{group}</Item>;
             })}
           </Picker>

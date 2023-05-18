@@ -47,11 +47,7 @@ export const StudyAssignmentTable = () => {
   if (apiError) return <ApiError />;
   if (areLoading) return <Loading />;
   return (
-    <TableView
-      aria-label="Example table with static contents"
-      selectionMode="multiple"
-      width="size-6000"
-    >
+    <TableView selectionMode="multiple" width="size-6000">
       <TableHeader>
         <Column>Study Name</Column>
         <Column>Group</Column>
