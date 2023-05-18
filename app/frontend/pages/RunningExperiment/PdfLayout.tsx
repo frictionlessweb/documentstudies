@@ -81,8 +81,8 @@ export const PdfLayout = (props: LayoutProps) => {
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
   return (
-    <Flex width="100%">
-      <Flex width="60%">
+    <Flex width="100%" height="100%">
+      <Flex width="60%" height="100%">
         <EmbedApi url={pdfUrl} />
       </Flex>
       <Flex width="40%">
