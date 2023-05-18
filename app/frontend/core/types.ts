@@ -100,12 +100,12 @@ type TaskTypeV0 =
   | TaskTypeV0Collection
   | TaskTypeV0DocumentHighlights;
 
-interface TaskV0 {
+export interface TaskV0 {
   id: string;
   type: TaskTypeV0;
 }
 
-interface PageV0 {
+export interface PageV0 {
   id: string;
   instructions: string;
   page_layout: "text_layout" | "pdf_layout";
@@ -114,7 +114,7 @@ interface PageV0 {
 }
 
 export interface SchemaV0 {
-  schema: "v0";
+  schema_version: "v0";
   metadata: {
     name: string;
     [otherKey: string]: unknown;

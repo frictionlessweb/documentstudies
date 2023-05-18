@@ -17,6 +17,7 @@ import {
   CREATE_STUDY_ASSIGNMENT,
   GET_ALL_STUDY_ASSIGNMENTS,
   GET_ASSIGNMENT_BY_ID,
+  GET_DOCUMENT_URL,
 } from "@/utils/routes";
 
 /**
@@ -88,6 +89,16 @@ export const getAssignmentById = async (
   } catch (err) {
     return null;
   }
+};
+
+export const getDocumentByName = async (
+  name: string
+): Promise<{ url: string }> => {
+  const url = new URL(GET_DOCUMENT_URL, window.location.origin);
+  url.searchParams.append("document_name", name);
+  const apiUrl = url.toString();
+  const res: { url: string } = await HTTP.get(apiUrl);
+  return res;
 };
 
 export const downloadJson = (json: object) => {

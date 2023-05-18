@@ -18,3 +18,5 @@ export const CREATE_STUDY = "/api/v1/create-study";
 export const CREATE_STUDY_ASSIGNMENT = "/api/v1/create-study-assignment";
 export const GET_ALL_STUDY_ASSIGNMENTS = "/api/v1/all-study-assignments";
 export const GET_ASSIGNMENT_BY_ID = "/api/v1/assignment-by-id";
+
+export const GET_DOCUMENT_URL = "/api/v1/document-by-name";

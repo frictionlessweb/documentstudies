@@ -1,11 +1,14 @@
 import React from "react";
 import { Loading } from "@/components/Loading";
-import type { StudyAssignment } from "@/core/types";
+import type { SchemaV0, StudyAssignment } from "@/core/types";
 import { Flex, Text } from "@adobe/react-spectrum";
 import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
+import { BadSchema } from "@/pages/BadSchema";
+import { StudyProvider } from "@/components/Providers/StudyV0SubmissionProvider";
 import { NotFound } from "../NotFound";
 import { getAssignmentById } from "@/utils/util";
+import { V0Experiment } from '@/pages/RunningExperiment/V0Experiment';
 
 interface AssignmentState {
   fetchAttempted: boolean;
@@ -79,11 +82,16 @@ export const RunningExperiment = () => {
   if (assignment.assignment === null) {
     return <NotFound />;
   }
+  const {
+    assignment: { results: schema },
+  } = assignment;
+  const isBadSchema = schema.schema_version !== "v0";
+  if (isBadSchema) {
+    return <BadSchema />;
+  }
   return (
-    <Flex direction="column" marginTop="16px" width="100%" alignItems="center">
-      <Flex maxWidth="600px">
-        <Text>{JSON.stringify(assignment.assignment)}</Text>
-      </Flex>
-    </Flex>
+    <StudyProvider schema={schema as SchemaV0}>
+      <V0Experiment />
+    </StudyProvider>
   );
 };
