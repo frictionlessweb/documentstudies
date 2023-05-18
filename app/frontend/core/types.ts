@@ -123,4 +123,5 @@ export interface SchemaV0 {
     pages: PageV0[];
     metadata: FlexibleSchema;
   };
+  page_index: number;
 }
