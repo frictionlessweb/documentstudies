@@ -15,7 +15,7 @@ class Api::V1::StudyAssignmentsController < ApplicationController
 
   def create
     study = Study.find(create_params[:study_id])
-    assignment = StudyAssignment.create!(study_id: create_params[:study_id], group: create_params[:group],
+    assignment = StudyAssignment.create!(study:, group: create_params[:group],
                                          results: study.schema)
     render json: {
       id: assignment.id.to_s,

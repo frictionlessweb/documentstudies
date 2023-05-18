@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_16_144348) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_133748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_144348) do
   end
 
   create_table "study_assignments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.bigint "study_id", null: false
+    t.uuid "study_id", null: false
     t.string "group", null: false
     t.json "results", null: false
     t.index ["study_id"], name: "index_study_assignments_on_study_id"

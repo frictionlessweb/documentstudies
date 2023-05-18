@@ -9,7 +9,7 @@ class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
     sign_in susan
     post '/api/v1/create-study', params: { schema: { x: 3 } }
     study_id = (JSON.parse @response.body)['id']
-    post '/api/v1/create-study-assignment', params: { study_id:, group: 'test', schema: { x: 4 } }
+    post '/api/v1/create-study-assignment', params: { study_id: study_id, group: 'test', schema: { x: 4 } }
     assignment_id = (JSON.parse @response.body)['id']
     sign_out susan
     put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 } }

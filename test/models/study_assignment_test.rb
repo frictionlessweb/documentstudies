@@ -4,7 +4,7 @@ class StudyAssignmentTest < ActiveSupport::TestCase
   test 'Has a required fields - Active record' do
     study = StudyAssignment.new
     assert_not study.save
-    assert_equal(["Group can't be blank", "Results can't be blank"], study.errors.to_a)
+    assert_equal(["Group can't be blank", "Results can't be blank", "Study must exist"], study.errors.to_a)
   end
   test 'Has a name - database' do
     study = StudyAssignment.new
