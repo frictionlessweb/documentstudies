@@ -6,7 +6,7 @@ class Api::V1::PublicAssignmentsController < ApplicationController
 
   def read_document
     doc = Document.find_by(name: document_name_params[:document_name])
-    render json: { url: doc.file.blob.url } # rails_blob_url(doc.file.blob) }
+    render json: { url: rails_blob_url(doc.file.blob) }
   end
 
   def update
