@@ -65,35 +65,33 @@ interface ContentV0DocumentHighlights {
 
 type GroupId = string;
 
-interface TaskTypeV0Base {
+interface TaskTypeV0Base<Tag extends string, Content> {
   id: string;
-}
-
-interface TaskTypeV0TextResponse extends TaskTypeV0Base {
-  tag: "text_entry";
+  tag: Tag;
   response_options: string[];
   required: boolean;
-  content: Record<GroupId, ContentV0TextResponse[]>;
+  content: Record<GroupId, Content[]>;
 }
 
-interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
-  tag: "radio_group";
-  response_options: string[];
-  required: boolean;
-  content: Record<GroupId, ContentV0RadioGroup[]>;
-}
+type TaskTypeV0TextResponse = TaskTypeV0Base<
+  "text_entry",
+  ContentV0TextResponse[]
+>;
 
-interface TaskTypeV0Collection extends TaskTypeV0Base {
-  tag: "collection";
-  instructions: string;
-  content: Record<GroupId, ContentV0TaskTypeCollection[]>;
-}
+type TaskTypeV0RadioGroup = TaskTypeV0Base<
+  "radio_group",
+  ContentV0RadioGroup[]
+>;
 
-interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
-  tag: "highlights";
-  instructions: string;
-  content: Record<string, ContentV0DocumentHighlights[]>;
-}
+type TaskTypeV0Collection = TaskTypeV0Base<
+  "radio_group",
+  ContentV0TaskTypeCollection[]
+>;
+
+type TaskTypeV0DocumentHighlights = TaskTypeV0Base<
+  "highlights",
+  ContentV0DocumentHighlights[]
+>;
 
 type TaskTypeV0 =
   | TaskTypeV0TextResponse
@@ -123,4 +121,3 @@ export interface SchemaV0 {
     metadata: FlexibleSchema;
   };
 }
-
