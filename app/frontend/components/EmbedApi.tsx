@@ -10,11 +10,6 @@ declare global {
   }
 }
 
-interface HasIdAndText {
-  id: string;
-  [data: string]: unknown;
-}
-
 interface AdobeEvent {
   type: string;
   data: unknown;
@@ -83,14 +78,15 @@ export const EmbedApi = (props: EmbedApiProps) => {
         preview.getAnnotationManager(),
         preview.getAPIs(),
       ]);
+      const manager: Manager = directManager;
       await view.registerCallback(
         window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
-        async (event: any) => {
+        async (event: AdobeEvent) => {
           switch (event.type) {
             case "ANNOTATION_ADDED": {
               const added = event as AdobeAnnotationAddedEvent;
               console.log("added is ", added);
-              console.log("directManager is", directManager);
+              console.log("manager is", manager);
               break;
             }
             case "ANNOTATION_DELETED": {

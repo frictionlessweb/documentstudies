@@ -1,9 +1,9 @@
 import React from "react";
-import { PageV0 } from "@/core/types";
 import { LayoutProps } from "@/pages/RunningExperiment/types";
 import { Loading } from "@/components/Loading";
 import { ApiError } from "@/components/ApiError";
-import { EmbedApi } from '@/components/EmbedApi';
+import { EmbedApi } from "@/components/EmbedApi";
+import { CurrentTask } from "@/pages/RunningExperiment/CurrentTask";
 import { getDocumentByName } from "@/utils/util";
 import { Flex } from "@adobe/react-spectrum";
 
@@ -86,7 +86,7 @@ export const PdfLayout = (props: LayoutProps) => {
         <EmbedApi url={pdfUrl} />
       </Flex>
       <Flex width="40%">
-        <p>test</p>
+        <CurrentTask />
       </Flex>
     </Flex>
   );

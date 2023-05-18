@@ -69,26 +69,26 @@ interface TaskTypeV0Base {
   id: string;
 }
 
-interface TaskTypeV0TextResponse extends TaskTypeV0Base {
+export interface TaskTypeV0TextResponse extends TaskTypeV0Base {
   tag: "text_entry";
   required: boolean;
   content: Record<GroupId, ContentV0TextResponse[]>;
 }
 
-interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
+export interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
   tag: "radio_group";
   response_options: string[];
   required: boolean;
   content: Record<GroupId, ContentV0RadioGroup[]>;
 }
 
-interface TaskTypeV0Collection extends TaskTypeV0Base {
+export interface TaskTypeV0Collection extends TaskTypeV0Base {
   tag: "collection";
   instructions: string;
   content: Record<GroupId, ContentV0TaskTypeCollection[]>;
 }
 
-interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
+export interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
   tag: "highlights";
   instructions: string;
   content: Record<string, ContentV0DocumentHighlights[]>;
@@ -111,6 +111,7 @@ export interface PageV0 {
   page_layout: "text_layout" | "pdf_layout";
   pdf_document: string;
   tasks: TaskV0[];
+  task_index: number;
 }
 
 export interface SchemaV0 {
