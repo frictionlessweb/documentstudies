@@ -3,9 +3,8 @@ import { LayoutProps } from "@/pages/RunningExperiment/types";
 import { Loading } from "@/components/Loading";
 import { ApiError } from "@/components/ApiError";
 import { EmbedApi } from "@/components/EmbedApi";
-import { CurrentTask } from "@/pages/RunningExperiment/CurrentTask";
 import { getDocumentByName } from "@/utils/util";
-import { Flex } from "@adobe/react-spectrum";
+import { Flex, Heading } from "@adobe/react-spectrum";
 
 type FetchPdfResult =
   | {
@@ -76,7 +75,7 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
 };
 
 export const PdfLayout = (props: LayoutProps) => {
-  const { page } = props;
+  const { page, children } = props;
   const { isLoading, error, pdfUrl } = useFetchPdf(page.pdf_document);
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
@@ -85,8 +84,9 @@ export const PdfLayout = (props: LayoutProps) => {
       <Flex width="60%" height="100%">
         <EmbedApi url={pdfUrl} />
       </Flex>
-      <Flex width="40%">
-        <CurrentTask />
+      <Flex marginStart="32px" width="40%" direction="column">
+        <Heading level={3}>TASKS</Heading>
+        {children}
       </Flex>
     </Flex>
   );

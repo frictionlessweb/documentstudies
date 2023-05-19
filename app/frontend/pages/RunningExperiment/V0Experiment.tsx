@@ -11,7 +11,8 @@ import { Page } from "@/pages/RunningExperiment/Page";
 export const V0Experiment = () => {
   const { pageIndex, pages } = useStudy((study) => {
     const pageIndex = study.page_index;
-    const pages = study.study_content.pages;
+    const group = study.group;
+    const pages = study.content[group]!.pages;
     return { pageIndex, pages };
   });
   const page = pages[pageIndex];
