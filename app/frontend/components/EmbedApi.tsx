@@ -1,4 +1,10 @@
 import React from "react";
+import {
+  useSetStudy,
+  useStudy,
+} from "@/components/Providers/StudyV0SubmissionProvider";
+import { produce } from "immer";
+import { TaskTypeV0DocumentHighlights } from "@/core/types";
 
 interface EmbedApiProps {
   url: string;
@@ -55,6 +61,10 @@ interface Manager {
 }
 
 export const EmbedApi = (props: EmbedApiProps) => {
+  const curPage = useStudy((study) => {
+    return study.page_index;
+  });
+  const setStudy = useSetStudy();
   const { url } = props;
   React.useEffect(() => {
     const renderPdf = async () => {
@@ -85,14 +95,32 @@ export const EmbedApi = (props: EmbedApiProps) => {
           switch (event.type) {
             case "ANNOTATION_ADDED": {
               const added = event as AdobeAnnotationAddedEvent;
-              console.log("added is ", added);
-              console.log("manager is", manager);
+              setStudy((ctx) => {
+                return produce(ctx, (study) => {
+                  const { pages } = study.content[study.group]!;
+                  const currentPage = pages[curPage]!;
+                  const currentTask = currentPage.tasks[0]!;
+                  if (currentTask.type.tag !== "highlights") return;
+                  currentTask.type.user_response.push(added.data);
+                });
+              });
               break;
             }
             case "ANNOTATION_DELETED": {
               const deleted = event as AdobeAnnotationDeletedEvent;
-              console.log("deleted is", deleted);
-              break;
+              setStudy((ctx) => {
+                return produce(ctx, (study) => {
+                  const { pages } = study.content[study.group]!;
+                  const currentPage = pages[curPage]!;
+                  const currentTask = currentPage.tasks[0]!;
+                  if (currentTask.type.tag !== "highlights") return;
+                  const currentHighlights = currentTask.type.user_response;
+                  const newHighlights = currentHighlights.filter(
+                    (highlight) => highlight.id !== deleted.data.id
+                  );
+                  currentTask.type.user_response = newHighlights;
+                });
+              });
             }
           }
         },
@@ -104,6 +132,6 @@ export const EmbedApi = (props: EmbedApiProps) => {
       );
     };
     renderPdf();
-  }, [url]);
+  }, [url, curPage, setStudy]);
   return <div style={{ height: "80vh", width: "100%" }} id={PDF_ID} />;
 };

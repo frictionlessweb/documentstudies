@@ -5,7 +5,7 @@ import { ApiError } from "@/components/ApiError";
 import { EmbedApi } from "@/components/EmbedApi";
 import { CurrentTask } from "@/pages/RunningExperiment/CurrentTask";
 import { getDocumentByName } from "@/utils/util";
-import { Flex } from "@adobe/react-spectrum";
+import { Flex, Heading } from "@adobe/react-spectrum";
 
 type FetchPdfResult =
   | {
@@ -86,6 +86,7 @@ export const PdfLayout = (props: LayoutProps) => {
         <EmbedApi url={pdfUrl} />
       </Flex>
       <Flex marginStart="32px" width="40%" direction="column">
+        <Heading level={3}>TASKS</Heading>
         {children}
       </Flex>
     </Flex>
