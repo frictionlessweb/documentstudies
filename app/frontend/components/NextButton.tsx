@@ -13,13 +13,17 @@ const isUnfinished = (task: TaskV0): boolean => {
       if (!task.type.required) return false;
       return task.type.user_response === "";
     }
+    case "highlights": {
+      const numResponses = task.type.user_response.length;
+      const isBetween =
+        numResponses >= task.type.min_number &&
+        numResponses <= task.type.max_number;
+      return !isBetween;
+    }
     case "radio_group": {
       return false;
     }
     case "collection": {
-      return false;
-    }
-    case "highlights": {
       return false;
     }
   }
