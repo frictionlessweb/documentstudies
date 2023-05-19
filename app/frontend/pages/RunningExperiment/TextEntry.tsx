@@ -10,12 +10,13 @@ import { NextButton } from "@/components/NextButton";
 
 interface TextEntryProps {
   taskType: TaskTypeV0TextResponse;
+  taskIndex: number;
 }
 
 export const TextEntry = (props: TextEntryProps) => {
   const group = useStudy((study) => study.group);
   const setStudy = useSetStudy();
-  const { taskType } = props;
+  const { taskType, taskIndex } = props;
   return (
     <Flex direction="column">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
@@ -25,7 +26,7 @@ export const TextEntry = (props: TextEntryProps) => {
             return produce(prev, (study) => {
               const { pages } = study.content[study.group]!;
               const currentPage = pages[study.page_index]!;
-              const currentTask = currentPage.tasks[currentPage.task_index]!;
+              const currentTask = currentPage.tasks[taskIndex]!;
               const currentType = currentTask.type as TaskTypeV0TextResponse;
               currentType.user_response = s;
             });

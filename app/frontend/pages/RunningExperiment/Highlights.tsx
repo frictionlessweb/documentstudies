@@ -4,6 +4,7 @@ import { Flex } from "@adobe/react-spectrum";
 
 interface HighlightsProps {
   taskType: TaskTypeV0DocumentHighlights;
+  taskIndex: number;
 }
 
 export const Highlights = (props: HighlightsProps) => {

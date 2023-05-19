@@ -4,6 +4,7 @@ import { TaskTypeV0Collection } from "@/core/types";
 
 interface TaskCollectionProps {
   taskType: TaskTypeV0Collection;
+  taskIndex: number;
 }
 
 export const Collection = (props: TaskCollectionProps) => {

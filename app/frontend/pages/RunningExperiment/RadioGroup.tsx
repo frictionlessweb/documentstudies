@@ -4,6 +4,7 @@ import { TaskTypeV0RadioGroup } from "@/core/types";
 
 interface RadioGroupProps {
   taskType: TaskTypeV0RadioGroup;
+  taskIndex: number;
 }
 
 export const RadioGroup = (props: RadioGroupProps) => {

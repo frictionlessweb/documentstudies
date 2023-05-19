@@ -7,22 +7,23 @@ import { TaskTypeV0 } from "@/core/types";
 
 interface CurrentTaskProps {
   taskType: TaskTypeV0;
+  taskIndex: number;
 }
 
 export const TaskType = (props: CurrentTaskProps) => {
-  const { taskType } = props;
+  const { taskType, taskIndex } = props;
   switch (taskType.tag) {
     case "text_entry": {
-      return <TextEntry taskType={taskType} />;
+      return <TextEntry taskIndex={taskIndex} taskType={taskType} />;
     }
     case "radio_group": {
-      return <RadioGroup taskType={taskType} />;
+      return <RadioGroup taskIndex={taskIndex}  taskType={taskType} />;
     }
     case "collection": {
-      return <Collection taskType={taskType} />;
+      return <Collection taskIndex={taskIndex}   taskType={taskType} />;
     }
     case "highlights": {
-      return <Highlights taskType={taskType} />;
+      return <Highlights taskIndex={taskIndex}   taskType={taskType} />;
     }
   }
 };

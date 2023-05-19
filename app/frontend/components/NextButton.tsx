@@ -1,13 +1,17 @@
 import React from "react";
 import { Flex, Button } from "@adobe/react-spectrum";
-import { useSetStudy, useStudy } from "@/components/Providers/StudyV0SubmissionProvider";
+import {
+  useSetStudy,
+  useStudy,
+} from "@/components/Providers/StudyV0SubmissionProvider";
 import { produce } from "immer";
 import { TaskV0 } from "@/core/types";
 
 const isUnfinished = (task: TaskV0): boolean => {
   switch (task.type.tag) {
     case "text_entry": {
-      return false;
+      if (!task.type.required) return false;
+      return task.type.user_response === "";
     }
     case "radio_group": {
       return false;

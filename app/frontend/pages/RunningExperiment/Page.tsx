@@ -19,8 +19,8 @@ export const Page = (props: PageProps) => {
   const Layout = LAYOUT_MAP[page.page_layout];
   return (
     <Layout page={page}>
-      {page.tasks.map((task) => {
-        return <TaskType key={task.id} taskType={task.type} />;
+      {page.tasks.map((task, taskIndex) => {
+        return <TaskType key={task.id} taskIndex={taskIndex} taskType={task.type} />;
       })}
       <NextButton />
     </Layout>
