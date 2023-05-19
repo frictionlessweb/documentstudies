@@ -3,7 +3,6 @@ import { LayoutProps } from "@/pages/RunningExperiment/types";
 import { Loading } from "@/components/Loading";
 import { ApiError } from "@/components/ApiError";
 import { EmbedApi } from "@/components/EmbedApi";
-import { CurrentTask } from "@/pages/RunningExperiment/CurrentTask";
 import { getDocumentByName } from "@/utils/util";
 import { Flex, Heading } from "@adobe/react-spectrum";
 
