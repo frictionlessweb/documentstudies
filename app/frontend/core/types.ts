@@ -91,7 +91,6 @@ export interface PageV0 {
   page_layout: "text_layout" | "pdf_layout";
   pdf_document: string;
   tasks: TaskV0[];
-  task_index: number;
 }
 
 export interface SchemaV0 {
