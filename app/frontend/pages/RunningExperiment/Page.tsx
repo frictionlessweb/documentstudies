@@ -2,6 +2,8 @@ import React from "react";
 import { PageV0 } from "@/core/types";
 import { TextLayout } from "@/pages/RunningExperiment/TextLayout";
 import { PdfLayout } from "@/pages/RunningExperiment/PdfLayout";
+import { TaskType } from "@/pages/RunningExperiment/TaskType";
+import { NextButton } from "@/components/NextButton";
 
 interface PageProps {
   page: PageV0;
@@ -17,7 +19,10 @@ export const Page = (props: PageProps) => {
   const Layout = LAYOUT_MAP[page.page_layout];
   return (
     <Layout page={page}>
-      <h1>hi</h1>
+      {page.tasks.map((task) => {
+        return <TaskType key={task.id} taskType={task.type} />;
+      })}
+      <NextButton />
     </Layout>
   );
 };

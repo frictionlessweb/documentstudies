@@ -76,7 +76,7 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
 };
 
 export const PdfLayout = (props: LayoutProps) => {
-  const { page } = props;
+  const { page, children } = props;
   const { isLoading, error, pdfUrl } = useFetchPdf(page.pdf_document);
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
@@ -85,8 +85,8 @@ export const PdfLayout = (props: LayoutProps) => {
       <Flex width="60%" height="100%">
         <EmbedApi url={pdfUrl} />
       </Flex>
-      <Flex width="40%">
-        <CurrentTask />
+      <Flex marginStart="32px" width="40%" direction="column">
+        {children}
       </Flex>
     </Flex>
   );

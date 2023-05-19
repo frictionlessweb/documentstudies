@@ -34,35 +34,6 @@ export interface AssignmentCreationRequest {
   group: string;
 }
 
-interface ContentV0Base {
-  instructions: string;
-}
-
-interface ContentV0TextResponse extends ContentV0Base {
-  user_response: string;
-  default_response: string;
-  metadata: FlexibleSchema;
-}
-
-interface ContentV0RadioGroup extends ContentV0Base {
-  user_response: string;
-  metadata: FlexibleSchema;
-}
-
-interface ContentV0TaskTypeCollection {
-  tasks: TaskV0[];
-  metadata: FlexibleSchema;
-  task_collection_index: number;
-}
-
-interface ContentV0DocumentHighlights {
-  instructions: string;
-  user_response: FlexibleSchema[];
-  min_number: number;
-  max_number: number;
-  metadata: FlexibleSchema;
-}
-
 type GroupId = string;
 
 interface TaskTypeV0Base {
@@ -71,30 +42,39 @@ interface TaskTypeV0Base {
 
 export interface TaskTypeV0TextResponse extends TaskTypeV0Base {
   tag: "text_entry";
+  instructions: string;
   required: boolean;
-  content: Record<GroupId, ContentV0TextResponse[]>;
+  user_response: string;
+  default_response: string;
+  metadata: FlexibleSchema;
 }
 
 export interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
   tag: "radio_group";
   response_options: string[];
   required: boolean;
-  content: Record<GroupId, ContentV0RadioGroup[]>;
+  user_response: string;
+  metadata: FlexibleSchema;
 }
 
 export interface TaskTypeV0Collection extends TaskTypeV0Base {
   tag: "collection";
   instructions: string;
-  content: Record<GroupId, ContentV0TaskTypeCollection[]>;
+  tasks: TaskV0[];
+  metadata: FlexibleSchema;
+  task_collection_index: number;
 }
 
 export interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
   tag: "highlights";
   instructions: string;
-  content: Record<string, ContentV0DocumentHighlights[]>;
+  user_response: FlexibleSchema[];
+  min_number: number;
+  max_number: number;
+  metadata: FlexibleSchema;
 }
 
-type TaskTypeV0 =
+export type TaskTypeV0 =
   | TaskTypeV0TextResponse
   | TaskTypeV0RadioGroup
   | TaskTypeV0Collection
@@ -120,9 +100,7 @@ export interface SchemaV0 {
     name: string;
     [otherKey: string]: unknown;
   };
-  study_content: {
-    pages: PageV0[];
-    metadata: FlexibleSchema;
-  };
+  content: Record<GroupId, { pages: PageV0[] }>;
   page_index: number;
+  group: string;
 }

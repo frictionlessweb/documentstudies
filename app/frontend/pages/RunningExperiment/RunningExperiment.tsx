@@ -8,7 +8,7 @@ import { BadSchema } from "@/pages/BadSchema";
 import { StudyProvider } from "@/components/Providers/StudyV0SubmissionProvider";
 import { NotFound } from "../NotFound";
 import { getAssignmentById } from "@/utils/util";
-import { V0Experiment } from '@/pages/RunningExperiment/V0Experiment';
+import { V0Experiment } from "@/pages/RunningExperiment/V0Experiment";
 
 interface AssignmentState {
   fetchAttempted: boolean;
@@ -90,7 +90,9 @@ export const RunningExperiment = () => {
     return <BadSchema />;
   }
   return (
-    <StudyProvider schema={schema as SchemaV0}>
+    <StudyProvider
+      schema={{ ...schema, group: assignment.assignment.group } as SchemaV0}
+    >
       <V0Experiment />
     </StudyProvider>
   );
