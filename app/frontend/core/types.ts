@@ -51,6 +51,7 @@ export interface TaskTypeV0TextResponse extends TaskTypeV0Base {
 
 export interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
   tag: "radio_group";
+  instructions: string;
   response_options: string[];
   required: boolean;
   user_response: string;
