@@ -2,11 +2,10 @@ import React from "react";
 import { Flex, TextArea } from "@adobe/react-spectrum";
 import { TaskTypeV0TextResponse } from "@/core/types";
 import {
-  useSetStudy,
   useStudy,
+  useSetStudy,
 } from "@/components/Providers/StudyV0SubmissionProvider";
 import { produce } from "immer";
-import { NextButton } from "@/components/NextButton";
 
 interface TextEntryProps {
   taskType: TaskTypeV0TextResponse;
@@ -14,9 +13,21 @@ interface TextEntryProps {
 }
 
 export const TextEntry = (props: TextEntryProps) => {
-  const group = useStudy((study) => study.group);
-  const setStudy = useSetStudy();
   const { taskType, taskIndex } = props;
+  const setStudy = useSetStudy();
+  const value = useStudy((study) => {
+    const { pages } = study.content[study.group]!;
+    const currentPage = pages[study.page_index]!;
+    const currentTask = currentPage.tasks[taskIndex]!;
+    const currentType = currentTask.type;
+    if (currentType.tag === "text_entry") {
+      return currentType.user_response;
+    } else if (currentType.tag === "collection") {
+      const theTask = currentType.tasks[currentType.task_collection_index]!;
+      const theTaskType = theTask.type as TaskTypeV0TextResponse;
+      return theTaskType.user_response;
+    }
+  });
   return (
     <Flex direction="column">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
@@ -27,12 +38,20 @@ export const TextEntry = (props: TextEntryProps) => {
               const { pages } = study.content[study.group]!;
               const currentPage = pages[study.page_index]!;
               const currentTask = currentPage.tasks[taskIndex]!;
-              const currentType = currentTask.type as TaskTypeV0TextResponse;
-              currentType.user_response = s;
+              const currentType = currentTask.type;
+
+              if (currentType.tag === "text_entry") {
+                currentType.user_response = s;
+              } else if (currentType.tag === "collection") {
+                const theTask =
+                  currentType.tasks[currentType.task_collection_index]!;
+                const theTaskType = theTask.type as TaskTypeV0TextResponse;
+                theTaskType.user_response = s;
+              }
             });
           });
         }}
-        value={taskType.user_response}
+        value={value}
         marginBottom="16px"
       />
     </Flex>

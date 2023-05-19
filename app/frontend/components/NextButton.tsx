@@ -25,7 +25,7 @@ const isUnfinished = (task: TaskV0): boolean => {
       return !isBetween;
     }
     case "collection": {
-      return false;
+      return task.type.tasks.some((subtask) => isUnfinished(subtask));
     }
   }
 };
