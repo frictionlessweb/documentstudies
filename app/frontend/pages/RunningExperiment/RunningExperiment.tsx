@@ -1,7 +1,7 @@
 import React from "react";
 import { Loading } from "@/components/Loading";
 import type { SchemaV0, StudyAssignment } from "@/core/types";
-import { Flex, Text } from "@adobe/react-spectrum";
+import { Flex } from "@adobe/react-spectrum";
 import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
 import { BadSchema } from "@/pages/BadSchema";
