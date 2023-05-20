@@ -15,7 +15,7 @@ class Api::V1::PublicAssignmentsController < ApplicationController
   end
 
   def create
-    assignment = Study.find(create_params[:study_id]).next_assignment
+    assignment = Study.find(study_id_params[:study_id]).next_assignment
     render json: {
       id: assignment.id.to_s,
       study_id: assignment.study_id.to_s,
@@ -42,10 +42,6 @@ class Api::V1::PublicAssignmentsController < ApplicationController
 
   def by_id_params
     params.permit(:assignment_id)
-  end
-
-  def create_params
-    params.permit(:study_id)
   end
 
   def study_id_params
