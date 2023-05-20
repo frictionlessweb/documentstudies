@@ -5,6 +5,7 @@ import type {
   HasSchema,
   AssignmentCreationRequest,
   StudyAssignment,
+  SchemaV0,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
@@ -15,10 +16,17 @@ import {
   CREATE_STUDY,
   GET_ALL_STUDIES,
   CREATE_STUDY_ASSIGNMENT,
+  CREATE_STUDY_ASSIGNMENT_PUBLIC,
   GET_ALL_STUDY_ASSIGNMENTS,
   GET_ASSIGNMENT_BY_ID,
   GET_DOCUMENT_URL,
+  GET_STUDY_URL,
+  UPDATE_ASSIGNMENT,
 } from "@/utils/routes";
+
+export const pickRandom = <T>(items: T[]): T => {
+  return items[Math.floor(Math.random() * items.length)]!;
+};
 
 /**
  * See app/views/layouts/application.html.erb - we load these variablers onto
@@ -91,6 +99,17 @@ export const getAssignmentById = async (
   }
 };
 
+export const createAssignmentFromStudy = async (study: Study) => {
+  const req = {
+    study_id: study.id,
+  };
+  const res: StudyAssignment = await HTTP.post(
+    CREATE_STUDY_ASSIGNMENT_PUBLIC,
+    req
+  );
+  return res;
+};
+
 export const getDocumentByName = async (
   name: string
 ): Promise<{ url: string }> => {
@@ -98,6 +117,25 @@ export const getDocumentByName = async (
   url.searchParams.append("document_name", name);
   const apiUrl = url.toString();
   const res: { url: string } = await HTTP.get(apiUrl);
+  return res;
+};
+
+export const getStudyById = async (id: string): Promise<Study> => {
+  const url = new URL(GET_STUDY_URL, window.location.origin);
+  url.searchParams.append("study_id", id);
+  const apiUrl = url.toString();
+  const res = await HTTP.get(apiUrl);
+  return res as Study;
+};
+
+export const updateAssignment = async (
+  assignmentId: string,
+  results: SchemaV0
+) => {
+  const res: StudyAssignment = await HTTP.put(UPDATE_ASSIGNMENT, {
+    assignment_id: assignmentId,
+    results,
+  });
   return res;
 };
 

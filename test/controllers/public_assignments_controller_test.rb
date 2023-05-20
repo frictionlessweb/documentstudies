@@ -2,14 +2,24 @@ require 'test_helper'
 
 class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
-  ActiveStorage::Current.url_options = { host: 'https://www.example.com' }
+
+  test 'We can get a study by name' do
+    susan = Admin.find_by(name: 'Susan')
+    sign_in susan
+    post '/api/v1/create-study', params: { schema: { x: 3 } }
+    study_id = (JSON.parse @response.body)['id']
+    sign_out susan
+    get '/api/v1/study-by-id', params: { study_id: }
+    assert_response :success
+    assert_equal study_id, (JSON.parse @response.body)['id']
+  end
 
   test 'We can update a study' do
     susan = Admin.find_by(name: 'Susan')
     sign_in susan
     post '/api/v1/create-study', params: { schema: { x: 3 } }
     study_id = (JSON.parse @response.body)['id']
-    post '/api/v1/create-study-assignment', params: { study_id: study_id, group: 'test', schema: { x: 4 } }
+    post '/api/v1/create-study-assignment', params: { study_id:, group: 'test', schema: { x: 4 } }
     assignment_id = (JSON.parse @response.body)['id']
     sign_out susan
     put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 } }

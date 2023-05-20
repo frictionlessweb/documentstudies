@@ -1,7 +1,7 @@
 import React from "react";
 import { Loading } from "@/components/Loading";
 import type { SchemaV0, StudyAssignment } from "@/core/types";
-import { Flex, Text } from "@adobe/react-spectrum";
+import { Flex } from "@adobe/react-spectrum";
 import { produce } from "immer";
 import { ApiError } from "@/components/ApiError";
 import { BadSchema } from "@/pages/BadSchema";
@@ -63,7 +63,7 @@ const useFetchAssignment = (): AssignmentState => {
   return assignmentState;
 };
 
-export const RunningExperiment = () => {
+const NewExperiment = () => {
   const assignment = useFetchAssignment();
   if (assignment.loading) {
     return (
@@ -96,4 +96,27 @@ export const RunningExperiment = () => {
       <V0Experiment />
     </StudyProvider>
   );
+};
+
+interface OldExperimentProps {
+  schema: SchemaV0;
+}
+
+const OldExperiment = (props: OldExperimentProps) => {
+  const { schema } = props;
+  return (
+    <StudyProvider schema={schema}>
+      <V0Experiment />
+    </StudyProvider>
+  );
+};
+
+export const RunningExperiment = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const assignmentId = urlParams.get("assignment_id");
+  if (assignmentId === null) return <NotFound />;
+  const storedSchema = window.localStorage.getItem(assignmentId);
+  if (storedSchema === null) return <NewExperiment />;
+  const schema = JSON.parse(storedSchema);
+  return <OldExperiment schema={schema} />;
 };

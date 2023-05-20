@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_18_133748) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_184543) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -80,6 +80,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_18_133748) do
     t.uuid "study_id", null: false
     t.string "group", null: false
     t.json "results", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["study_id"], name: "index_study_assignments_on_study_id"
   end
 

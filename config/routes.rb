@@ -19,6 +19,8 @@ Rails.application.routes.draw do
       get 'assignment-by-id', to: 'public_assignments#by_id'
       put 'update-assignment', to: 'public_assignments#update'
       get 'document-by-name', to: 'public_assignments#read_document'
+      get 'study-by-id', to: 'public_assignments#study_by_id'
+      post 'create-study-assignment-public', to: 'public_assignments#create'
     end
   end
 

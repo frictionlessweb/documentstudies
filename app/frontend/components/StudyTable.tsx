@@ -43,7 +43,7 @@ export const StudyTable = () => {
       width="size-6000"
     >
       <TableHeader>
-        <Column>Name</Column>
+        <Column>Link</Column>
         <Column>Schema</Column>
       </TableHeader>
       <TableBody>
@@ -51,7 +51,9 @@ export const StudyTable = () => {
           return (
             <Row key={listItem.id}>
               <Cell>
-                {listItem?.schema?.metadata?.name || "No name found."}
+                <a href={`/studies/?study_id=${listItem.id}`}>
+                  {listItem?.schema?.metadata?.name || "No name found."}
+                </a>
               </Cell>
               <Cell>
                 <Button

@@ -4,6 +4,8 @@ export const SIGN_OUT = "/admins/sign_out";
 export const ADMIN_PROTECTOR = "/admins/:path*";
 export const STUDIES_OVERVIEW = "/admins";
 export const CREATE_QUESTION_FORM = "/admins/create_questions";
+export const STUDY_INIT_PROTECTOR = "/studies";
+export const ASSIGNMENT_INIT_PROTECTOR = "/assignments";
 
 /* API */
 export const GET_ALL_DOCUMENTS = "/api/v1/all-documents";
@@ -20,3 +22,7 @@ export const GET_ALL_STUDY_ASSIGNMENTS = "/api/v1/all-study-assignments";
 export const GET_ASSIGNMENT_BY_ID = "/api/v1/assignment-by-id";
 
 export const GET_DOCUMENT_URL = "/api/v1/document-by-name";
+export const GET_STUDY_URL = "/api/v1/study-by-id";
+export const CREATE_STUDY_ASSIGNMENT_PUBLIC =
+  "/api/v1/create-study-assignment-public";
+export const UPDATE_ASSIGNMENT = "/api/v1/update-assignment";

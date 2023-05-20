@@ -2,9 +2,14 @@ import React from "react";
 import { AdminProvider } from "@/components/Providers/AdminProvider";
 import { StudiesOverview } from "@/pages/Studies/StudiesOverview";
 import { Route, Switch } from "wouter";
+import {
+  ADMIN_PROTECTOR,
+  STUDY_INIT_PROTECTOR,
+  ASSIGNMENT_INIT_PROTECTOR,
+} from "@/utils/routes";
+import { InitiateStudy } from "@/pages/InitiateStudy";
 import { RunningExperiment } from "@/pages/RunningExperiment/RunningExperiment";
 import { NotFound } from "@/pages/NotFound";
-import { ADMIN_PROTECTOR } from "@/utils/routes";
 
 export const Routes = () => {
   return (
@@ -14,7 +19,13 @@ export const Routes = () => {
           <StudiesOverview />
         </AdminProvider>
       </Route>
-      <RunningExperiment />
+      <Route path={STUDY_INIT_PROTECTOR}>
+        <InitiateStudy />
+      </Route>
+      <Route path={ASSIGNMENT_INIT_PROTECTOR}>
+        <RunningExperiment />
+      </Route>
+      <NotFound />
     </Switch>
   );
 };
