@@ -27,6 +27,20 @@ export const HTTP = {
       throw new Error(REQUEST_FAILED);
     }
   },
+  put: async <T, U>(url: string, body: U): Promise<T> => {
+    const res = await window.fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": CSRF_TOKEN,
+      },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      throw new Error("API request failed");
+    }
+    return res.json() as T;
+  },
   post: async <T, U>(url: string, body: U): Promise<T> => {
     const res = await window.fetch(url, {
       method: "POST",

@@ -25,3 +25,4 @@ export const GET_DOCUMENT_URL = "/api/v1/document-by-name";
 export const GET_STUDY_URL = "/api/v1/study-by-id";
 export const CREATE_STUDY_ASSIGNMENT_PUBLIC =
   "/api/v1/create-study-assignment-public";
+export const UPDATE_ASSIGNMENT = "/api/v1/update-assignment";

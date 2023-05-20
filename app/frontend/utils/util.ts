@@ -5,6 +5,7 @@ import type {
   HasSchema,
   AssignmentCreationRequest,
   StudyAssignment,
+  SchemaV0,
 } from "@/core/types";
 import { HTTP } from "@/utils/api";
 import {
@@ -20,6 +21,7 @@ import {
   GET_ASSIGNMENT_BY_ID,
   GET_DOCUMENT_URL,
   GET_STUDY_URL,
+  UPDATE_ASSIGNMENT,
 } from "@/utils/routes";
 
 export const pickRandom = <T>(items: T[]): T => {
@@ -124,6 +126,17 @@ export const getStudyById = async (id: string): Promise<Study> => {
   const apiUrl = url.toString();
   const res = await HTTP.get(apiUrl);
   return res as Study;
+};
+
+export const updateAssignment = async (
+  assignmentId: string,
+  results: SchemaV0
+) => {
+  const res: StudyAssignment = await HTTP.put(UPDATE_ASSIGNMENT, {
+    assignment_id: assignmentId,
+    results,
+  });
+  return res;
 };
 
 export const downloadJson = (json: object) => {
