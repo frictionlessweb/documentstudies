@@ -98,9 +98,7 @@ export const getAssignmentById = async (
 };
 
 export const createAssignmentFromStudy = async (study: Study) => {
-  const group: string = pickRandom(study.schema.groups);
-  const req: AssignmentCreationRequest = {
-    group,
+  const req = {
     study_id: study.id,
   };
   const res: StudyAssignment = await HTTP.post(

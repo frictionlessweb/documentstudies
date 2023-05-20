@@ -3,8 +3,6 @@ import { Flex, Heading } from "@adobe/react-spectrum";
 import { DocumentManager } from "@/components/DocumentManager";
 import { StudyTable } from "@/components/StudyTable";
 import { CreateStudyButton } from "@/components/CreateStudyButton";
-import { StudyAssignmentTable } from "@/components/StudyAssignmentTable";
-import { CreateStudyAssignmentButton } from "@/components/CreateStudyAssignmentButton";
 
 export const StudiesOverview = () => {
   return (
@@ -23,15 +21,6 @@ export const StudiesOverview = () => {
           <StudyTable />
         </Flex>
         <CreateStudyButton />
-      </Flex>
-      <Flex direction="column">
-        <Heading marginTop={0} level={2}>
-          Manage Study Assignments
-        </Heading>
-        <Flex marginBottom="16px" direction="column">
-          <StudyAssignmentTable />
-        </Flex>
-        <CreateStudyAssignmentButton />
       </Flex>
     </Flex>
   );
