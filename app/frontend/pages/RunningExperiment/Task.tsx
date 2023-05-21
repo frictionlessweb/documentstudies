@@ -3,14 +3,14 @@ import { TextEntry } from "@/pages/RunningExperiment/TextEntry";
 import { Collection } from "@/pages/RunningExperiment/Collection";
 import { RadioGroup } from "@/pages/RunningExperiment/RadioGroup";
 import { Highlights } from "@/pages/RunningExperiment/Highlights";
-import { TaskTypeV0 } from "@/core/types";
+import { TaskV0 } from "@/core/types";
 
 interface CurrentTaskProps {
-  taskType: TaskTypeV0;
+  taskType: TaskV0;
   taskIndex: number;
 }
 
-export const TaskType = (props: CurrentTaskProps) => {
+export const Task = (props: CurrentTaskProps) => {
   const { taskType, taskIndex } = props;
   switch (taskType.tag) {
     case "text_entry": {

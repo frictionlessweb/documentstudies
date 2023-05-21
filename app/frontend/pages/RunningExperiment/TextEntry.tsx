@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, TextArea } from "@adobe/react-spectrum";
-import { TaskTypeV0TextResponse } from "@/core/types";
+import { TaskV0TextResponse } from "@/core/types";
 import {
   useStudy,
   useSetStudy,
@@ -8,7 +8,7 @@ import {
 import { produce } from "immer";
 
 interface TextEntryProps {
-  taskType: TaskTypeV0TextResponse;
+  taskType: TaskV0TextResponse;
   taskIndex: number;
 }
 
@@ -19,13 +19,14 @@ export const TextEntry = (props: TextEntryProps) => {
     const { pages } = study.content[study.group]!;
     const currentPage = pages[study.page_index]!;
     const currentTask = currentPage.tasks[taskIndex]!;
-    const currentType = currentTask.type;
+    const currentType = currentTask;
     if (currentType.tag === "text_entry") {
       return currentType.user_response;
     } else if (currentType.tag === "collection") {
-      const theTask = currentType.tasks[currentType.task_collection_index]!;
-      const theTaskType = theTask.type as TaskTypeV0TextResponse;
-      return theTaskType.user_response;
+      const theTask = currentType.tasks[
+        currentType.task_collection_index
+      ]! as TaskV0TextResponse;
+      return theTask.user_response;
     }
   });
   return (
@@ -38,15 +39,15 @@ export const TextEntry = (props: TextEntryProps) => {
               const { pages } = study.content[study.group]!;
               const currentPage = pages[study.page_index]!;
               const currentTask = currentPage.tasks[taskIndex]!;
-              const currentType = currentTask.type;
+              const currentType = currentTask;
 
               if (currentType.tag === "text_entry") {
                 currentType.user_response = s;
               } else if (currentType.tag === "collection") {
-                const theTask =
-                  currentType.tasks[currentType.task_collection_index]!;
-                const theTaskType = theTask.type as TaskTypeV0TextResponse;
-                theTaskType.user_response = s;
+                const theTask = currentType.tasks[
+                  currentType.task_collection_index
+                ]! as TaskV0TextResponse;
+                theTask.user_response = s;
               }
             });
           });

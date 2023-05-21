@@ -36,11 +36,11 @@ export interface AssignmentCreationRequest {
 
 type GroupId = string;
 
-interface TaskTypeV0Base {
+interface TaskV0Base {
   id: string;
 }
 
-export interface TaskTypeV0TextResponse extends TaskTypeV0Base {
+export interface TaskV0TextResponse extends TaskV0Base {
   tag: "text_entry";
   instructions: string;
   required: boolean;
@@ -49,7 +49,7 @@ export interface TaskTypeV0TextResponse extends TaskTypeV0Base {
   metadata: FlexibleSchema;
 }
 
-export interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
+export interface TaskV0RadioGroup extends TaskV0Base {
   tag: "radio_group";
   instructions: string;
   response_options: string[];
@@ -58,7 +58,7 @@ export interface TaskTypeV0RadioGroup extends TaskTypeV0Base {
   metadata: FlexibleSchema;
 }
 
-export interface TaskTypeV0Collection extends TaskTypeV0Base {
+export interface TaskV0Collection extends TaskV0Base {
   tag: "collection";
   instructions: string;
   tasks: TaskV0[];
@@ -66,7 +66,7 @@ export interface TaskTypeV0Collection extends TaskTypeV0Base {
   task_collection_index: number;
 }
 
-export interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
+export interface TaskV0DocumentHighlights extends TaskV0Base {
   tag: "highlights";
   instructions: string;
   user_response: FlexibleSchema[];
@@ -75,16 +75,11 @@ export interface TaskTypeV0DocumentHighlights extends TaskTypeV0Base {
   metadata: FlexibleSchema;
 }
 
-export type TaskTypeV0 =
-  | TaskTypeV0TextResponse
-  | TaskTypeV0RadioGroup
-  | TaskTypeV0Collection
-  | TaskTypeV0DocumentHighlights;
-
-export interface TaskV0 {
-  id: string;
-  type: TaskTypeV0;
-}
+export type TaskV0 =
+  | TaskV0TextResponse
+  | TaskV0RadioGroup
+  | TaskV0Collection
+  | TaskV0DocumentHighlights;
 
 export interface PageV0 {
   id: string;

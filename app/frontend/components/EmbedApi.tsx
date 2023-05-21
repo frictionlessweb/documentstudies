@@ -4,7 +4,7 @@ import {
   useStudy,
 } from "@/components/Providers/StudyV0SubmissionProvider";
 import { produce } from "immer";
-import { TaskTypeV0DocumentHighlights } from "@/core/types";
+import { TaskV0DocumentHighlights } from "@/core/types";
 
 interface EmbedApiProps {
   url: string;
@@ -100,8 +100,8 @@ export const EmbedApi = (props: EmbedApiProps) => {
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
                   const currentTask = currentPage.tasks[0]!;
-                  if (currentTask.type.tag !== "highlights") return;
-                  currentTask.type.user_response.push(added.data);
+                  if (currentTask.tag !== "highlights") return;
+                  currentTask.user_response.push(added.data);
                 });
               });
               break;
@@ -113,12 +113,12 @@ export const EmbedApi = (props: EmbedApiProps) => {
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
                   const currentTask = currentPage.tasks[0]!;
-                  if (currentTask.type.tag !== "highlights") return;
-                  const currentHighlights = currentTask.type.user_response;
+                  if (currentTask.tag !== "highlights") return;
+                  const currentHighlights = currentTask.user_response;
                   const newHighlights = currentHighlights.filter(
                     (highlight) => highlight.id !== deleted.data.id
                   );
-                  currentTask.type.user_response = newHighlights;
+                  currentTask.user_response = newHighlights;
                 });
               });
             }

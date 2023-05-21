@@ -10,24 +10,24 @@ import { TaskV0 } from "@/core/types";
 import { ToastQueue } from "@react-spectrum/toast";
 
 const isUnfinished = (task: TaskV0): boolean => {
-  switch (task.type.tag) {
+  switch (task.tag) {
     case "text_entry": {
-      if (!task.type.required) return false;
-      return task.type.user_response === "";
+      if (!task.required) return false;
+      return task.user_response === "";
     }
     case "radio_group": {
-      if (!task.type.required) return false;
-      return task.type.user_response === "";
+      if (!task.required) return false;
+      return task.user_response === "";
     }
     case "highlights": {
-      const numResponses = task.type.user_response.length;
+      const numResponses = task.user_response.length;
       const isBetween =
-        numResponses >= task.type.min_number &&
-        numResponses <= task.type.max_number;
+        numResponses >= task.min_number &&
+        numResponses <= task.max_number;
       return !isBetween;
     }
     case "collection": {
-      return task.type.tasks.some((subtask) => isUnfinished(subtask));
+      return task.tasks.some((subtask) => isUnfinished(subtask));
     }
   }
 };

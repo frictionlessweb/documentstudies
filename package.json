@@ -33,6 +33,8 @@
   },
   "scripts": {
     "test": "jest",
+    "typecheck": "tsc",
+    "typecheck:watch": "tsc -w",
     "build": "vite build --outDir public"
   },
   "jest": {
