@@ -8,25 +8,25 @@ import { Flex, Heading } from "@adobe/react-spectrum";
 
 type FetchPdfResult =
   | {
-      fetchAttempted: false;
+      fetchAttempted: string | false;
       isLoading: false;
       error: null;
       pdfUrl: null;
     }
   | {
-      fetchAttempted: true;
+      fetchAttempted: string;
       isLoading: true;
       error: null;
       pdfUrl: null;
     }
   | {
-      fetchAttempted: true;
+      fetchAttempted: string;
       isLoading: false;
       error: string;
       pdfUrl: null;
     }
   | {
-      fetchAttempted: true;
+      fetchAttempted: string;
       isLoading: false;
       error: null;
       pdfUrl: string;
@@ -41,12 +41,14 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
   });
   React.useEffect(() => {
     const fetchPdf = async () => {
-      if (pdfResult.fetchAttempted) return;
+      if (pdfResult.fetchAttempted === documentName) {
+        return;
+      }
       setPdfResult((prev) => {
         return {
           error: null,
           pdfUrl: null,
-          fetchAttempted: true,
+          fetchAttempted: documentName,
           isLoading: true,
         };
       });
@@ -55,13 +57,13 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
         setPdfResult({
           error: null,
           pdfUrl: url,
-          fetchAttempted: true,
+          fetchAttempted: documentName,
           isLoading: false,
         });
       } catch (err) {
         setPdfResult((prev) => {
           return {
-            fetchAttempted: true,
+            fetchAttempted: documentName,
             isLoading: false,
             error: "FETCH_FAILED",
             pdfUrl: null,
