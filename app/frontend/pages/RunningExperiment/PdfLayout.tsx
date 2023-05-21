@@ -51,7 +51,7 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
         };
       });
       try {
-        const { url } = await getDocumentByName(documentName);
+        const { url } = await getDocumentByName(`${documentName}.pdf`);
         setPdfResult({
           error: null,
           pdfUrl: url,
@@ -76,7 +76,7 @@ const useFetchPdf = (documentName: string): FetchPdfResult => {
 
 export const PdfLayout = (props: LayoutProps) => {
   const { page, children } = props;
-  const { isLoading, error, pdfUrl } = useFetchPdf(page.pdf_document);
+  const { isLoading, error, pdfUrl } = useFetchPdf(page.document_id);
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
   return (

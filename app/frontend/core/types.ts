@@ -85,7 +85,7 @@ export interface PageV0 {
   id: string;
   instructions: string;
   page_layout: "text_layout" | "pdf_layout";
-  pdf_document: string;
+  document_id: string;
   tasks: TaskV0[];
 }
 
