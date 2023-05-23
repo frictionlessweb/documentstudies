@@ -86,7 +86,13 @@ export const PdfLayout = (props: LayoutProps) => {
       <Flex width="60%" height="100%">
         <EmbedApi url={pdfUrl} />
       </Flex>
-      <Flex marginStart="32px" width="40%" direction="column">
+      <Flex
+        marginStart="32px"
+        width="40%"
+        direction="column"
+        height="80vh"
+        UNSAFE_style={{ overflowY: "scroll" }}
+      >
         <Heading level={3}>TASKS</Heading>
         {children}
       </Flex>

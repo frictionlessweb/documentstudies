@@ -33,6 +33,7 @@ export const TextEntry = (props: TextEntryProps) => {
     <Flex direction="column">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
       <TextArea
+        width="95%"
         onChange={(s) => {
           return setStudy((prev) => {
             return produce(prev, (study) => {
