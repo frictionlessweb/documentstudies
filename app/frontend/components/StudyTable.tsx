@@ -8,10 +8,11 @@ import {
   TableBody,
   TableHeader,
 } from "@adobe/react-spectrum";
-import { fetchAllStudies, downloadJson } from "@/utils/util";
+import { deleteStudy, fetchAllStudies } from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
+import { ToastQueue } from "@react-spectrum/toast";
 
 const useFetchStudies = () => {
   const { fetchAttempted } = useAppState((state) => state.studies);
@@ -34,6 +35,7 @@ const useFetchStudies = () => {
 export const StudyTable = () => {
   const { apiError, areLoading, list } = useAppState((state) => state.studies);
   useFetchStudies();
+  const dispatch = useDispatch();
   if (apiError) return <ApiError />;
   if (areLoading) return <Loading />;
   return (
@@ -44,7 +46,7 @@ export const StudyTable = () => {
     >
       <TableHeader>
         <Column>Link</Column>
-        <Column>Schema</Column>
+        <Column>Delete</Column>
       </TableHeader>
       <TableBody>
         {list.map((listItem) => {
@@ -57,12 +59,25 @@ export const StudyTable = () => {
               </Cell>
               <Cell>
                 <Button
-                  onPress={() => {
-                    downloadJson(listItem.schema);
+                  onPress={async () => {
+                    try {
+                      dispatch({ type: "INITIATE_STUDY_API" });
+                      await deleteStudy(listItem.id);
+                      dispatch({
+                        type: "STUDY_DELETION_ENDED",
+                        payload: listItem.id,
+                      });
+                      ToastQueue.positive("Study deleted successfully");
+                    } catch (err) {
+                      dispatch({ type: "STUDY_DELETION_ENDED", payload: null });
+                      ToastQueue.negative(
+                        "Failed to delete study. Please refresh the page and try again."
+                      );
+                    }
                   }}
-                  variant="primary"
+                  variant="negative"
                 >
-                  Download Schema
+                  Delete
                 </Button>
               </Cell>
             </Row>

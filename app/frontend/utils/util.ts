@@ -22,6 +22,7 @@ import {
   GET_DOCUMENT_URL,
   GET_STUDY_URL,
   UPDATE_ASSIGNMENT,
+  DELETE_STUDY,
 } from "@/utils/routes";
 
 export const pickRandom = <T>(items: T[]): T => {
@@ -79,6 +80,14 @@ export const createStudy = async (hasSchema: HasSchema) => {
   const res: Study = await HTTP.post(CREATE_STUDY, hasSchema);
   return res;
 };
+
+export const deleteStudy = async (studyId: string) => {
+  const url = new URL(DELETE_STUDY, window.location.origin);
+  url.searchParams.append('id', studyId);
+  const apiUrl = url.toString();
+  await HTTP.delete(apiUrl);
+  return studyId;
+}
 
 export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
   const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);

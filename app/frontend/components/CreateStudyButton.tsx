@@ -15,7 +15,7 @@ const useCreateStudy = () => {
       const text = await file.text();
       const theJson = JSON.parse(text);
       try {
-        dispatch({ type: "INITIATE_STUDY_CREATION" });
+        dispatch({ type: "INITIATE_STUDY_API" });
         const res = await createNewStudy({ schema: theJson });
         dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
         ToastQueue.positive("Study created successfully.");

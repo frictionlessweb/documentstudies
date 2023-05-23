@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
       get 'all-studies', to: 'studies#all'
       post 'create-study', to: 'studies#create'
+      delete 'delete-study', to: 'studies#delete'
 
       get 'all-study-assignments', to: 'study_assignments#all'
       post 'create-study-assignment', to: 'study_assignments#create'

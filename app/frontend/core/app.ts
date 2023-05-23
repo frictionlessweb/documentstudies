@@ -52,8 +52,9 @@ export type AppAction =
   | { type: "INITIATE_STUDY_FETCH" }
   | { type: "STUDY_FETCH_SUCCESS"; payload: Study[] }
   | { type: "STUDY_FETCH_FAILURE"; payload: string }
-  | { type: "INITIATE_STUDY_CREATION" }
+  | { type: "INITIATE_STUDY_API" }
   | { type: "STUDY_CREATION_ENDED"; payload: Study | null }
+  | { type: "STUDY_DELETION_ENDED"; payload: string | null }
   | { type: "INITIATE_STUDY_ASSIGNMENT_FETCH" }
   | { type: "STUDY_ASSIGNMENT_FETCH_SUCCESS"; payload: StudyAssignment[] }
   | { type: "STUDY_ASSIGNMENT_FETCH_FAILURE"; payload: string }
@@ -113,7 +114,7 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
         draft.studies.apiError = action.payload;
       });
     }
-    case "INITIATE_STUDY_CREATION": {
+    case "INITIATE_STUDY_API": {
       return produce(state, (draft) => {
         draft.studies.areLoading = true;
       });
@@ -153,6 +154,15 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
         draft.studyAssignments.areLoading = false;
         if (action.payload === null) return;
         draft.studyAssignments.list.unshift(action.payload);
+      });
+    }
+    case "STUDY_DELETION_ENDED": {
+      return produce(state, (draft) => {
+        draft.studies.areLoading = false;
+        if (action.payload === null) return;
+        draft.studies.list = draft.studies.list.filter(
+          (x) => x.id !== action.payload
+        );
       });
     }
   }

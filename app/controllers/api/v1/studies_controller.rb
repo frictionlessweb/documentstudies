@@ -11,11 +11,21 @@ class Api::V1::StudiesController < ApplicationController
     render json: studies
   end
 
+  def delete
+    Study.find(delete_params[:id]).destroy!
+  end
+
   def create
     study = Study.create!(schema: params[:schema])
     render json: {
       id: study.id.to_s,
       schema: study.schema
     }
+  end
+
+  private
+
+  def delete_params
+    params.permit(:id)
   end
 end

@@ -16,6 +16,7 @@ export const CREATE_QUESTIONS = "/api/v1/create-questions";
 
 export const GET_ALL_STUDIES = "/api/v1/all-studies";
 export const CREATE_STUDY = "/api/v1/create-study";
+export const DELETE_STUDY = "/api/v1/delete-study";
 
 export const CREATE_STUDY_ASSIGNMENT = "/api/v1/create-study-assignment";
 export const GET_ALL_STUDY_ASSIGNMENTS = "/api/v1/all-study-assignments";
