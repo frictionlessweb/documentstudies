@@ -1,0 +1,172 @@
+{
+  "metadata": {
+    "name": "Study02"
+  },
+  "schema_version": "v0",
+  "groups": ["Group 1", "Group 2"],
+  "page_index": 0,
+  "content": {
+    "metadata": {},
+    "Group 1": {
+      "pages": [
+        {
+          "id": "2",
+          "instructions": "Please answer the questions below.",
+          "page_layout": "pdf_layout",
+          "document_id": "DR--1015587",
+          "tasks": [
+            {
+              "id": "1",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the most interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": true
+            },
+            {
+              "id": "baz",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the least interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "instructions": "Please answer the questions below.",
+          "page_layout": "pdf_layout",
+          "document_id": "E0CEG1S47",
+          "tasks": [
+            {
+              "id": "1",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the most interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": true
+            },
+            {
+              "id": "baz",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the least interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "Group 2": {
+      "pages": [
+        {
+          "id": "2",
+          "instructions": "Please answer the questions below.",
+          "page_layout": "pdf_layout",
+          "document_id": "DR--1015587",
+          "tasks": [
+            {
+              "id": "1",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the most interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": true
+            },
+            {
+              "id": "baz",
+              "tag": "text_entry",
+              "instructions": "<p>Describe the least interesting paragraph in the document.</p>",
+              "user_response": "",
+              "default_response": "",
+              "metadata": {},
+              "required": false
+            }
+          ]
+        },
+        {
+          "id": "1",
+          "instructions": "test 2",
+          "page_layout": "pdf_layout",
+          "document_id": "DR--1015587.pdf",
+          "tasks": [
+            {
+              "id": "1",
+              "tag": "highlights",
+              "instructions": "<p>Please highlight important sentences in the document.</p>",
+              "user_response": [],
+              "min_number": 1,
+              "max_number": 3,
+              "metadata": {}
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "instructions": "test 2",
+          "page_layout": "pdf_layout",
+          "document_id": "DR--1015587.pdf",
+          "tasks": [
+            {
+              "id": "1",
+              "tag": "collection",
+              "task_collection_index": 0,
+              "instructions": "<p>Please answer the questions below.</p>",
+              "tasks": [
+                {
+                  "id": "2",
+                  "tag": "radio_group",
+                  "instructions": "The document is easy to read.",
+                  "response_options": [
+                    "Strongly Disagree",
+                    "Disagree",
+                    "Neutral",
+                    "Agree",
+                    "Strongly Agree"
+                  ],
+                  "required": true,
+                  "user_response": ""
+                },
+                {
+                  "id": "2",
+                  "tag": "radio_group",
+                  "instructions": "The document is easy to understand.",
+                  "response_options": [
+                    "Strongly Disagree",
+                    "Disagree",
+                    "Neutral",
+                    "Agree",
+                    "Strongly Agree"
+                  ],
+                  "required": true,
+                  "user_response": ""
+                },
+                {
+                  "id": "2",
+                  "tag": "radio_group",
+                  "instructions": "The document is engaging.",
+                  "response_options": [
+                    "Strongly Disagree",
+                    "Disagree",
+                    "Neutral",
+                    "Agree",
+                    "Strongly Agree"
+                  ],
+                  "required": true,
+                  "user_response": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
