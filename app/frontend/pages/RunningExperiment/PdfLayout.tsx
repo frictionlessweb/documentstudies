@@ -93,7 +93,6 @@ export const PdfLayout = (props: LayoutProps) => {
         height="80vh"
         UNSAFE_style={{ overflowY: "scroll" }}
       >
-        <Heading level={3}>TASKS</Heading>
         {children}
       </Flex>
     </Flex>
