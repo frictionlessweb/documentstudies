@@ -95,7 +95,7 @@
           "id": "1",
           "instructions": "test 2",
           "page_layout": "pdf_layout",
-          "document_id": "DR--1015587.pdf",
+          "document_id": "DR--1015587",
           "tasks": [
             {
               "id": "1",
@@ -112,7 +112,7 @@
           "id": "2",
           "instructions": "test 2",
           "page_layout": "pdf_layout",
-          "document_id": "DR--1015587.pdf",
+          "document_id": "DR--1015587",
           "tasks": [
             {
               "id": "1",
