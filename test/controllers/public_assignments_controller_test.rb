@@ -25,7 +25,7 @@ class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
     put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 } }
     assert_response :success
     assert_equal({ 'x' => '5' }, (JSON.parse @response.body)['results'])
-    assert_equal(true, (JSON.parse @response.body)["is_complete"])
+    assert_equal(true, (JSON.parse @response.body)['is_complete'])
   end
 
   test 'We can have a user finish a study and then get all the data for the study' do
