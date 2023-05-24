@@ -58,11 +58,19 @@ const DEFAULT_VIEW_CONFIG = {
 
 interface Manager {
   removeAllAnnotations: () => Promise<void>;
+  addAnnotations: (annotations: any[]) => Promise<void>;
+  setConfig: (config: any) => Promise<void>;
 }
 
 export const EmbedApi = (props: EmbedApiProps) => {
-  const curPage = useStudy((study) => {
-    return study.page_index;
+  const { curPage, annotations } = useStudy((study) => {
+    return {
+      curPage: study.page_index,
+      annotations:
+        study.content[study.group]?.pages[study.page_index]!.tasks.filter(
+          (task) => task.documentSource !== undefined
+        ).map((task) => task.documentSource!.annotation) || [],
+    };
   });
   const setStudy = useSetStudy();
   const { url } = props;
@@ -89,6 +97,10 @@ export const EmbedApi = (props: EmbedApiProps) => {
         preview.getAPIs(),
       ]);
       const manager: Manager = directManager;
+      if (annotations.length > 0) {
+        await manager.setConfig({ showCommentsPanel: false });
+        await manager.addAnnotations(annotations);
+      }
       await view.registerCallback(
         window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
         async (event: AdobeEvent) => {
@@ -132,6 +144,6 @@ export const EmbedApi = (props: EmbedApiProps) => {
       );
     };
     renderPdf();
-  }, [url, curPage, setStudy]);
+  }, [url, curPage, setStudy, annotations]);
   return <div style={{ height: "80vh", width: "100%" }} id={PDF_ID} />;
 };
