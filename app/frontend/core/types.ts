@@ -112,4 +112,6 @@ export interface SchemaV0 {
   content: Record<GroupId, { pages: PageV0[] }>;
   page_index: number;
   group: string;
+  start_instructions: string;
+  end_instructions: string;
 }
