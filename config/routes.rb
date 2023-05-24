@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post 'create-document', to: 'documents#create'
 
       get 'all-studies', to: 'studies#all'
+      get 'completed-for-study', to: 'studies#completed'
       post 'create-study', to: 'studies#create'
       delete 'delete-study', to: 'studies#delete'
 

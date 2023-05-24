@@ -20,7 +20,16 @@ class Api::V1::StudiesController < ApplicationController
     render json: study
   end
 
+  def completed
+    assignments = StudyAssignment.where(study_id: completed_params[:study_id], is_complete: true)
+    render json: assignments
+  end
+
   private
+
+  def completed_params
+    params.permit(:study_id)
+  end
 
   def delete_params
     params.permit(:id)
