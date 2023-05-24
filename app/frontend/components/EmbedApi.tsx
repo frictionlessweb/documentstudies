@@ -148,6 +148,6 @@ export const EmbedApi = (props: EmbedApiProps) => {
       );
     };
     renderPdf();
-  }, [url, curPage, setStudy, annotations]);
+  }, [url, curPage, setStudy]);
   return <div style={{ height: "80vh", width: "100%" }} id={PDF_ID} />;
 };

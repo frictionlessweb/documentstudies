@@ -21,6 +21,7 @@ export const DELETE_STUDY = "/api/v1/delete-study";
 export const CREATE_STUDY_ASSIGNMENT = "/api/v1/create-study-assignment";
 export const GET_ALL_STUDY_ASSIGNMENTS = "/api/v1/all-study-assignments";
 export const GET_ASSIGNMENT_BY_ID = "/api/v1/assignment-by-id";
+export const COMPLETED_ASSIGNMENTS_URL = "/api/v1/completed-for-study";
 
 export const GET_DOCUMENT_URL = "/api/v1/document-by-name";
 export const GET_STUDY_URL = "/api/v1/study-by-id";

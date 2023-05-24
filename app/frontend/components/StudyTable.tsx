@@ -8,7 +8,7 @@ import {
   TableBody,
   TableHeader,
 } from "@adobe/react-spectrum";
-import { deleteStudy, fetchAllStudies } from "@/utils/util";
+import { deleteStudy, downloadJson, fetchAllStudies, fetchCompletedAssignments } from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
@@ -46,6 +46,7 @@ export const StudyTable = () => {
     >
       <TableHeader>
         <Column>Link</Column>
+        <Column>Results</Column>
         <Column>Delete</Column>
       </TableHeader>
       <TableBody>
@@ -56,6 +57,25 @@ export const StudyTable = () => {
                 <a href={`/studies/?study_id=${listItem.id}`}>
                   {listItem?.schema?.metadata?.name || "No name found."}
                 </a>
+              </Cell>
+              <Cell>
+                <Button
+                  onPress={async () => {
+                    try {
+                      const assignments = await fetchCompletedAssignments(
+                        listItem.id
+                      );
+                      downloadJson(assignments);
+                    } catch (err) {
+                      ToastQueue.negative(
+                        "Something went wrong. Please refresh the page and try again."
+                      );
+                    }
+                  }}
+                  variant="accent"
+                >
+                  Download
+                </Button>
               </Cell>
               <Cell>
                 <Button

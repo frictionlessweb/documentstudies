@@ -23,6 +23,7 @@ import {
   GET_STUDY_URL,
   UPDATE_ASSIGNMENT,
   DELETE_STUDY,
+  COMPLETED_ASSIGNMENTS_URL,
 } from "@/utils/routes";
 
 export const pickRandom = <T>(items: T[]): T => {
@@ -136,6 +137,14 @@ export const getStudyById = async (id: string): Promise<Study> => {
   const res = await HTTP.get(apiUrl);
   return res as Study;
 };
+
+export const fetchCompletedAssignments = async (id: string): Promise<StudyAssignment[]> => {
+  const url = new URL(COMPLETED_ASSIGNMENTS_URL, window.location.origin);
+  url.searchParams.append("study_id", id);
+  const apiUrl = url.toString();
+  const res = await HTTP.get(apiUrl);
+  return res as StudyAssignment[];
+}
 
 export const updateAssignment = async (
   assignmentId: string,
