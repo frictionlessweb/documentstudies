@@ -4,17 +4,26 @@ import {
   useStudy,
 } from "@/components/Providers/StudyV0SubmissionProvider";
 import { produce } from "immer";
-import { TaskV0DocumentHighlights } from "@/core/types";
 
 interface EmbedApiProps {
   url: string;
 }
 
+interface Manager {
+  removeAllAnnotations: () => Promise<void>;
+  addAnnotations: (annotations: any[]) => Promise<void>;
+  setConfig: (config: any) => Promise<void>;
+  selectAnnotation: (annotation: any) => void | Promise<void>;
+}
+
 declare global {
   interface Window {
     AdobeDC: any;
+    annotationManager: null | Manager;
   }
 }
+
+window.annotationManager = null;
 
 interface AdobeEvent {
   type: string;
@@ -56,12 +65,6 @@ const DEFAULT_VIEW_CONFIG = {
   includePDFAnnotations: true,
 } as const;
 
-interface Manager {
-  removeAllAnnotations: () => Promise<void>;
-  addAnnotations: (annotations: any[]) => Promise<void>;
-  setConfig: (config: any) => Promise<void>;
-}
-
 export const EmbedApi = (props: EmbedApiProps) => {
   const { curPage, annotations } = useStudy((study) => {
     return {
@@ -97,8 +100,9 @@ export const EmbedApi = (props: EmbedApiProps) => {
         preview.getAPIs(),
       ]);
       const manager: Manager = directManager;
+      await manager.setConfig({ showCommentsPanel: false });
+      window.annotationManager = manager;
       if (annotations.length > 0) {
-        await manager.setConfig({ showCommentsPanel: false });
         await manager.addAnnotations(annotations);
       }
       await view.registerCallback(
