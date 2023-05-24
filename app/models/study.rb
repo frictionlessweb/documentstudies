@@ -1,7 +1,6 @@
 class Study < ApplicationRecord
   validates :schema, presence: true
   has_many :study_assignment, dependent: :destroy
-  validate :schema_is_valid
 
   def next_assignment
     groups = schema['groups']
