@@ -16,11 +16,15 @@ class Api::V1::StudiesController < ApplicationController
   end
 
   def create
-    study = Study.create!(schema: params[:schema])
-    render json: {
-      id: study.id.to_s,
-      schema: study.schema
-    }
+    study = Study.new(schema: params[:schema])
+    if study.save
+      render json: {
+        id: study.id.to_s,
+        schema: study.schema
+      }
+    else
+      render json: { error: study.errors.to_a.first }
+    end
   end
 
   private

@@ -20,6 +20,7 @@ const useCreateStudy = () => {
         dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
         ToastQueue.positive("Study created successfully.");
       } catch (err) {
+        console.error(err);
         dispatch({ type: "STUDY_CREATION_ENDED", payload: null });
         ToastQueue.negative(
           "An error occurred while creating the study. Please refresh the page and try again."

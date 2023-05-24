@@ -38,6 +38,11 @@ type GroupId = string;
 
 interface TaskV0Base {
   id: string;
+  documentSource?: {
+    instructions: string; // HTML
+    urlText: string; // The text of the link to the place
+    annotation: FlexibleSchema;
+  };
 }
 
 export interface TaskV0TextResponse extends TaskV0Base {
@@ -64,6 +69,15 @@ export interface TaskV0Collection extends TaskV0Base {
   tasks: TaskV0[];
   metadata: FlexibleSchema;
   task_collection_index: number;
+}
+
+export interface TaskV0DocumentHighlights extends TaskV0Base {
+  tag: "highlights";
+  instructions: string;
+  user_response: FlexibleSchema[];
+  min_number: number;
+  max_number: number;
+  metadata: FlexibleSchema;
 }
 
 export interface TaskV0DocumentHighlights extends TaskV0Base {
