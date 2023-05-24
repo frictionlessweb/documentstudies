@@ -16,12 +16,13 @@ class Api::V1::PublicAssignmentsController < ApplicationController
 
   def create
     assignment = Study.find(study_id_params[:study_id]).next_assignment
-    render json: {
+    assignment_map = {
       id: assignment.id.to_s,
       study_id: assignment.study_id.to_s,
       group: assignment.group.to_s,
       results: assignment.results
     }
+    render json: assignment_map
   end
 
   def update

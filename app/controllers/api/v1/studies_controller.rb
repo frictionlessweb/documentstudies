@@ -16,7 +16,8 @@ class Api::V1::StudiesController < ApplicationController
   end
 
   def create
-    Study.create!(schema: params[:schema])
+    study = Study.create!(schema: params[:schema])
+    render json: study
   end
 
   private
