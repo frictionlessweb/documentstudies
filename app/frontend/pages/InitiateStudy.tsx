@@ -91,7 +91,7 @@ const CreateStudyAssignment = (props: CreateStudyAssignmentProps) => {
   }, [study, setLocation]);
   return (
     <Flex direction="column" alignItems="center">
-      <Heading level={3}>Welcome to {study.schema.metadata.name}</Heading>
+      <div dangerouslySetInnerHTML={{ __html: study.schema.start_instructions }} />
       <Button isDisabled={loading} onPress={beginStudy} variant="accent">
         {loading ? (
           <ProgressCircle variant="overBackground" isIndeterminate />
