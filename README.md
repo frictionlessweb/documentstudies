@@ -40,3 +40,15 @@ foreman start -f Procfile.dev
 ```
 
 To get things going.
+
+## Playing with the App
+
+First, visit `http://localhost:3000/admins` and log in with:
+
+
+```
+username: test@test.com
+password: test123
+```
+
+From there, you can upload a study JSON and the documents associated with it as necessary.
