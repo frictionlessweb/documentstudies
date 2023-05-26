@@ -168,3 +168,10 @@ export const downloadJson = (json: object) => {
   element.click();
   document.body.removeChild(element);
 };
+
+export const isValidDocumentSource = (documentSource: any) => {
+  if (documentSource === undefined) return false;
+  if (typeof documentSource.annotation !== "object") return false;
+  if (typeof documentSource.urlText !== "string") return false;
+  return typeof documentSource.instructions === "string";
+};

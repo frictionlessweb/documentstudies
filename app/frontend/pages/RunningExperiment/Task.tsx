@@ -6,6 +6,7 @@ import { Highlights } from "@/pages/RunningExperiment/Highlights";
 import { Checkboxes } from "@/pages/RunningExperiment/Checkboxes";
 import { TaskV0 } from "@/core/types";
 import { Flex } from "@adobe/react-spectrum";
+import { isValidDocumentSource } from "@/utils/util";
 
 interface CurrentTaskProps {
   taskType: TaskV0;
@@ -37,11 +38,11 @@ export const Task = (props: CurrentTaskProps) => {
   const { taskType } = props;
   return (
     <Flex direction="column" marginY="size-0">
-      {taskType.documentSource !== undefined && (
+      {isValidDocumentSource(taskType.documentSource) && (
         <>
           <div
             dangerouslySetInnerHTML={{
-              __html: taskType.documentSource.instructions,
+              __html: taskType.documentSource!.instructions,
             }}
           />
           <p
@@ -62,7 +63,7 @@ export const Task = (props: CurrentTaskProps) => {
               }
             }}
           >
-            {taskType.documentSource.urlText}
+            {taskType.documentSource!.urlText}
           </p>
         </>
       )}

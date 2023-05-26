@@ -4,6 +4,7 @@ import {
   useStudy,
 } from "@/components/Providers/StudyV0SubmissionProvider";
 import { produce } from "immer";
+import { isValidDocumentSource } from "@/utils/util";
 
 interface EmbedApiProps {
   url: string;
@@ -64,13 +65,6 @@ const DEFAULT_VIEW_CONFIG = {
   enableAnnotationAPIs: true,
   includePDFAnnotations: true,
 } as const;
-
-const isValidDocumentSource = (documentSource: any) => {
-  if (documentSource === undefined) return false;
-  if (typeof documentSource.annotation !== "object") return false;
-  if (typeof documentSource.urlText !== "string") return false;
-  return typeof documentSource.instructions === "string";
-};
 
 export const EmbedApi = (props: EmbedApiProps) => {
   const { curPage, annotations } = useStudy((study) => {
