@@ -88,15 +88,15 @@ export const PdfLayout = (props: LayoutProps) => {
         <Flex width="65%" height="100%">
           <EmbedApi url={pdfUrl} />
         </Flex>
-        <Flex
-          marginStart="32px"
-          width="35%"
-          direction="column"
-          height="82vh"
-          UNSAFE_style={{ overflowY: "scroll" }}
-        >
-          {children}
-        </Flex>
+        <View borderStartWidth="thin" borderColor="light" 
+            width="35%" height="82vh" UNSAFE_style={{ overflowY: "scroll" }}>
+          <Flex
+            marginX="size-200"
+            direction="column"
+          >
+            {children}
+          </Flex>
+        </View>
       </Flex>
     </Flex>
   );
