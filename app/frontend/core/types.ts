@@ -63,6 +63,16 @@ export interface TaskV0RadioGroup extends TaskV0Base {
   metadata: FlexibleSchema;
 }
 
+export interface TaskV0CheckboxGroup extends TaskV0Base {
+  tag: "checkbox_group";
+  instructions: string;
+  response_options: string[];
+  min_selected: number;
+  max_selected: number;
+  user_response: string[];
+  metadata: FlexibleSchema;
+}
+
 export interface TaskV0Collection extends TaskV0Base {
   tag: "collection";
   instructions: string;
@@ -93,7 +103,8 @@ export type TaskV0 =
   | TaskV0TextResponse
   | TaskV0RadioGroup
   | TaskV0Collection
-  | TaskV0DocumentHighlights;
+  | TaskV0DocumentHighlights
+  | TaskV0CheckboxGroup;
 
 export interface PageV0 {
   id: string;

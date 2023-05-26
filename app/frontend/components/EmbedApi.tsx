@@ -65,13 +65,20 @@ const DEFAULT_VIEW_CONFIG = {
   includePDFAnnotations: true,
 } as const;
 
+const isValidDocumentSource = (documentSource: any) => {
+  if (documentSource === undefined) return false;
+  if (typeof documentSource.annotation !== "object") return false;
+  if (typeof documentSource.urlText !== "string") return false;
+  return typeof documentSource.instructions === "string";
+};
+
 export const EmbedApi = (props: EmbedApiProps) => {
   const { curPage, annotations } = useStudy((study) => {
     return {
       curPage: study.page_index,
       annotations:
         study.content[study.group]?.pages[study.page_index]!.tasks.filter(
-          (task) => task.documentSource !== undefined
+          (task) => isValidDocumentSource(task.documentSource)
         ).map((task) => task.documentSource!.annotation) || [],
     };
   });

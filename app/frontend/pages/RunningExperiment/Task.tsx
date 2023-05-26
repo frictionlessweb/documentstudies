@@ -3,6 +3,7 @@ import { TextEntry } from "@/pages/RunningExperiment/TextEntry";
 import { Collection } from "@/pages/RunningExperiment/Collection";
 import { RadioGroup } from "@/pages/RunningExperiment/RadioGroup";
 import { Highlights } from "@/pages/RunningExperiment/Highlights";
+import { Checkboxes } from "@/pages/RunningExperiment/Checkboxes";
 import { TaskV0 } from "@/core/types";
 import { Flex } from "@adobe/react-spectrum";
 
@@ -25,6 +26,9 @@ const TaskCore = (props: CurrentTaskProps) => {
     }
     case "highlights": {
       return <Highlights taskIndex={taskIndex} taskType={taskType} />;
+    }
+    case "checkbox_group": {
+      return <Checkboxes taskIndex={taskIndex} taskType={taskType} />;
     }
   }
 };
