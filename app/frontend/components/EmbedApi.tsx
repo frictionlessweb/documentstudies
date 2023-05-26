@@ -108,6 +108,7 @@ export const EmbedApi = (props: EmbedApiProps) => {
       if (annotations.length > 0) {
         await manager.addAnnotations(annotations);
         await manager.unselectAnnotation(annotations[0]!.id);
+        await apis.gotoLocation(1);
       }
       await view.registerCallback(
         window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
@@ -119,8 +120,10 @@ export const EmbedApi = (props: EmbedApiProps) => {
                 return produce(ctx, (study) => {
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
-                  const currentTask = currentPage.tasks[0]!;
-                  if (currentTask.tag !== "highlights") return;
+                  const currentTask = currentPage.tasks.find(
+                    (task) => task.tag === "highlights"
+                  );
+                  if (!currentTask || currentTask.tag !== "highlights") return;
                   currentTask.user_response.push(added.data);
                 });
               });
@@ -132,8 +135,10 @@ export const EmbedApi = (props: EmbedApiProps) => {
                 return produce(ctx, (study) => {
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
-                  const currentTask = currentPage.tasks[0]!;
-                  if (currentTask.tag !== "highlights") return;
+                  const currentTask = currentPage.tasks.find(
+                    (task) => task.tag === "highlights"
+                  );
+                  if (!currentTask || currentTask.tag !== "highlights") return;
                   const currentHighlights = currentTask.user_response;
                   const newHighlights = currentHighlights.filter(
                     (highlight) => highlight.id !== deleted.data.id
