@@ -4,7 +4,7 @@ import { TextLayout } from "@/pages/RunningExperiment/TextLayout";
 import { PdfLayout } from "@/pages/RunningExperiment/PdfLayout";
 import { Task } from "@/pages/RunningExperiment/Task";
 import { NextButton } from "@/components/NextButton";
-import { Flex, Heading } from "@adobe/react-spectrum";
+import { Flex, Heading, Divider, View } from "@adobe/react-spectrum";
 
 interface PageProps {
   page: PageV0;
@@ -23,14 +23,21 @@ export const Page = (props: PageProps) => {
       <Heading level={3} marginBottom={0}>
         INSTRUCTIONS
       </Heading>
-      <Flex maxWidth="500px">
+      <Flex maxWidth="600px" marginBottom="size-300" marginX="size-10">
         <div dangerouslySetInnerHTML={{ __html: page.instructions }} />
       </Flex>
       <Layout page={page}>
-        {page.tasks.map((task, taskIndex) => {
-          return <Task key={task.id} taskIndex={taskIndex} taskType={task} />;
-        })}
+        <Flex direction="column" gap="size-350" marginY="size-200">
+          {page.tasks.map((task, taskIndex) => {
+            return (
+              <>
+                <Task key={task.id} taskIndex={taskIndex} taskType={task} />
+                <Divider size="S" maxWidth="100%" />
+              </>
+            );
+          })}
         <NextButton />
+        </Flex>
       </Layout>
     </Flex>
   );

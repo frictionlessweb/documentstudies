@@ -4,7 +4,7 @@ import { Loading } from "@/components/Loading";
 import { ApiError } from "@/components/ApiError";
 import { EmbedApi } from "@/components/EmbedApi";
 import { getDocumentByName } from "@/utils/util";
-import { Flex, Heading } from "@adobe/react-spectrum";
+import { Flex, Heading, View } from "@adobe/react-spectrum";
 
 type FetchPdfResult =
   | {
@@ -82,18 +82,21 @@ export const PdfLayout = (props: LayoutProps) => {
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
   return (
-    <Flex width="100%" height="100%">
-      <Flex width="60%" height="100%">
-        <EmbedApi url={pdfUrl} />
-      </Flex>
-      <Flex
-        marginStart="32px"
-        width="40%"
-        direction="column"
-        height="80vh"
-        UNSAFE_style={{ overflowY: "scroll" }}
-      >
-        {children}
+    <Flex direction="column" width="98vw" alignItems="center" marginY="size-0" gap="size-0">
+      <View borderTopWidth="thin" borderColor="light" width="100%"></View>
+      <Flex width="100%" height="100%">
+        <Flex width="65%" height="100%">
+          <EmbedApi url={pdfUrl} />
+        </Flex>
+        <Flex
+          marginStart="32px"
+          width="35%"
+          direction="column"
+          height="82vh"
+          UNSAFE_style={{ overflowY: "scroll" }}
+        >
+          {children}
+        </Flex>
       </Flex>
     </Flex>
   );

@@ -31,12 +31,13 @@ export const Collection = (props: TaskCollectionProps) => {
     }
   );
   const setStudy = useSetStudy();
+  
   return (
-    <Flex direction="column">
-      <div dangerouslySetInnerHTML={{ __html: instructions }} />
+    <Flex direction="column" gap="size-0">
+      <div style={{"margin": 0}} dangerouslySetInnerHTML={{ __html: instructions }} />
       <Task taskIndex={taskIndex} taskType={currentTask} />
       <ActionGroup
-        marginBottom="16px"
+        marginTop="size-50"
         disabledKeys={(() => {
           if (curItem === 0) return ["previous"];
           if (curItem === itemsLength - 1) return ["next"];

@@ -32,7 +32,7 @@ const TaskCore = (props: CurrentTaskProps) => {
 export const Task = (props: CurrentTaskProps) => {
   const { taskType } = props;
   return (
-    <Flex direction="column">
+    <Flex direction="column" marginY="size-0">
       {taskType.documentSource !== undefined && (
         <>
           <div

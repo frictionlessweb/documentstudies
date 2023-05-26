@@ -35,7 +35,7 @@ export const RadioGroup = (props: RadioGroupProps) => {
   });
   const setStudy = useSetStudy();
   return (
-    <Flex direction="column" marginBottom="16px">
+    <Flex direction="column" marginBottom="size-0">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
       <AdobeRadioGroup
         value={currentValue}

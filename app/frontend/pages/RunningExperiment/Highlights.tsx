@@ -20,7 +20,7 @@ export const Highlights = (props: HighlightsProps) => {
   return (
     <Flex direction="column">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
-      <Well maxWidth="300px" marginBottom="size-350">
+      <Well maxWidth="300px" marginBottom="size-100">
         <Text>Number of highlights: {numHighlights}</Text>
       </Well>
     </Flex>
