@@ -169,9 +169,9 @@ export const downloadJson = (json: object) => {
   document.body.removeChild(element);
 };
 
-export const isValidDocumentSource = (documentSource: any) => {
-  if (documentSource === undefined) return false;
-  if (typeof documentSource.annotation !== "object") return false;
-  if (typeof documentSource.urlText !== "string") return false;
-  return typeof documentSource.instructions === "string";
+export const isValidDocumentSource = (document_source: any) => {
+  if (document_source === undefined) return false;
+  if (typeof document_source.annotation !== "object") return false;
+  if (typeof document_source.url_text !== "string") return false;
+  return typeof document_source.instructions === "string";
 };

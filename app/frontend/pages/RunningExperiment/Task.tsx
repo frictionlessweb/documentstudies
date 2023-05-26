@@ -38,11 +38,11 @@ export const Task = (props: CurrentTaskProps) => {
   const { taskType } = props;
   return (
     <Flex direction="column" marginY="size-0">
-      {isValidDocumentSource(taskType.documentSource) && (
+      {isValidDocumentSource(taskType.document_source) && (
         <>
           <div
             dangerouslySetInnerHTML={{
-              __html: taskType.documentSource!.instructions,
+              __html: taskType.document_source!.instructions,
             }}
           />
           <p
@@ -56,14 +56,14 @@ export const Task = (props: CurrentTaskProps) => {
               if (window.annotationManager === null) return;
               try {
                 await window.annotationManager.selectAnnotation(
-                  taskType.documentSource!.annotation.id
+                  taskType.document_source!.annotation.id
                 );
               } catch (err) {
                 console.error(err);
               }
             }}
           >
-            {taskType.documentSource!.urlText}
+            {taskType.document_source!.url_text}
           </p>
         </>
       )}

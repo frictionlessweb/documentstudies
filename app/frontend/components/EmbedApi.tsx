@@ -73,8 +73,8 @@ export const EmbedApi = (props: EmbedApiProps) => {
       curPage: study.page_index,
       annotations:
         study.content[study.group]?.pages[study.page_index]!.tasks.filter(
-          (task) => isValidDocumentSource(task.documentSource)
-        ).map((task) => task.documentSource!.annotation) || [],
+          (task) => isValidDocumentSource(task.document_source)
+        ).map((task) => task.document_source!.annotation) || [],
     };
   });
   const setStudy = useSetStudy();

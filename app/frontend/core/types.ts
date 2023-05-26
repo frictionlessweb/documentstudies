@@ -38,9 +38,9 @@ type GroupId = string;
 
 interface TaskV0Base {
   id: string;
-  documentSource?: {
+  document_source?: {
     instructions: string; // HTML
-    urlText: string; // The text of the link to the place
+    url_text: string; // The text of the link to the place
     annotation: FlexibleSchema;
   };
 }
