@@ -15,6 +15,7 @@ interface Manager {
   addAnnotations: (annotations: any[]) => Promise<void>;
   setConfig: (config: any) => Promise<void>;
   selectAnnotation: (annotation: any) => void | Promise<void>;
+  unselectAnnotation: (annotation: any) => void | Promise<void>;
 }
 
 declare global {
@@ -103,8 +104,10 @@ export const EmbedApi = (props: EmbedApiProps) => {
       const manager: Manager = directManager;
       await manager.setConfig({ showCommentsPanel: false });
       window.annotationManager = manager;
+      console.log(manager);
       if (annotations.length > 0) {
         await manager.addAnnotations(annotations);
+        await manager.unselectAnnotation(annotations[0]!.id);
       }
       await view.registerCallback(
         window.AdobeDC.View.Enum.CallbackType.EVENT_LISTENER,
