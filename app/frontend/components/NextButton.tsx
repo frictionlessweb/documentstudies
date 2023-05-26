@@ -22,8 +22,13 @@ const isUnfinished = (task: TaskV0): boolean => {
     case "highlights": {
       const numResponses = task.user_response.length;
       const isBetween =
-        numResponses >= task.min_number &&
-        numResponses <= task.max_number;
+        numResponses >= task.min_number && numResponses <= task.max_number;
+      return !isBetween;
+    }
+    case "checkbox_group": {
+      const numResponses = task.user_response.length;
+      const isBetween =
+        numResponses >= task.min_selected && numResponses <= task.max_selected;
       return !isBetween;
     }
     case "collection": {

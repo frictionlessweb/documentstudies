@@ -76,7 +76,6 @@ export const Checkboxes = (props: RadioGroupProps) => {
           );
         })}
       </Flex>
-      <p>Write me!</p>
     </Flex>
   );
 };
