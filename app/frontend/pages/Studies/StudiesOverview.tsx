@@ -6,7 +6,7 @@ import { CreateStudyButton } from "@/components/CreateStudyButton";
 
 export const StudiesOverview = () => {
   return (
-    <Flex wrap="wrap">
+    <Flex direction="column">
       <Flex direction="column" marginEnd="16px">
         <Heading marginTop={0} level={2}>
           Manage Documents

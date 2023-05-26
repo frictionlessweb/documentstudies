@@ -42,7 +42,7 @@ export const StudyTable = () => {
     <TableView
       aria-label="Example table with static contents"
       selectionMode="multiple"
-      width="size-6000"
+      width="100%"
     >
       <TableHeader>
         <Column>Link</Column>
