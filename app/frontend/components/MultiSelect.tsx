@@ -49,8 +49,8 @@ export const MultiSelect = (props: MultiSelectProps) => {
           })}
       </ListView>
       <TextField
-        aria-label="Filter names..."
-        placeholder="Filter names..."
+        aria-label="Filter PDF names..."
+        placeholder="Filter PDF names..."
         value={nameFilter}
         onChange={setNameFilter}
       />

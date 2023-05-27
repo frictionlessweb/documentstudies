@@ -66,8 +66,9 @@ export const DocumentManager = () => {
           accept="application/pdf"
           onFileUpload={handleFileUpload}
           variant="accent"
+          aria-label="Upload a PDF"
         >
-          Upload Document
+          Upload
         </UploadButton>
       </Flex>
     </Flex>

@@ -20,9 +20,9 @@ const AdminToolbar = () => {
         color: "white",
       }}
     >
-      <Text UNSAFE_style={{ fontWeight: "bold" }}>Welcome, {name}</Text>
+      <Text UNSAFE_style={{ fontWeight: "bold" }} marginX="size-500">Welcome, {name}</Text>
       <Flex marginEnd="16px">
-        <Button onPress={logout} variant="overBackground">
+        <Button onPress={logout} variant="overBackground" marginX="size-500">
           Logout
         </Button>
       </Flex>
@@ -33,7 +33,7 @@ const AdminToolbar = () => {
 export const AdminLayout = (props: AdminLayoutProps) => {
   const { children } = props;
   return (
-    <Flex width="100%" direction="column">
+    <Flex width="100%" direction="column" >
       <AdminToolbar />
       <Flex direction="column" margin={8}>
         {children}

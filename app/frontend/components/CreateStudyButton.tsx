@@ -47,8 +47,9 @@ export const CreateStudyButton = () => {
           isDisabled={isDisabled}
           onPress={triggerChange}
           variant="accent"
+          aria-label="Upload a study"
         >
-          Create Study
+          Upload
         </Button>
       </Flex>
       <input

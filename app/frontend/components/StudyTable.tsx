@@ -7,7 +7,11 @@ import {
   TableView,
   TableBody,
   TableHeader,
+  ActionButton,
+  Text
 } from "@adobe/react-spectrum";
+import DeleteOutline from '@spectrum-icons/workflow/DeleteOutline';
+import Download from '@spectrum-icons/workflow/Download';
 import { deleteStudy, downloadJson, fetchAllStudies, fetchCompletedAssignments } from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { ApiError } from "@/components/ApiError";
@@ -45,9 +49,9 @@ export const StudyTable = () => {
       width="100%"
     >
       <TableHeader>
-        <Column>Link</Column>
-        <Column>Results</Column>
-        <Column>Delete</Column>
+        <Column>Study</Column>
+        <Column align="center">Download Results</Column>
+        <Column align="center">Delete</Column>
       </TableHeader>
       <TableBody>
         {list.map((listItem) => {
@@ -59,46 +63,46 @@ export const StudyTable = () => {
                 </a>
               </Cell>
               <Cell>
-                <Button
-                  onPress={async () => {
-                    try {
-                      const assignments = await fetchCompletedAssignments(
-                        listItem.id
-                      );
-                      downloadJson(assignments);
-                    } catch (err) {
-                      ToastQueue.negative(
-                        "Something went wrong. Please refresh the page and try again."
-                      );
-                    }
-                  }}
-                  variant="accent"
-                >
-                  Download
-                </Button>
+                <ActionButton 
+                    isQuiet 
+                    aria-label="Download"
+                    onPress={async () => {
+                      try {
+                        const assignments = await fetchCompletedAssignments(
+                          listItem.id
+                        );
+                        downloadJson(assignments);
+                      } catch (err) {
+                        ToastQueue.negative(
+                          "Something went wrong. Please refresh the page and try again."
+                        );
+                      }
+                    }}>
+                  <Download color="informative" />
+                </ActionButton>
               </Cell>
               <Cell>
-                <Button
-                  onPress={async () => {
-                    try {
-                      dispatch({ type: "INITIATE_STUDY_API" });
-                      await deleteStudy(listItem.id);
-                      dispatch({
-                        type: "STUDY_DELETION_ENDED",
-                        payload: listItem.id,
-                      });
-                      ToastQueue.positive("Study deleted successfully");
-                    } catch (err) {
-                      dispatch({ type: "STUDY_DELETION_ENDED", payload: null });
-                      ToastQueue.negative(
-                        "Failed to delete study. Please refresh the page and try again."
-                      );
-                    }
-                  }}
-                  variant="negative"
-                >
-                  Delete
-                </Button>
+                <ActionButton 
+                    isQuiet 
+                    aria-label="Delete"
+                    onPress={async () => {
+                      try {
+                        dispatch({ type: "INITIATE_STUDY_API" });
+                        await deleteStudy(listItem.id);
+                        dispatch({
+                          type: "STUDY_DELETION_ENDED",
+                          payload: listItem.id,
+                        });
+                        ToastQueue.positive("Study deleted successfully");
+                      } catch (err) {
+                        dispatch({ type: "STUDY_DELETION_ENDED", payload: null });
+                        ToastQueue.negative(
+                          "Failed to delete study. Please refresh the page and try again."
+                        );
+                      }
+                    }}>
+                  <DeleteOutline />
+                </ActionButton>
               </Cell>
             </Row>
           );
