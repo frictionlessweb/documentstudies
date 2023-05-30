@@ -60,7 +60,7 @@ const PDF_ID = "__PDF_ID__";
 
 const DEFAULT_VIEW_CONFIG = {
   embedMode: "FULL_WINDOW",
-  showDownloadPDF: false,
+  showDownloadPDF: true,
   showFullScreen: false,
   showPrintPDF: false,
   enableAnnotationAPIs: true,
