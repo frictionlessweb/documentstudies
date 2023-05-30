@@ -4,6 +4,7 @@ import { TextLayout } from "@/pages/RunningExperiment/TextLayout";
 import { PdfLayout } from "@/pages/RunningExperiment/PdfLayout";
 import { Task } from "@/pages/RunningExperiment/Task";
 import { NextButton } from "@/components/NextButton";
+import { PreviousButton } from "@/components/PreviousButton";
 import { Flex, Heading, Divider, View } from "@adobe/react-spectrum";
 
 interface PageProps {
@@ -36,7 +37,10 @@ export const Page = (props: PageProps) => {
               </>
             );
           })}
-        <NextButton />
+          <Flex>
+            <PreviousButton />
+            <NextButton />
+          </Flex>
         </Flex>
       </Layout>
     </Flex>
