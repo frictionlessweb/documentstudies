@@ -45,7 +45,6 @@ To get things going.
 
 First, visit `http://localhost:3000/admins` and log in with:
 
-
 ```
 username: test@test.com
 password: test123

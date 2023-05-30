@@ -4,7 +4,6 @@ interface DataFetcherProps<T> {
   apiError: string;
 }
 
-
 export const DataFetcher = <T,>(props: DataFetcherProps<T>) => {
   return null;
-}
+};

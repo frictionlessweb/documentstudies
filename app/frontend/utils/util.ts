@@ -84,11 +84,11 @@ export const createStudy = async (hasSchema: HasSchema) => {
 
 export const deleteStudy = async (studyId: string) => {
   const url = new URL(DELETE_STUDY, window.location.origin);
-  url.searchParams.append('id', studyId);
+  url.searchParams.append("id", studyId);
   const apiUrl = url.toString();
   await HTTP.delete(apiUrl);
   return studyId;
-}
+};
 
 export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
   const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);
@@ -138,13 +138,15 @@ export const getStudyById = async (id: string): Promise<Study> => {
   return res as Study;
 };
 
-export const fetchCompletedAssignments = async (id: string): Promise<StudyAssignment[]> => {
+export const fetchCompletedAssignments = async (
+  id: string
+): Promise<StudyAssignment[]> => {
   const url = new URL(COMPLETED_ASSIGNMENTS_URL, window.location.origin);
   url.searchParams.append("study_id", id);
   const apiUrl = url.toString();
   const res = await HTTP.get(apiUrl);
   return res as StudyAssignment[];
-}
+};
 
 export const updateAssignment = async (
   assignmentId: string,
@@ -157,13 +159,13 @@ export const updateAssignment = async (
   return res;
 };
 
-export const downloadJson = (json: object) => {
+export const downloadJson = (json: object, name: string) => {
   const element = document.createElement("a");
   const textFile = new Blob([JSON.stringify(json)], {
     type: "text/plain",
   });
   element.href = URL.createObjectURL(textFile);
-  element.download = "annotations.json";
+  element.download = `${name}.json`;
   document.body.appendChild(element);
   element.click();
   document.body.removeChild(element);

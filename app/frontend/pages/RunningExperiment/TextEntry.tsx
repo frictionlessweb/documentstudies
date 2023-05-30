@@ -30,9 +30,11 @@ export const TextEntry = (props: TextEntryProps) => {
     }
   });
   return (
-    <Flex direction="column" >
+    <Flex direction="column">
       <div dangerouslySetInnerHTML={{ __html: taskType.instructions }} />
-      <TextArea width="95%" alignSelf="center"
+      <TextArea
+        width="95%"
+        alignSelf="center"
         onChange={(s) => {
           return setStudy((prev) => {
             return produce(prev, (study) => {

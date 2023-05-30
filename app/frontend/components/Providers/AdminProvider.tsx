@@ -1,6 +1,6 @@
 import React from "react";
 import type { User } from "@/core/types";
-import { AdminLayout } from '@/components/AdminLayout';
+import { AdminLayout } from "@/components/AdminLayout";
 import { readUserCredentials, gotoSignIn } from "@/utils/util";
 
 const CREDENTIALS = readUserCredentials();

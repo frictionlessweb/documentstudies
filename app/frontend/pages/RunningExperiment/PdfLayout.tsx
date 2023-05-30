@@ -82,18 +82,26 @@ export const PdfLayout = (props: LayoutProps) => {
   if (isLoading) return <Loading />;
   if (error !== null || pdfUrl === null) return <ApiError />;
   return (
-    <Flex direction="column" width="98vw" alignItems="center" marginY="size-0" gap="size-0">
+    <Flex
+      direction="column"
+      width="98vw"
+      alignItems="center"
+      marginY="size-0"
+      gap="size-0"
+    >
       <View borderTopWidth="thin" borderColor="light" width="100%"></View>
       <Flex width="100%" height="100%">
         <Flex width="65%" height="100%">
           <EmbedApi url={pdfUrl} />
         </Flex>
-        <View borderStartWidth="thin" borderColor="light" 
-            width="35%" height="82vh" UNSAFE_style={{ overflowY: "scroll" }}>
-          <Flex
-            marginX="size-200"
-            direction="column"
-          >
+        <View
+          borderStartWidth="thin"
+          borderColor="light"
+          width="35%"
+          height="82vh"
+          UNSAFE_style={{ overflowY: "scroll" }}
+        >
+          <Flex marginX="size-200" direction="column">
             {children}
           </Flex>
         </View>

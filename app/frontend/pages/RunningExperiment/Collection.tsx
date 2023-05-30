@@ -31,10 +31,13 @@ export const Collection = (props: TaskCollectionProps) => {
     }
   );
   const setStudy = useSetStudy();
-  
+
   return (
     <Flex direction="column" gap="size-0">
-      <div style={{"margin": 0}} dangerouslySetInnerHTML={{ __html: instructions }} />
+      <div
+        style={{ margin: 0 }}
+        dangerouslySetInnerHTML={{ __html: instructions }}
+      />
       <Task taskIndex={taskIndex} taskType={currentTask} />
       <ActionGroup
         marginTop="size-50"

@@ -16,10 +16,10 @@ export const DispatchContext =
 export const useDispatch = () => {
   const ctx = React.useContext(DispatchContext);
   if (ctx === null) {
-    throw new Error('Please use useDispatch inside its provider.');
+    throw new Error("Please use useDispatch inside its provider.");
   }
   return ctx;
-}
+};
 
 interface StateProviderProps {
   children: React.ReactNode;

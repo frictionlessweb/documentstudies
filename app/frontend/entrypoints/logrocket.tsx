@@ -1,2 +1,2 @@
-import LogRocket from 'logrocket';
-LogRocket.init('njnzbr/documentstudies');
+import LogRocket from "logrocket";
+LogRocket.init("njnzbr/documentstudies");

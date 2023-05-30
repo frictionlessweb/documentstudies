@@ -6,7 +6,12 @@ import { CreateStudyButton } from "@/components/CreateStudyButton";
 
 export const StudiesOverview = () => {
   return (
-    <Flex direction="column" marginY="size-300" marginX="size-500" gap="size-600">
+    <Flex
+      direction="column"
+      marginY="size-300"
+      marginX="size-500"
+      gap="size-600"
+    >
       <Flex direction="column" gap="size-100">
         <Heading marginTop={0} marginBottom={0} level={2}>
           Manage PDF Documents

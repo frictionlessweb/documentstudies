@@ -4,7 +4,13 @@ import { Study } from "@/core/types";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
 import { NotFound } from "./NotFound";
-import { Button, Flex, Heading, ProgressCircle, View } from "@adobe/react-spectrum";
+import {
+  Button,
+  Flex,
+  Heading,
+  ProgressCircle,
+  View,
+} from "@adobe/react-spectrum";
 import { useLocation } from "wouter";
 import { ToastQueue } from "@react-spectrum/toast";
 
@@ -90,19 +96,26 @@ const CreateStudyAssignment = (props: CreateStudyAssignmentProps) => {
     }
   }, [study, setLocation]);
   return (
-    <Flex direction="column" gap="size-300" alignItems="center" marginY="size-300" marginX="size-100">
-      
+    <Flex
+      direction="column"
+      gap="size-300"
+      alignItems="center"
+      marginY="size-300"
+      marginX="size-100"
+    >
       <View>
         {study.schema.start_instructions ? (
           <div
             style={{ maxWidth: "600px" }}
-            dangerouslySetInnerHTML={{ __html: study.schema.start_instructions }}
+            dangerouslySetInnerHTML={{
+              __html: study.schema.start_instructions,
+            }}
           />
         ) : (
           <Heading level={3}>Welcome to {study.schema.metadata.name}</Heading>
         )}
       </View>
-      
+
       <Button isDisabled={loading} onPress={beginStudy} variant="accent">
         {loading ? (
           <ProgressCircle variant="overBackground" isIndeterminate />

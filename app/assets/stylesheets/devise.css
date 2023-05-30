@@ -16,7 +16,7 @@ body {
   margin-bottom: 16px;
 }
 
-#devise-container input[type=submit] {
+#devise-container input[type="submit"] {
   border: 0px;
   color: black;
   background-color: #e8f4f8;
@@ -26,6 +26,6 @@ body {
   cursor: pointer;
 }
 
-#devise-container input[type=submit]:hover {
+#devise-container input[type="submit"]:hover {
   background-color: #d4ebf2;
 }

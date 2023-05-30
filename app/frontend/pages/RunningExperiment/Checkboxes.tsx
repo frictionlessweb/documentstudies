@@ -61,9 +61,12 @@ export const Checkboxes = (props: RadioGroupProps) => {
                       userResponse = theTask.user_response;
                     }
                     if (isSelected) {
-                      const idx = userResponse.findIndex(x => x === option);
+                      const idx = userResponse.findIndex((x) => x === option);
                       userResponse.splice(idx, 1);
-                    } else if (userResponse.length < (currentTask as TaskV0CheckboxGroup).max_selected) {
+                    } else if (
+                      userResponse.length <
+                      (currentTask as TaskV0CheckboxGroup).max_selected
+                    ) {
                       userResponse.push(option);
                     }
                   });

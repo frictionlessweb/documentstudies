@@ -83,7 +83,10 @@ export const StudyTable = () => {
                       const assignments = await fetchCompletedAssignments(
                         listItem.id
                       );
-                      downloadJson(assignments);
+                      downloadJson(
+                        assignments,
+                        listItem?.schema?.metadata?.name || "No name found."
+                      );
                     } catch (err) {
                       ToastQueue.negative(
                         "Something went wrong. Please refresh the page and try again."
