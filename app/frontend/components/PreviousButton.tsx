@@ -29,7 +29,7 @@ export const PreviousButton = () => {
   if (isHidden) return null;
   return (
     <Flex marginEnd="16px">
-      <Button onPress={previous} isDisabled={isDisabled} variant="accent">
+      <Button onPress={previous} isDisabled={isDisabled} variant="secondary">
         Previous
       </Button>
     </Flex>
