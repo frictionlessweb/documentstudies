@@ -20,11 +20,12 @@ const useCreateStudy = () => {
         dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
         ToastQueue.positive("Study created successfully.");
       } catch (err) {
-        console.error(err);
-        dispatch({ type: "STUDY_CREATION_ENDED", payload: null });
         ToastQueue.negative(
-          "An error occurred while creating the study. Please refresh the page and try again."
+          // @ts-expect-error - We know it should have this key.
+          err?.message ||
+            "An unexpected error occurred. Please refresh the page and try again."
         );
+        dispatch({ type: "STUDY_CREATION_ENDED", payload: null });
       }
     },
     [dispatch]

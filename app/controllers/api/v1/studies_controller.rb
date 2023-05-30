@@ -16,8 +16,16 @@ class Api::V1::StudiesController < ApplicationController
   end
 
   def create
-    study = Study.create!(schema: params[:schema])
-    render json: study
+    study = Study.new(schema: params[:schema])
+    if study.save
+      render json: study
+    elsif study.errors[:missing_document_id]
+      missing_doc = study.errors[:missing_document_id][0]
+      render json: { error_message: "Study not created: #{missing_doc}" }, status: 422
+    else
+      render json: { error_message: 'An unexpected error occurred. Please refresh the page and try again.' },
+             status: 422
+    end
   end
 
   def completed

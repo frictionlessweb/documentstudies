@@ -8,11 +8,23 @@ interface FormTranslatable {
   [key: string]: string | Blob;
 }
 
+const getError = async (res: Response) => {
+  try {
+    const json = await res.json();
+    const err = new Error(json.error_message);
+    err.message = json.error_message;
+    return err;
+  } catch (err) {
+    return new Error(res.statusText);
+  }
+};
+
 export const HTTP = {
   get: async <T>(url: string): Promise<T> => {
     const res = await window.fetch(url);
     if (!res.ok) {
-      throw new Error(REQUEST_FAILED);
+      const err = await getError(res);
+      throw err;
     }
     return res.json() as T;
   },
@@ -24,7 +36,8 @@ export const HTTP = {
       },
     });
     if (!res.ok) {
-      throw new Error(REQUEST_FAILED);
+      const err = await getError(res);
+      throw err;
     }
   },
   put: async <T, U>(url: string, body: U): Promise<T> => {
@@ -37,7 +50,8 @@ export const HTTP = {
       body: JSON.stringify(body),
     });
     if (!res.ok) {
-      throw new Error("API request failed");
+      const err = getError(res);
+      throw err;
     }
     return res.json() as T;
   },
@@ -51,7 +65,8 @@ export const HTTP = {
       body: JSON.stringify(body),
     });
     if (!res.ok) {
-      throw new Error("API request failed");
+      const err = await getError(res);
+      throw err;
     }
     return res.json() as T;
   },
@@ -64,7 +79,8 @@ export const HTTP = {
       body,
     });
     if (!res.ok) {
-      throw new Error("API request failed");
+      const err = getError(res);
+      throw err;
     }
     return res.json() as T;
   },
