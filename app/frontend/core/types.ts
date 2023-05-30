@@ -112,6 +112,7 @@ export interface PageV0 {
   page_layout: "text_layout" | "pdf_layout";
   document_id: string;
   tasks: TaskV0[];
+  hide_previous_button?: boolean;
 }
 
 export interface SchemaV0 {
