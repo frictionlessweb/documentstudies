@@ -8,11 +8,23 @@ import {
   TableBody,
   TableHeader,
   ActionButton,
-  Text
+  Text,
+  ButtonGroup,
+  Content,
+  Dialog,
+  DialogTrigger,
+  Divider,
+  Header,
+  Heading,
 } from "@adobe/react-spectrum";
-import DeleteOutline from '@spectrum-icons/workflow/DeleteOutline';
-import Download from '@spectrum-icons/workflow/Download';
-import { deleteStudy, downloadJson, fetchAllStudies, fetchCompletedAssignments } from "@/utils/util";
+import DeleteOutline from "@spectrum-icons/workflow/DeleteOutline";
+import Download from "@spectrum-icons/workflow/Download";
+import {
+  deleteStudy,
+  downloadJson,
+  fetchAllStudies,
+  fetchCompletedAssignments,
+} from "@/utils/util";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
@@ -63,46 +75,71 @@ export const StudyTable = () => {
                 </a>
               </Cell>
               <Cell>
-                <ActionButton 
-                    isQuiet 
-                    aria-label="Download"
-                    onPress={async () => {
-                      try {
-                        const assignments = await fetchCompletedAssignments(
-                          listItem.id
-                        );
-                        downloadJson(assignments);
-                      } catch (err) {
-                        ToastQueue.negative(
-                          "Something went wrong. Please refresh the page and try again."
-                        );
-                      }
-                    }}>
+                <ActionButton
+                  isQuiet
+                  aria-label="Download"
+                  onPress={async () => {
+                    try {
+                      const assignments = await fetchCompletedAssignments(
+                        listItem.id
+                      );
+                      downloadJson(assignments);
+                    } catch (err) {
+                      ToastQueue.negative(
+                        "Something went wrong. Please refresh the page and try again."
+                      );
+                    }
+                  }}
+                >
                   <Download color="informative" />
                 </ActionButton>
               </Cell>
               <Cell>
-                <ActionButton 
-                    isQuiet 
-                    aria-label="Delete"
-                    onPress={async () => {
-                      try {
-                        dispatch({ type: "INITIATE_STUDY_API" });
-                        await deleteStudy(listItem.id);
-                        dispatch({
-                          type: "STUDY_DELETION_ENDED",
-                          payload: listItem.id,
-                        });
-                        ToastQueue.positive("Study deleted successfully");
-                      } catch (err) {
-                        dispatch({ type: "STUDY_DELETION_ENDED", payload: null });
-                        ToastQueue.negative(
-                          "Failed to delete study. Please refresh the page and try again."
-                        );
-                      }
-                    }}>
-                  <DeleteOutline />
-                </ActionButton>
+                <DialogTrigger>
+                  <ActionButton isQuiet aria-label="Delete">
+                    <DeleteOutline />
+                  </ActionButton>
+                  {(closeDialog) => (
+                    <Dialog>
+                      <Heading>Delete Study</Heading>
+                      <Divider />
+                      <Content>
+                        <Text>Are you sure you want to delete this study?</Text>
+                      </Content>
+                      <ButtonGroup>
+                        <Button variant="secondary" onPress={closeDialog}>
+                          Cancel
+                        </Button>
+                        <Button
+                          variant="negative"
+                          onPress={async () => {
+                            try {
+                              dispatch({ type: "INITIATE_STUDY_API" });
+                              await deleteStudy(listItem.id);
+                              dispatch({
+                                type: "STUDY_DELETION_ENDED",
+                                payload: listItem.id,
+                              });
+                              ToastQueue.positive("Study deleted successfully");
+                            } catch (err) {
+                              dispatch({
+                                type: "STUDY_DELETION_ENDED",
+                                payload: null,
+                              });
+                              ToastQueue.negative(
+                                "Failed to delete study. Please refresh the page and try again."
+                              );
+                            } finally {
+                              closeDialog();
+                            }
+                          }}
+                        >
+                          Confirm
+                        </Button>
+                      </ButtonGroup>
+                    </Dialog>
+                  )}
+                </DialogTrigger>
               </Cell>
             </Row>
           );
