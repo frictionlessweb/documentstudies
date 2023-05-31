@@ -4,6 +4,7 @@ import { Collection } from "@/pages/RunningExperiment/Collection";
 import { RadioGroup } from "@/pages/RunningExperiment/RadioGroup";
 import { Highlights } from "@/pages/RunningExperiment/Highlights";
 import { Checkboxes } from "@/pages/RunningExperiment/Checkboxes";
+import { Ordering } from "@/pages/RunningExperiment/Ordering";
 import { TaskV0 } from "@/core/types";
 import { Flex } from "@adobe/react-spectrum";
 import { isValidDocumentSource } from "@/utils/util";
@@ -30,6 +31,9 @@ const TaskCore = (props: CurrentTaskProps) => {
     }
     case "checkbox_group": {
       return <Checkboxes taskIndex={taskIndex} taskType={taskType} />;
+    }
+    case "ordering": {
+      return <Ordering taskIndex={taskIndex} taskType={taskType} />
     }
   }
 };

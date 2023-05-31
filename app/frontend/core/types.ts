@@ -99,12 +99,20 @@ export interface TaskV0DocumentHighlights extends TaskV0Base {
   metadata: FlexibleSchema;
 }
 
+export interface TaskV0Ordering extends TaskV0Base {
+  tag: "ordering";
+  instructions: string;
+  options: string[];
+  metadata: FlexibleSchema;
+}
+
 export type TaskV0 =
   | TaskV0TextResponse
   | TaskV0RadioGroup
   | TaskV0Collection
   | TaskV0DocumentHighlights
-  | TaskV0CheckboxGroup;
+  | TaskV0CheckboxGroup
+  | TaskV0Ordering;
 
 export interface PageV0 {
   id: string;

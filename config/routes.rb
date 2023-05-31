@@ -12,9 +12,6 @@ Rails.application.routes.draw do
       post 'create-study', to: 'studies#create'
       delete 'delete-study', to: 'studies#delete'
 
-      get 'all-study-assignments', to: 'study_assignments#all'
-      post 'create-study-assignment', to: 'study_assignments#create'
-
       get 'all-questions', to: 'questions#all'
       post 'create-questions', to: 'questions#create'
 
