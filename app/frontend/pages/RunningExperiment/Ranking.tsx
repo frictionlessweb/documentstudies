@@ -21,13 +21,16 @@ interface RadioGroupProps {
   taskIndex: number;
 }
 
-export const Ordering = (props: RadioGroupProps) => {
+export const Ranking = (props: RadioGroupProps) => {
   const { taskType, taskIndex } = props;
-  const options = useStudy((study) => {
+  const { options, instructions } = useStudy((study) => {
     const { pages } = study.content[study.group]!;
     const currentPage = pages[study.page_index]!;
     const currentTask = currentPage.tasks[taskIndex]! as TaskV0Ordering;
-    return currentTask.options;
+    return {
+      options: currentTask.response_options,
+      instructions: currentTask.instructions,
+    };
   });
   const setStudy = useSetStudy();
   const list = useListData({
@@ -71,23 +74,26 @@ export const Ordering = (props: RadioGroupProps) => {
         const { pages } = study.content[study.group]!;
         const currentPage = pages[study.page_index]!;
         const currentTask = currentPage.tasks[taskIndex]! as TaskV0Ordering;
-        currentTask.options = serializedItems;
+        currentTask.response_options = serializedItems;
       });
     });
   }, [list.items, options, setStudy, taskIndex]);
   return (
-    <ListView
-      aria-label="Droppable ListView in drop into folder example"
-      width="size-3600"
-      height="size-3600"
-      dragAndDropHooks={dragAndDropHooks}
-      items={list.items}
-    >
-      {(item) => (
-        <Item key={item.id} textValue={item.name}>
-          <Text>{item.name}</Text>
-        </Item>
-      )}
-    </ListView>
+    <Flex direction="column">
+      <div dangerouslySetInnerHTML={{ __html: instructions }} />
+      <ListView
+        aria-label="Droppable ListView in drop into folder example"
+        width="size-3600"
+        height="size-3600"
+        dragAndDropHooks={dragAndDropHooks}
+        items={list.items}
+      >
+        {(item) => (
+          <Item key={item.id} textValue={item.name}>
+            <Text>{item.name}</Text>
+          </Item>
+        )}
+      </ListView>
+    </Flex>
   );
 };

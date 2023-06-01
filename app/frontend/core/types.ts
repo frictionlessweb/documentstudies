@@ -100,9 +100,9 @@ export interface TaskV0DocumentHighlights extends TaskV0Base {
 }
 
 export interface TaskV0Ordering extends TaskV0Base {
-  tag: "ordering";
+  tag: "ranking";
   instructions: string;
-  options: string[];
+  response_options: string[];
   metadata: FlexibleSchema;
 }
 
