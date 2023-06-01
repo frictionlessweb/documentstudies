@@ -15,9 +15,7 @@ import {
   CREATE_DOCUMENTS,
   CREATE_STUDY,
   GET_ALL_STUDIES,
-  CREATE_STUDY_ASSIGNMENT,
   CREATE_STUDY_ASSIGNMENT_PUBLIC,
-  GET_ALL_STUDY_ASSIGNMENTS,
   GET_ASSIGNMENT_BY_ID,
   GET_DOCUMENT_URL,
   GET_STUDY_URL,
@@ -58,12 +56,6 @@ export const fetchAllStudies = async (): Promise<Study[]> => {
   return HTTP.get(GET_ALL_STUDIES);
 };
 
-export const fetchAllStudyAssignments = async (): Promise<
-  StudyAssignment[]
-> => {
-  return HTTP.get(GET_ALL_STUDY_ASSIGNMENTS);
-};
-
 export const createNewDocument = async (
   file: File
 ): Promise<DocumentStudyDocument> => {
@@ -88,11 +80,6 @@ export const deleteStudy = async (studyId: string) => {
   const apiUrl = url.toString();
   await HTTP.delete(apiUrl);
   return studyId;
-};
-
-export const createStudyAssignment = async (req: AssignmentCreationRequest) => {
-  const res: StudyAssignment = await HTTP.post(CREATE_STUDY_ASSIGNMENT, req);
-  return res;
 };
 
 export const getAssignmentById = async (
