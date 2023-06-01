@@ -30,7 +30,7 @@ export const Ordering = (props: RadioGroupProps) => {
     return currentTask.options;
   });
   const setStudy = useSetStudy();
-  let list = useListData({
+  const list = useListData({
     initialItems: options.map((option) => {
       return {
         id: option,
@@ -40,38 +40,41 @@ export const Ordering = (props: RadioGroupProps) => {
     }),
   });
   const { dragAndDropHooks } = useDragAndDrop({
-    // Only allow move operations when dropping items from this list
-    getAllowedDropOperations: () => ["move"],
     getItems: (keys) =>
       [...keys].map((key) => {
         const item = list.getItem(key);
         // Setup the drag types and associated info for each dragged item.
         return {
-          "custom-app-type": JSON.stringify(item),
+          "adobe-app": "adobe-app",
           "text/plain": item.name,
+          [item.name]: item.name,
         };
       }),
-    onDrop: (e) => {
-      const items = e.items;
-      if (e.target.type === "item") {
-        if (e.target.dropPosition === "on") {
-          const item = list.getItem(e.target.key);
-          list.update(e.target.key, {
-            ...item,
-          });
-        } else if (e.target.dropPosition === "before") {
-          list.insertBefore(e.target.key);
-          console.log('before');
-        } else if (e.target.dropPosition === "after") {
-          list.insertAfter(e.target.key);
-          console.log('after')
-        } else {
-          console.log('this ran');
-        }
+    acceptedDragTypes: ["adobe-app"],
+    onReorder: async (e) => {
+      const { keys, target } = e;
+      if (target.dropPosition === "before") {
+        list.moveBefore(target.key, [...keys]);
+      } else if (target.dropPosition === "after") {
+        list.moveAfter(target.key, [...keys]);
       }
-      console.log(list);
     },
+    getAllowedDropOperations: () => ["move"],
   });
+  React.useEffect(() => {
+    const serializedItems = list.items.map((item) => item.id);
+    if (JSON.stringify(serializedItems) === JSON.stringify(options)) {
+      return;
+    }
+    setStudy((prev) => {
+      return produce(prev, (study) => {
+        const { pages } = study.content[study.group]!;
+        const currentPage = pages[study.page_index]!;
+        const currentTask = currentPage.tasks[taskIndex]! as TaskV0Ordering;
+        currentTask.options = serializedItems;
+      });
+    });
+  }, [list.items, options, setStudy, taskIndex]);
   return (
     <ListView
       aria-label="Droppable ListView in drop into folder example"
