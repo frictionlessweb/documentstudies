@@ -1,7 +1,6 @@
 import React from "react";
 import { MultiSelect } from "@/components/MultiSelect";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
-import { UploadButton } from "@/components/UploadButton";
 import { Text, Flex, Button } from "@adobe/react-spectrum";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
