@@ -10,15 +10,15 @@ const useCreateStudy = () => {
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const files = event?.target?.files;
       if (files === null) return;
-      const file = files.item(0);
-      if (file === null) return;
-      const text = await file.text();
-      const theJson = JSON.parse(text);
       try {
         dispatch({ type: "INITIATE_STUDY_API" });
-        const res = await createNewStudy({ schema: theJson });
-        dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
-        ToastQueue.positive("Study created successfully.");
+        for (const file of files) {
+          const text = await file.text();
+          const theJson = JSON.parse(text);
+          const res = await createNewStudy({ schema: theJson });
+          dispatch({ type: "STUDY_CREATION_ENDED", payload: res });
+        }
+        ToastQueue.positive("Studies created successfully.");
       } catch (err) {
         ToastQueue.negative(
           // @ts-expect-error - We know it should have this key.
@@ -58,6 +58,7 @@ export const CreateStudyButton = () => {
         onChange={createStudy}
         style={{ display: "none" }}
         type="file"
+        multiple
         accept="application/json"
       />
     </Flex>

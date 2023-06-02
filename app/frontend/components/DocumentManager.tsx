@@ -2,7 +2,7 @@ import React from "react";
 import { MultiSelect } from "@/components/MultiSelect";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
 import { UploadButton } from "@/components/UploadButton";
-import { Text, Flex } from "@adobe/react-spectrum";
+import { Text, Flex, Button } from "@adobe/react-spectrum";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
 import { fetchAllDocuments, createNewDocument } from "@/utils/util";
@@ -37,23 +37,35 @@ const useFetchDocuments = () => {
 export const DocumentManager = () => {
   const { list: documents, areLoading, apiError } = useFetchDocuments();
   const dispatch = useDispatch();
-  const handleFileUpload = React.useCallback(
-    async (file: File) => {
-      dispatch({ type: "INITIATE_DOCUMENT_UPLOAD" });
+  const uploadFiles = React.useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = event?.target?.files;
+      if (files === null) return;
       try {
-        const doc = await createNewDocument(file);
-        dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: doc });
+        dispatch({ type: "INITIATE_DOCUMENT_UPLOAD" });
+        for (const file of files) {
+          const res = await createNewDocument(file);
+          dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: res });
+        }
+        ToastQueue.positive("Studies created successfully.");
       } catch (err) {
         ToastQueue.negative(
-          "An error occurred after uploading the document. Please refresh the page and try again."
+          // @ts-expect-error - We know it should have this key.
+          err?.message ||
+            "An unexpected error occurred. Please refresh the page and try again."
         );
-        dispatch({ type: "DOCUMENT_UPLOAD_ENDED", payload: null });
+        dispatch({ type: "STUDY_CREATION_ENDED", payload: null });
       }
     },
     [dispatch]
   );
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
+  const triggerChange = () => {
+    if (inputRef.current === null) return;
+    inputRef.current.click();
+  };
   if (apiError !== null) return <ApiError />;
-  if (areLoading) return <Loading />;
+  if (areLoading && documents.length === 0) return <Loading />;
   return (
     <Flex direction="column">
       {documents.length > 0 ? (
@@ -62,14 +74,24 @@ export const DocumentManager = () => {
         <Text>No documents found.</Text>
       )}
       <Flex marginY="16px">
-        <UploadButton
+        <Flex>
+          <Button
+            isDisabled={areLoading}
+            onPress={triggerChange}
+            variant="accent"
+            aria-label="Upload a study"
+          >
+            Upload
+          </Button>
+        </Flex>
+        <input
+          ref={inputRef}
+          onChange={uploadFiles}
+          style={{ display: "none" }}
+          type="file"
+          multiple
           accept="application/pdf"
-          onFileUpload={handleFileUpload}
-          variant="accent"
-          aria-label="Upload a PDF"
-        >
-          Upload
-        </UploadButton>
+        />
       </Flex>
     </Flex>
   );

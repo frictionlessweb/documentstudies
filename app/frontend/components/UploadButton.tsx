@@ -19,6 +19,7 @@ export const UploadButton = (props: FileUploadButtonProps) => {
       <input
         onChange={(e) => {
           const file = e.target.files?.item(0);
+          console.log(e.target.files);
           if (!file) return;
           onFileUpload(file);
         }}
