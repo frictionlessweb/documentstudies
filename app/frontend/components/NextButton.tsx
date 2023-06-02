@@ -65,6 +65,7 @@ export const NextButton = () => {
         ToastQueue.negative("An error occurred when saving the study.");
       }
     }
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [setStudy, study]);
   return (
     <Flex>
