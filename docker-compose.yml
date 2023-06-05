@@ -1,0 +1,30 @@
+version: "3"
+services:
+  documentstudies-postgres:
+    image: postgres:15.2
+    container_name: documentstudies-postgres
+    volumes:
+      - documentstudies-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_DB=documentstudies_production
+      - POSTGRES_USER=documentstudies
+      - POSTGRES_PASSWORD=documentstudies
+
+  documentstudies-app:
+    build: ./
+    container_name: documentstudies
+    environment:
+      - DATABASE_URL=postgresql://documentstudies-postgres:5432/documentstudies_production?user=documentstudies&password=documentstudies
+      - SECRET_KEY_BASE=supersecret
+    ports:
+      - 3000:3000
+    links:
+      - documentstudies-postgres
+    depends_on:
+      - documentstudies-postgres
+
+volumes:
+  documentstudies-data:
