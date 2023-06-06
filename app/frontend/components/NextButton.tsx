@@ -34,6 +34,10 @@ const isUnfinished = (task: TaskV0): boolean => {
     case "collection": {
       return task.tasks.some((subtask) => isUnfinished(subtask));
     }
+    case 'ranking': {
+      // Ranking tasks are always finished.
+      return false;
+    }
   }
 };
 
