@@ -2,7 +2,7 @@ class CreateAdmin < ActiveRecord::Migration[7.0]
   def up
     password = ENV['ADOBE_PRODUCTION_PASSWORD']
     Admin.create!(name: 'Adobe Internal', email: 'asiu@adobe.com',
-                  password:) 
+                  password:)
   end
 
   def down
