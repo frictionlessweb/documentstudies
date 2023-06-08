@@ -67,11 +67,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_24_223253) do
     t.index ["name"], name: "unique_document_names", unique: true
   end
 
-  create_table "question_type", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "studies", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.json "schema", null: false
   end
