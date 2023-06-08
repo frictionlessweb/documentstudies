@@ -28,7 +28,7 @@ export const Ranking = (props: RadioGroupProps) => {
     const currentPage = pages[study.page_index]!;
     const currentTask = currentPage.tasks[taskIndex]! as TaskV0Ordering;
     return {
-      options: currentTask.user_response,
+      options: currentTask.response_options,
       instructions: currentTask.instructions,
     };
   });
@@ -74,7 +74,7 @@ export const Ranking = (props: RadioGroupProps) => {
         const { pages } = study.content[study.group]!;
         const currentPage = pages[study.page_index]!;
         const currentTask = currentPage.tasks[taskIndex]! as TaskV0Ordering;
-        currentTask.user_response = serializedItems;
+        currentTask.response_options = serializedItems;
       });
     });
   }, [list.items, options, setStudy, taskIndex]);
