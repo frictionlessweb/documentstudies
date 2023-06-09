@@ -98,25 +98,9 @@ const NewExperiment = () => {
   );
 };
 
-interface OldExperimentProps {
-  schema: SchemaV0;
-}
-
-const OldExperiment = (props: OldExperimentProps) => {
-  const { schema } = props;
-  return (
-    <StudyProvider schema={schema}>
-      <V0Experiment />
-    </StudyProvider>
-  );
-};
-
 export const RunningExperiment = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const assignmentId = urlParams.get("assignment_id");
   if (assignmentId === null) return <NotFound />;
-  const storedSchema = window.localStorage.getItem(assignmentId);
-  if (storedSchema === null) return <NewExperiment />;
-  const schema = JSON.parse(storedSchema);
-  return <OldExperiment schema={schema} />;
+  return <NewExperiment />;
 };

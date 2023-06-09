@@ -27,7 +27,7 @@ class Api::V1::PublicAssignmentsController < ApplicationController
 
   def update
     assignment = StudyAssignment.find_by!(id: update_params[:assignment_id])
-    assignment.update!(results: update_params[:results], is_complete: true)
+    assignment.update!(results: update_params[:results], is_complete: update_params[:is_complete])
     render json: assignment
   end
 
@@ -38,7 +38,7 @@ class Api::V1::PublicAssignmentsController < ApplicationController
   end
 
   def update_params
-    params.permit(:assignment_id, results: {})
+    params.permit(:assignment_id, :is_complete, results: {})
   end
 
   def by_id_params
