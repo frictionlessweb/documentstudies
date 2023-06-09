@@ -26,4 +26,4 @@ def results_to_csv(results_path: str, extract_path: str) -> None:
 
 
 if __name__ == "__main__":
-    results_to_csv("./example/responses.json", "./example/extract.json")
+    results_to_csv("./example/incorrect-results.json", "./example/incorrect-extract.json")

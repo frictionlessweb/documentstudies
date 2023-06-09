@@ -23,6 +23,8 @@ def do_overlap(bbox1: list[float], bbox2: list[float]) -> bool:
     """
     Determine whether two bounding boxes overlap.
     """
+    if len(bbox1) < 4 or len(bbox2) < 4:
+        return False
     return all(
         [
             bbox1[2] >= bbox2[0],  # bbox1 right edge >= bbox2 left edge
@@ -37,6 +39,8 @@ def combine_bounding_boxes(bounding_boxes: list[list[float]]) -> list[float]:
     """
     Combine several bounding boxes into one bounding box.
     """
+    if not bounding_boxes:
+        return []
     min_x = min(bbox[0] for bbox in bounding_boxes)
     min_y = min(bbox[1] for bbox in bounding_boxes)
     max_x = max(bbox[2] for bbox in bounding_boxes)
