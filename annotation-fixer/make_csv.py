@@ -42,6 +42,7 @@ def create_csv_list(results: list[dict]) -> list[list[str]]:
                     user_response = json.dumps(task["user_response"])
                     output.append(
                         [
+                            id,
                             group,
                             page_id,
                             page_instructions,

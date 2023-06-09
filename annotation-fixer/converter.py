@@ -20,6 +20,7 @@ def results_to_csv(results_path: str, extract_path: str) -> None:
     stem = Path(results_path).stem
     csv_name = f"{stem}.csv"
     csv_list = create_csv_list(results)
+    print([x[0] for x in csv_list])
     with open(csv_name, "w+") as the_csv:
         writer = csv.writer(the_csv)
         writer.writerows(csv_list)
