@@ -7,6 +7,7 @@ def create_csv_list(results: list[dict]) -> list[list[str]]:
     """
     output = [
         [
+            "id",
             "group",
             "page_id",
             "page_instructions",
@@ -21,6 +22,7 @@ def create_csv_list(results: list[dict]) -> list[list[str]]:
         ]
     ]
     for result in results:
+        id = result["id"]
         group = result["group"]
         pages = result["results"]["content"][group]["pages"]
         for page in pages:
@@ -71,6 +73,7 @@ def create_csv_list(results: list[dict]) -> list[list[str]]:
                         user_response = json.dumps(subtask["user_response"])
                         output.append(
                             [
+                                id,
                                 group,
                                 page_id,
                                 page_instructions,
