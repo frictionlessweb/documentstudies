@@ -5,7 +5,7 @@ import { PdfLayout } from "@/pages/RunningExperiment/PdfLayout";
 import { Task } from "@/pages/RunningExperiment/Task";
 import { NextButton } from "@/components/NextButton";
 import { PreviousButton } from "@/components/PreviousButton";
-import { Flex, Heading, Divider, Text } from "@adobe/react-spectrum";
+import { Flex, Heading, Divider, Text, View } from "@adobe/react-spectrum";
 
 interface PageProps {
   page: PageV0;
@@ -21,13 +21,14 @@ export const Page = (props: PageProps) => {
   const Layout = LAYOUT_MAP[page.page_layout];
   return (
     <Flex direction="column" alignItems="center">
-      <Flex width="100%">
-        <Text maxWidth="800px">
-          If you need to come back to this study later, you may close this tab
-          after finishing a page and save this link:{" "}
-          <a href={window.location.href}>{window.location.href}</a>
-        </Text>
-      </Flex>
+      <View backgroundColor="gray-200" borderRadius="medium" maxWidth="950px" marginY="size-100">
+        <View margin="size-100">
+          <Text>
+            If you need to come back to this study later, save this link:{" "}
+            <a href={window.location.href}>{window.location.href}</a>
+          </Text>
+        </View>
+      </View>
       <Heading level={3} marginBottom={0}>
         INSTRUCTIONS
       </Heading>
