@@ -137,11 +137,13 @@ export const fetchCompletedAssignments = async (
 
 export const updateAssignment = async (
   assignmentId: string,
-  results: SchemaV0
+  results: SchemaV0,
+  is_complete?: boolean
 ) => {
   const res: StudyAssignment = await HTTP.put(UPDATE_ASSIGNMENT, {
     assignment_id: assignmentId,
     results,
+    is_complete: is_complete || false,
   });
   return res;
 };
