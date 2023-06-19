@@ -6,13 +6,14 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'all-documents', to: 'documents#all'
       post 'create-document', to: 'documents#create'
+      delete 'delete-document', to: 'documents#delete'
 
       get 'all-studies', to: 'studies#all'
       get 'completed-for-study', to: 'studies#completed'
       post 'create-study', to: 'studies#create'
       delete 'delete-study', to: 'studies#delete'
 
-      get 'all-questions', to: 'questions#all'
+      get 'all-questions', to: 'questions#alsl'
       post 'create-questions', to: 'questions#create'
 
       get 'assignment-by-id', to: 'public_assignments#by_id'
