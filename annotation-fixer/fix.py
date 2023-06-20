@@ -60,7 +60,9 @@ def characters_on_page(extract_api: dict, page: int) -> list:
         if "Kids" in element:
             child_words = characters_on_page(element["Kids"], page)
             output.extend(child_words)
-        if "Text" in element and "CharBounds" in element:
+        has_text = "Text" in element and "CharBounds" in element
+        valid_element = has_text and len(element["Text"]) == len(element["CharBounds"])
+        if valid_element:
             for i, char in enumerate(element["Text"]):
                 output.append({"letter": char, "bbox": element["CharBounds"][i]})
     return output

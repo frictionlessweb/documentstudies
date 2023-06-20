@@ -27,4 +27,4 @@ def results_to_csv(results_path: str, extract_path: str) -> None:
 
 
 if __name__ == "__main__":
-    results_to_csv("./example/incorrect-results.json", "./example/incorrect-extract.json")
+    results_to_csv("./example/20230518_003233_2591_2591_edit_highlight_task.json", "./example/20230518_003233_2591_2591.json")
