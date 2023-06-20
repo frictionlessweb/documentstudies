@@ -15,7 +15,7 @@ From there, you can download this repository and run:
 
 ```sh
 bundle install
-./bin/rails db:setup
+ADOBE_PRODUCTION_PASSWORD=test123 ./bin/rails db:setup
 npm install
 ```
 

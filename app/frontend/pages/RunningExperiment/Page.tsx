@@ -5,9 +5,11 @@ import { PdfLayout } from "@/pages/RunningExperiment/PdfLayout";
 import { Task } from "@/pages/RunningExperiment/Task";
 import { NextButton } from "@/components/NextButton";
 import { PreviousButton } from "@/components/PreviousButton";
-import { Flex, Heading, Divider, ProgressBar } from "@adobe/react-spectrum";
+
+import { Flex, Heading, Divider, ProgressBar, Text, View } from "@adobe/react-spectrum";
 import { useState } from "react";
 import { useStudy } from "@/components/Providers/StudyV0SubmissionProvider";
+
 
 interface PageProps {
   page: PageV0;
@@ -28,6 +30,14 @@ export const Page = (props: PageProps) => {
   })
   return (
     <Flex direction="column" alignItems="center">
+      <View backgroundColor="gray-200" borderRadius="medium" maxWidth="950px" marginY="size-100">
+        <View margin="size-100">
+          <Text>
+            If you need to come back to this study later, save this link:{" "}
+            <a href={window.location.href}>{window.location.href}</a>
+          </Text>
+        </View>
+      </View>
       <Heading level={3} marginBottom={0}>
         INSTRUCTIONS
       </Heading>

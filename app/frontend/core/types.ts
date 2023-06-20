@@ -103,6 +103,7 @@ export interface TaskV0Ordering extends TaskV0Base {
   tag: "ranking";
   instructions: string;
   response_options: string[];
+  user_response: string[];
   metadata: FlexibleSchema;
 }
 

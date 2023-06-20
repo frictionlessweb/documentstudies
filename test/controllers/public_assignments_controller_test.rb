@@ -14,6 +14,21 @@ class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal study_id, (JSON.parse @response.body)['id']
   end
 
+  test 'We can update a study without completing it' do
+    susan = Admin.find_by(name: 'Susan')
+    sign_in susan
+    post '/api/v1/create-study', params: { schema: { x: 3 } }
+    study_id = (JSON.parse @response.body)['id']
+    sign_out susan
+    post '/api/v1/create-study-assignment-public', params: { study_id: }
+    assert_response :success
+    assignment_id = (JSON.parse @response.body)['id']
+    put '/api/v1/update-assignment', params: { assignment_id:, is_complete: false, results: { x: 5 } }
+    assert_response :success
+    assert_equal({ 'x' => '5' }, (JSON.parse @response.body)['results'])
+    assert_equal(false, (JSON.parse @response.body)['is_complete'])
+  end
+
   test 'We can update a study' do
     susan = Admin.find_by(name: 'Susan')
     sign_in susan
@@ -23,7 +38,7 @@ class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
     post '/api/v1/create-study-assignment-public', params: { study_id: }
     assert_response :success
     assignment_id = (JSON.parse @response.body)['id']
-    put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 } }
+    put '/api/v1/update-assignment', params: { assignment_id:, is_complete: true, results: { x: 5 } }
     assert_response :success
     assert_equal({ 'x' => '5' }, (JSON.parse @response.body)['results'])
     assert_equal(true, (JSON.parse @response.body)['is_complete'])
@@ -37,7 +52,7 @@ class PublicAssignmentsControllerTest < ActionDispatch::IntegrationTest
     sign_out susan
     post '/api/v1/create-study-assignment-public', params: { study_id:, group: 'test', schema: { x: 4 } }
     assignment_id = (JSON.parse @response.body)['id']
-    put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 } }
+    put '/api/v1/update-assignment', params: { assignment_id:, results: { x: 5 }, is_complete: true }
     sign_in susan
     get "/api/v1/completed-for-study?study_id=#{study_id}"
     assert_response :success

@@ -7,7 +7,7 @@ import { ApiError } from "@/components/ApiError";
 import { BadSchema } from "@/pages/BadSchema";
 import { StudyProvider } from "@/components/Providers/StudyV0SubmissionProvider";
 import { NotFound } from "@/pages/NotFound";
-import { getAssignmentById } from "@/utils/util";
+import { updateAssignment, getAssignmentById } from "@/utils/util";
 import { V0Experiment } from "@/pages/RunningExperiment/V0Experiment";
 
 interface AssignmentState {
@@ -104,6 +104,20 @@ interface OldExperimentProps {
 
 const OldExperiment = (props: OldExperimentProps) => {
   const { schema } = props;
+  React.useEffect(() => {
+    const update = async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const assignmentId = urlParams.get("assignment_id");
+      try {
+        await updateAssignment(assignmentId!, schema, false);
+        localStorage.removeItem(assignmentId as string);
+        console.log('ran successfully');
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    update();
+  }, []);
   return (
     <StudyProvider schema={schema}>
       <V0Experiment />

@@ -92,5 +92,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Use a DigitalOcean Space for active storage in production.
-  config.active_storage.service = :amazon
+  config.active_storage.service = ENV["AWS_ACCESS_KEY_ID"] ? :amazon : :local
 end

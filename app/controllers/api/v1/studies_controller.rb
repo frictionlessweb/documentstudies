@@ -29,7 +29,7 @@ class Api::V1::StudiesController < ApplicationController
   end
 
   def completed
-    assignments = StudyAssignment.where(study_id: completed_params[:study_id], is_complete: true)
+    assignments = StudyAssignment.where(study_id: completed_params[:study_id])
     render json: assignments
   end
 

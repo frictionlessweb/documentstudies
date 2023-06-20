@@ -34,6 +34,10 @@ const isUnfinished = (task: TaskV0): boolean => {
     case "collection": {
       return task.tasks.some((subtask) => isUnfinished(subtask));
     }
+    case "ranking": {
+      // Ranking tasks are always finished.
+      return false;
+    }
   }
 };
 
@@ -56,16 +60,17 @@ export const NextButton = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const assignmentId = urlParams.get("assignment_id");
     if (assignmentId === null) return;
-    window.localStorage.setItem(assignmentId, JSON.stringify(newStudy));
-    if (newStudy.page_index >= study.content![study.group]!.pages.length) {
-      try {
-        await updateAssignment(assignmentId, newStudy);
+    const studyIsFinished =
+      newStudy.page_index >= study.content![study.group]!.pages.length;
+    try {
+      await updateAssignment(assignmentId, newStudy, studyIsFinished);
+      if (studyIsFinished) {
         ToastQueue.positive("Progress saved successfully.");
-      } catch (err) {
-        ToastQueue.negative("An error occurred when saving the study.");
       }
+    } catch (err) {
+      ToastQueue.negative("An error occurred when saving the study.");
     }
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [setStudy, study]);
   return (
     <Flex>
