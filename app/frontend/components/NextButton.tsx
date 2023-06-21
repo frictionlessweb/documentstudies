@@ -42,20 +42,16 @@ const isUnfinished = (task: TaskV0): boolean => {
 };
 
 export const NextButton = () => {
+  const [isSubmitting, setSubmitting] = React.useState(false);
   const study = useStudy((study) => study);
-  const isDisabled = useStudy((study): boolean => {
-    const { pages } = study.content[study.group]!;
-    const currentPage = pages[study.page_index]!;
-    return currentPage.tasks.some(isUnfinished);
-  });
+  const isDisabled =
+    useStudy((study): boolean => {
+      const { pages } = study.content[study.group]!;
+      const currentPage = pages[study.page_index]!;
+      return currentPage.tasks.some(isUnfinished);
+    }) || isSubmitting;
   const setStudy = useSetStudy();
   const next = React.useCallback(async () => {
-    setStudy((prev) => {
-      const newStudy = produce(prev, (study) => {
-        study.page_index += 1;
-      });
-      return newStudy;
-    });
     const newStudy = { ...study, page_index: study.page_index + 1 };
     const urlParams = new URLSearchParams(window.location.search);
     const assignmentId = urlParams.get("assignment_id");
@@ -63,13 +59,22 @@ export const NextButton = () => {
     const studyIsFinished =
       newStudy.page_index >= study.content![study.group]!.pages.length;
     try {
+      setSubmitting(true);
       await updateAssignment(assignmentId, newStudy, studyIsFinished);
       if (studyIsFinished) {
         ToastQueue.positive("Progress saved successfully.");
       }
     } catch (err) {
       ToastQueue.negative("An error occurred when saving the study.");
+    } finally {
+      setSubmitting(false);
     }
+    setStudy((prev) => {
+      const newStudy = produce(prev, (study) => {
+        study.page_index += 1;
+      });
+      return newStudy;
+    });
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [setStudy, study]);
   return (
