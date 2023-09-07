@@ -17,9 +17,17 @@ class Api::V1::DocumentsController < ApplicationController
     render json: { id: document.id.to_s, name: document.name, url: rails_blob_url(document.file.blob) }
   end
 
+  def delete
+    Document.find(delete_params[:id]).destroy!
+  end
+
   private
 
   def create_params
     params.permit(:name, :file)
+  end
+
+  def delete_params
+    params.permit(:id)
   end
 end

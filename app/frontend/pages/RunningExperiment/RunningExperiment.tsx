@@ -91,7 +91,7 @@ const NewExperiment = () => {
   }
   return (
     <StudyProvider
-      schema={{ ...schema, group: assignment.assignment.group } as SchemaV0}
+      schema={{ ...schema, group: assignment.assignment.group, pdf_interactions: []} as unknown as SchemaV0}
     >
       <V0Experiment />
     </StudyProvider>

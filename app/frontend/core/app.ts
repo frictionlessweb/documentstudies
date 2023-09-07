@@ -49,6 +49,7 @@ export type AppAction =
   | { type: "DOCUMENT_FETCH_FAILURE"; payload: string }
   | { type: "INITIATE_DOCUMENT_UPLOAD" }
   | { type: "DOCUMENT_UPLOAD_ENDED"; payload: DocumentStudyDocument | null }
+  | { type: "DOCUMENT_DELETION_COMPLETED"; payload: string | null}
   | { type: "INITIATE_STUDY_FETCH" }
   | { type: "STUDY_FETCH_SUCCESS"; payload: Study[] }
   | { type: "STUDY_FETCH_FAILURE"; payload: string }
@@ -95,6 +96,15 @@ export const reduce = (state: AppState, action: AppAction): AppState => {
         if (action.payload === null) return;
         draft.documents.list.unshift(action.payload);
       });
+    }
+    case "DOCUMENT_DELETION_COMPLETED": {
+      return produce(state, (draft) => {
+        draft.documents.areLoading = false;
+        if(action.payload === null) return;
+        draft.documents.list = draft.documents.list.filter(
+          (document) => document.id !== action.payload
+        );
+      })
     }
     case "INITIATE_STUDY_FETCH": {
       return produce(state, (draft) => {
