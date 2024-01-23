@@ -2,6 +2,15 @@
 
 A tool for running studies involving documents.
 
+
+## Quicklinks & Demos
+
+- A [demo](http://ec2-54-183-216-50.us-west-1.compute.amazonaws.com/studies/?study_id=12f58006-ac60-47f3-aaf8-e1680bfe4943) of the annotator interface
+- Overall demo video:
+
+https://github.com/frictionlessweb/documentstudies/assets/7915571/3b0f01c3-0261-4147-8346-f27288f84aad
+
+
 ## Getting Started
 
 You will need to have:
