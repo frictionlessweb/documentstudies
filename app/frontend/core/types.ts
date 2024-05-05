@@ -135,4 +135,5 @@ export interface SchemaV0 {
   group: string;
   start_instructions: string;
   end_instructions: string;
+  pdf_interactions: Array<any>;
 }

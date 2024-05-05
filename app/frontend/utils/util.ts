@@ -22,6 +22,7 @@ import {
   UPDATE_ASSIGNMENT,
   DELETE_STUDY,
   COMPLETED_ASSIGNMENTS_URL,
+  DELETE_DOCUMENTS,
 } from "@/utils/routes";
 
 export const pickRandom = <T>(items: T[]): T => {
@@ -116,6 +117,14 @@ export const getDocumentByName = async (
   const res: { url: string } = await HTTP.get(apiUrl);
   return res;
 };
+
+export const deleteDocument = async(documentId: string) => {
+  const url = new URL(DELETE_DOCUMENTS, window.location.origin);
+  url.searchParams.append("id", documentId);
+  const apiURL = url.toString();
+  await HTTP.delete(apiURL);
+  return documentId
+}
 
 export const getStudyById = async (id: string): Promise<Study> => {
   const url = new URL(GET_STUDY_URL, window.location.origin);

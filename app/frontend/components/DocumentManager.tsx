@@ -1,11 +1,30 @@
 import React from "react";
-import { MultiSelect } from "@/components/MultiSelect";
+import {
+  Button,
+  Cell,
+  Column,
+  Row,
+  TableView,
+  TableBody,
+  TableHeader,
+  ActionButton,
+  Text,
+  ButtonGroup,
+  Content,
+  Dialog,
+  DialogTrigger,
+  Divider,
+  Header,
+  Heading,
+  Flex
+} from "@adobe/react-spectrum";
 import { useAppState, useDispatch } from "@/components/Providers/StateProvider";
-import { Text, Flex, Button } from "@adobe/react-spectrum";
 import { ApiError } from "@/components/ApiError";
 import { Loading } from "@/components/Loading";
-import { fetchAllDocuments, createNewDocument } from "@/utils/util";
+import { fetchAllDocuments, createNewDocument, deleteDocument } from "@/utils/util";
 import { ToastQueue } from "@react-spectrum/toast";
+import DeleteOutline from "@spectrum-icons/workflow/DeleteOutline";
+
 
 const useFetchDocuments = () => {
   const { list, areLoading, fetchAttempted, apiError } = useAppState(
@@ -67,18 +86,79 @@ export const DocumentManager = () => {
   if (areLoading && documents.length === 0) return <Loading />;
   return (
     <Flex direction="column">
-      {documents.length > 0 ? (
-        <MultiSelect items={documents} label="Documents" selectedIds={[]} />
-      ) : (
-        <Text>No documents found.</Text>
-      )}
+      <TableView aria-label="Documents Table" selectionMode="multiple" width="100%">
+        <TableHeader>
+          <Column>Documents</Column>
+          <Column align="end">Delete</Column>
+        </TableHeader>
+        <TableBody>
+          {documents.length > 0 ? (
+            documents.map((document) => (
+              <Row key={document.id}>
+                <Cell>{document.name}</Cell>
+                <Cell>
+                  <DialogTrigger>
+                    <ActionButton isQuiet aria-label="Delete">
+                      <DeleteOutline />
+                    </ActionButton>
+                    {(closeDialog) => (
+                      <Dialog>
+                        <Heading>Delete Study</Heading>
+                        <Divider />
+                        <Content>
+                          <Text>Are you sure you want to delete this study?</Text>
+                        </Content>
+                        <ButtonGroup>
+                          <Button variant="secondary" onPress={closeDialog}>
+                            Cancel
+                          </Button>
+                          <Button
+                            variant="negative"
+                            onPress={async () => {
+                              try {
+                                await deleteDocument(document.id);
+                                dispatch({type: "DOCUMENT_DELETION_COMPLETED", payload: document.id})
+                                ToastQueue.positive("Document deleted successfully");
+                              } catch (err) {
+                                dispatch({
+                                  type: "DOCUMENT_DELETION_COMPLETED",
+                                  payload: null,
+                                });
+                                ToastQueue.negative(
+                                  "Failed to delete the document, please refresh the page and try again"
+                                );
+                              } finally {
+                                closeDialog();
+                              }
+                            }}
+                          >
+                            Confirm
+                          </Button>
+                        </ButtonGroup>
+                      </Dialog>
+                    )}
+                  </DialogTrigger>
+                </Cell>
+              </Row>
+            ))
+          ) : (
+            <Row>
+              <Cell>
+                <Text>No documents found.</Text>
+              </Cell>
+              <Cell> </Cell>
+            </Row>
+          )}
+        </TableBody>
+      </TableView>
+          
       <Flex marginY="16px">
         <Flex>
           <Button
             isDisabled={areLoading}
             onPress={triggerChange}
             variant="accent"
-            aria-label="Upload a study"
+            aria-label="Upload a Document"
           >
             Upload
           </Button>
