@@ -59,3 +59,17 @@ password: test123
 ```
 
 From there, you can upload a study JSON and the documents associated with it as necessary.
+
+## Citation
+
+If you use Atlas, please cite the following:
+
+```bibtex
+@inproceedings{siu2024atlas,
+  title={ATLAS: A System for PDF-centric Human Interaction Data Collection},
+  author={Siu, Alexa and Wang, Zichao and Hoeflich, Joshua and Kapasi, Naman and Nenkova, Ani and Sun, Tong},
+  booktitle={Proceedings of the 2024 Conference of the North American Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 3: System Demonstrations)},
+  pages={87--96},
+  year={2024}
+}
+```
