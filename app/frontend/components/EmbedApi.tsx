@@ -104,7 +104,6 @@ export const EmbedApi = (props: EmbedApiProps) => {
       const manager: Manager = directManager;
       await manager.setConfig({ showCommentsPanel: false });
       window.annotationManager = manager;
-      console.log(manager);
       if (annotations.length > 0) {
         await manager.addAnnotations(annotations);
         await manager.unselectAnnotation(annotations[0]!.id);
@@ -118,6 +117,7 @@ export const EmbedApi = (props: EmbedApiProps) => {
               const added = event as AdobeAnnotationAddedEvent;
               setStudy((ctx) => {
                 return produce(ctx, (study) => {
+                  study.pdf_interactions.push(event);
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
                   const currentTask = currentPage.tasks.find(
@@ -133,6 +133,7 @@ export const EmbedApi = (props: EmbedApiProps) => {
               const deleted = event as AdobeAnnotationDeletedEvent;
               setStudy((ctx) => {
                 return produce(ctx, (study) => {
+                  study.pdf_interactions.push(event);
                   const { pages } = study.content[study.group]!;
                   const currentPage = pages[curPage]!;
                   const currentTask = currentPage.tasks.find(
@@ -144,6 +145,15 @@ export const EmbedApi = (props: EmbedApiProps) => {
                     (highlight) => highlight.id !== deleted.data.id
                   );
                   currentTask.user_response = newHighlights;
+                });
+              });
+              break;
+            }
+            default: {
+              const deleted = event as AdobeAnnotationDeletedEvent;
+              setStudy((ctx) => {
+                return produce(ctx, (study) => {
+                  study.pdf_interactions.push(event);
                 });
               });
             }
